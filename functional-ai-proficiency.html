@@ -49,8 +49,13 @@ body{font-family:var(--font);font-variant-ligatures:none;background:var(--mp);co
 .hero::after{content:'';position:absolute;width:400px;height:400px;border-radius:50%;border:1px solid rgba(86,226,225,.12);bottom:-150px;left:-80px;animation:drift 11s ease-in-out infinite 2s;pointer-events:none}
 @keyframes drift{0%,100%{transform:scale(1) rotate(0)}50%{transform:scale(1.05) rotate(6deg)}}
 
-.hero h1{font-size:clamp(2.2rem,5vw,3.8rem);font-weight:700;color:var(--pw);line-height:1.1;max-width:700px;margin-bottom:0;font-variant-ligatures:none;opacity:0;animation:fup .65s var(--eout) .15s forwards}
-.hero h1 strong{color:var(--lp);font-weight:300;display:block;font-size:.49em;margin-top:.12em}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;padding:5px 14px;border-radius:99px;background:rgba(86,226,225,.15);border:1px solid rgba(86,226,225,.35);font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:20px;font-variant-ligatures:none;opacity:0;animation:fup .5s var(--eout) .1s forwards}
+.hero-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:heroDotBlink 2s ease-in-out infinite}
+@keyframes heroDotBlink{0%,100%{opacity:1}50%{opacity:.25}}
+
+.hero h1{font-size:clamp(2.2rem,5vw,3.8rem);font-weight:700;color:var(--pw);line-height:1.1;max-width:min(920px,100%);margin-bottom:0;font-variant-ligatures:none;opacity:0;animation:fup .65s var(--eout) .28s forwards}
+.hero-title-main{display:block;white-space:nowrap}
+.hero h1 strong{color:var(--lp);font-weight:300;display:block;font-size:.49em;margin-top:.14em;letter-spacing:.01em;white-space:normal}
 @keyframes fup{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 
 /* ─── LAYOUT ─────────────────────────────────────────────────── */
@@ -69,6 +74,21 @@ body{font-family:var(--font);font-variant-ligatures:none;background:var(--mp);co
 
 /* ─── EYEBROW ────────────────────────────────────────────────── */
 .eyebrow{font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-dk);margin-bottom:14px;font-variant-ligatures:none}
+
+.sub-title{font-size:1.15rem;font-weight:700;color:var(--pp);margin-bottom:14px;font-variant-ligatures:none}
+
+/* ─── DECISION TABLE (tool × use case) ───────────────────────── */
+.post-steps-table{margin-top:36px}
+.data-table{background:var(--pw);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);margin-bottom:8px;border:1.5px solid var(--mp)}
+.dt-head{background:var(--pp);padding:14px 22px;display:grid;gap:12px}
+.dt-head span{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--lp);font-variant-ligatures:none}
+.dt-row{display:grid;gap:12px;padding:13px 22px;border-bottom:1px solid var(--mp);transition:background .15s}
+.dt-row:last-child{border-bottom:none}
+.dt-row:hover{background:var(--mp)}
+.dt-cell{font-size:.82rem;color:var(--ux);line-height:1.4;font-variant-ligatures:none}
+.dt-cell.strong{font-weight:600;color:var(--pp)}
+.cols-4 .dt-head,.cols-4 .dt-row{grid-template-columns:1.35fr 1fr 1.05fr 1fr}
+.cdot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:middle}
 
 /* ─── WORKFLOW STEPS ─────────────────────────────────────────── */
 .workflow-steps{display:flex;flex-direction:column;gap:0;margin-bottom:0;position:relative;--rail-top:24px;--rail-height:120px}
@@ -170,6 +190,11 @@ body{font-family:var(--font);font-variant-ligatures:none;background:var(--mp);co
   .hero{padding:40px 24px 56px}
   .footer{padding:24px 20px}
 }
+@media(max-width:560px){
+  .hero h1{font-size:clamp(1.55rem,5.2vw,2.35rem)}
+  .cols-4 .dt-head,.cols-4 .dt-row{grid-template-columns:1.2fr 1fr 1fr}
+  .cols-4 .dt-head span:last-child,.cols-4 .dt-cell:last-child{display:none}
+}
 </style>
 </head>
 <body>
@@ -185,7 +210,8 @@ body{font-family:var(--font);font-variant-ligatures:none;background:var(--mp);co
 
 <!-- HERO -->
 <header class="hero">
-  <h1>Functional AI Proficiency<strong>Practical skill-building</strong></h1>
+  <div class="hero-tag"><span class="hero-dot"></span>Competency 1 of 4</div>
+  <h1><span class="hero-title-main">Functional AI Proficiency</span><strong>Practical skill-building</strong></h1>
 </header>
 
 <!-- PAGE -->
@@ -299,6 +325,20 @@ body{font-family:var(--font);font-variant-ligatures:none;background:var(--mp);co
           </div>
         </div>
       </div>
+
+      <div class="post-steps-table">
+        <p class="eyebrow">Decision framework</p>
+        <p class="sub-title">Selecting the right tool for the task</p>
+        <div class="data-table cols-4" role="region" aria-label="Suggested AI tools by workplace task">
+          <div class="dt-head"><span>Task</span><span>Best platform</span><span>Why it wins</span><span>What to avoid</span></div>
+          <div class="dt-row"><div class="dt-cell strong">Drafting emails / reports</div><div class="dt-cell"><span class="cdot" style="background:#0369A1"></span>Copilot</div><div class="dt-cell">Embedded in your Office workflow</div><div class="dt-cell">Switching to a separate tab unnecessarily</div></div>
+          <div class="dt-row"><div class="dt-cell strong">Research with citations</div><div class="dt-cell"><span class="cdot" style="background:#0D9488"></span>Perplexity</div><div class="dt-cell">Live web search + sourced answers</div><div class="dt-cell">Relying on a model with a stale knowledge cutoff alone</div></div>
+          <div class="dt-row"><div class="dt-cell strong">Brainstorming ideas</div><div class="dt-cell"><span class="cdot" style="background:#16A34A"></span>ChatGPT</div><div class="dt-cell">Fast, wide-ranging creative output</div><div class="dt-cell">Trusting the first draft without iteration</div></div>
+          <div class="dt-row"><div class="dt-cell strong">Analysing long documents</div><div class="dt-cell"><span class="cdot" style="background:var(--am)"></span>Claude</div><div class="dt-cell">Large context window, careful reading</div><div class="dt-cell">Models with very small context windows</div></div>
+          <div class="dt-row"><div class="dt-cell strong">Writing or reviewing code</div><div class="dt-cell"><span class="cdot" style="background:#B45309"></span>GitHub Copilot</div><div class="dt-cell">IDE-native; sees your full codebase context</div><div class="dt-cell">Copy-pasting code into a chat-only tool</div></div>
+        </div>
+      </div>
+
       <div class="resource-block">
         <p class="resource-heading">Suggested resources</p>
         <ul class="resource-list">
