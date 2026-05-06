@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The AI Playbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* ─── PEARSON BRAND TOKENS ────────────────────────────────────── */
+:root {
+  --pearson-purple:      #0D004D;
+  --pearson-white:       #FFFFFF;
+  --pearson-light-purple:#C1BFFF;
+  --pearson-mist-purple: #EDECF6;
+  --pearson-amethyst:    #512EAB;
+  --pearson-turquoise:   #56E2E1;
+  --pearson-turquoise-t: #B3F2F1;
+  --pearson-amber:       #FFCE00;
+  --pearson-amber-t:     #FFE67F;
+  --pearson-fuchsia:     #DF41CF;
+  --pearson-fuchsia-t:   #EFA0E7;
+  --pearson-ux-black:    #333333;
+
+  --font: 'Plus Jakarta Sans', Helvetica, Verdana, sans-serif;
+  --lh-headline: 1.1;
+  --lh-body: 1.3;
+  --radius-card: 16px;
+  --radius-sm: 8px;
+  --shadow-card: 0 2px 16px rgba(13,0,77,0.10);
+  --shadow-hover: 0 12px 40px rgba(13,0,77,0.20);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font);
+  font-variant-ligatures: none;
+  background: var(--pearson-mist-purple);
+  color: var(--pearson-purple);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ─── NAV BAR ─────────────────────────────────────────────────── */
+.nav {
+  background: var(--pearson-purple);
+  padding: 0 40px;
+  height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  box-shadow: 0 2px 16px rgba(13,0,77,0.3);
+}
+
+.nav-logo {
+  height: 63px;
+  width: auto;
+  display: block;
+}
+
+.nav-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--pearson-light-purple);
+  font-variant-ligatures: none;
+}
+
+/* ─── HERO ────────────────────────────────────────────────────── */
+.hero {
+  background: var(--pearson-purple);
+  padding: 80px 40px 72px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Decorative ripple rings */
+.hero::before,
+.hero::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(193,191,255,0.15);
+  pointer-events: none;
+}
+.hero::before {
+  width: 600px; height: 600px;
+  top: -200px; left: 50%;
+  transform: translateX(-50%);
+  animation: ripple-expand 6s ease-in-out infinite;
+}
+.hero::after {
+  width: 900px; height: 900px;
+  top: -350px; left: 50%;
+  transform: translateX(-50%);
+  animation: ripple-expand 6s ease-in-out infinite 2s;
+}
+
+@keyframes ripple-expand {
+  0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.4; }
+  50%       { transform: translateX(-50%) scale(1.06); opacity: 0.15; }
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--pearson-turquoise);
+  margin-bottom: 24px;
+  font-variant-ligatures: none;
+  opacity: 0;
+  transform: translateY(12px);
+  animation: fade-up 0.6s var(--ease-out) 0.1s forwards;
+}
+
+.hero-eyebrow::before,
+.hero-eyebrow::after {
+  content: '';
+  width: 28px; height: 1px;
+  background: var(--pearson-turquoise);
+  opacity: 0.6;
+}
+
+.hero h1 {
+  font-size: clamp(2.4rem, 5.5vw, 4.2rem);
+  font-weight: 700;
+  color: var(--pearson-white);
+  line-height: var(--lh-headline);
+  margin-bottom: 20px;
+  font-variant-ligatures: none;
+  opacity: 0;
+  transform: translateY(18px);
+  animation: fade-up 0.65s var(--ease-out) 0.25s forwards;
+}
+
+.hero-sub {
+  font-size: 1.05rem;
+  font-weight: 300;
+  color: var(--pearson-light-purple);
+  max-width: 500px;
+  margin: 0 auto 36px;
+  line-height: var(--lh-body);
+  font-variant-ligatures: none;
+  opacity: 0;
+  transform: translateY(14px);
+  animation: fade-up 0.6s var(--ease-out) 0.4s forwards;
+}
+
+.hero-cta-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: rgba(193,191,255,0.7);
+  font-variant-ligatures: none;
+  opacity: 0;
+  animation: fade-up 0.6s var(--ease-out) 0.55s forwards;
+}
+
+.hero-cta-hint svg {
+  animation: bounce-down 1.6s ease-in-out 1.5s infinite;
+}
+
+@keyframes bounce-down {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(5px); }
+}
+
+@keyframes fade-up {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── MAIN CONTENT ────────────────────────────────────────────── */
+.section {
+  padding: 64px 32px 80px;
+  max-width: 1160px;
+  margin: 0 auto;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 52px;
+}
+
+.section-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--pearson-amethyst);
+  margin-bottom: 10px;
+  font-variant-ligatures: none;
+}
+
+.section-header h2 {
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: var(--pearson-purple);
+  font-variant-ligatures: none;
+}
+
+/* ─── DIAGRAM GRID ────────────────────────────────────────────── */
+.diagram-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  position: relative;
+}
+
+/* SVG connectors */
+.connectors {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: visible;
+}
+
+.c-line {
+  stroke: var(--pearson-light-purple);
+  stroke-width: 1.5;
+  stroke-dasharray: 5 5;
+  opacity: 0.6;
+  animation: flow 18s linear infinite;
+}
+.c-line:nth-child(2) { animation-delay: -4.5s; }
+.c-line:nth-child(3) { animation-delay: -9s; }
+.c-line:nth-child(4) { animation-delay: -13.5s; }
+
+@keyframes flow {
+  to { stroke-dashoffset: -120; }
+}
+
+/* Card grid positions — simple 2×2 flow, center is absolute */
+.slot { position: relative; z-index: 1; padding: 0; }
+
+/* ─── COMPETENCY CARD (LINK) ──────────────────────────────────── */
+.comp-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  width: 100%;
+  border-radius: var(--radius-card);
+  /* entrance */
+  opacity: 0;
+  transform: translateY(24px);
+  animation: card-in 0.55s var(--ease-spring) forwards;
+}
+.slot-tl .comp-link { animation-delay: 0.5s; }
+.slot-tr .comp-link { animation-delay: 0.65s; }
+.slot-bl .comp-link { animation-delay: 0.8s; }
+.slot-br .comp-link { animation-delay: 0.95s; }
+
+@keyframes card-in {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.comp-card {
+  background: var(--pearson-white);
+  border-radius: var(--radius-card);
+  padding: 42px 36px 36px;
+  box-shadow: var(--shadow-card);
+  border: 1.5px solid transparent;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition:
+    transform 0.35s var(--ease-spring),
+    box-shadow 0.35s var(--ease-out),
+    border-color 0.25s var(--ease-out);
+}
+
+/* Accent top bar with sweep animation */
+.comp-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: var(--c-accent);
+  border-radius: var(--radius-card) var(--radius-card) 0 0;
+  transform: scaleX(0.6);
+  transform-origin: left;
+  transition: transform 0.4s var(--ease-spring);
+}
+
+/* Subtle background wash on hover */
+.comp-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--c-accent);
+  opacity: 0;
+  transition: opacity 0.3s var(--ease-out);
+  pointer-events: none;
+  border-radius: var(--radius-card);
+}
+
+.comp-link:hover .comp-card {
+  transform: translateY(-5px) scale(1.005);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--c-accent);
+}
+.comp-link:hover .comp-card::before { transform: scaleX(1); }
+.comp-link:hover .comp-card::after  { opacity: 0.04; }
+
+.comp-link:focus-visible .comp-card {
+  outline: 3px solid var(--c-accent);
+  outline-offset: 3px;
+}
+
+/* pictogram */
+.card-picto {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  display: block;
+  margin-bottom: 20px;
+  transition: transform 0.4s var(--ease-spring);
+}
+.comp-link:hover .card-picto {
+  transform: scale(1.08) rotate(-2deg);
+}
+
+.comp-card h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--pearson-purple);
+  margin-bottom: 16px;
+  line-height: var(--lh-headline);
+  font-variant-ligatures: none;
+  position: relative;
+}
+
+/* underline slide-in on hover */
+.comp-card h3::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0;
+  height: 2px;
+  width: 100%;
+  background: var(--c-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s var(--ease-spring);
+}
+.comp-link:hover .comp-card h3::after { transform: scaleX(1); }
+
+.comp-card ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.comp-card ul li {
+  font-size: 0.96rem;
+  font-weight: 400;
+  color: var(--pearson-ux-black);
+  padding: 7px 0 7px 20px;
+  position: relative;
+  line-height: var(--lh-body);
+  border-bottom: 1px solid var(--pearson-mist-purple);
+  font-variant-ligatures: none;
+  transition: color 0.2s;
+}
+.comp-card ul li:last-child { border-bottom: none; }
+.comp-card ul li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 15px;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--c-accent);
+}
+.comp-link:hover .comp-card ul li { color: var(--pearson-purple); }
+
+.card-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--c-accent);
+  letter-spacing: 0.04em;
+  font-variant-ligatures: none;
+  position: relative;
+}
+.card-cta .arrow {
+  display: inline-block;
+  transition: transform 0.3s var(--ease-spring);
+}
+.comp-link:hover .card-cta .arrow { transform: translateX(6px); }
+
+.slot-tr .card-cta,
+.slot-br .card-cta {
+  align-self: flex-end;
+  text-align: right;
+}
+
+/* Per-card color tokens */
+.card-turquoise { --c-accent: var(--pearson-turquoise);  --c-tint: var(--pearson-turquoise-t); }
+.card-fuchsia   { --c-accent: var(--pearson-fuchsia);    --c-tint: var(--pearson-fuchsia-t); }
+.card-amethyst  { --c-accent: var(--pearson-amethyst);   --c-tint: var(--pearson-light-purple); }
+.card-amber     { --c-accent: var(--pearson-amber);      --c-tint: var(--pearson-amber-t); }
+
+/* ─── CENTER NODE — absolutely centered, overlaps card edges ───── */
+.center-col {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  pointer-events: none;
+}
+
+.center-ring-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  animation: fade-up 0.5s var(--ease-out) 0.4s forwards;
+}
+
+/* pulsing rings */
+.ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1.5px solid var(--pearson-amethyst);
+  animation: ring-pulse 3.5s ease-in-out infinite;
+}
+.ring-1 { width: 168px; height: 168px; animation-delay: 0s; }
+.ring-2 { width: 202px; height: 202px; animation-delay: 0.7s; }
+.ring-3 { width: 236px; height: 236px; animation-delay: 1.4s; }
+
+@keyframes ring-pulse {
+  0%, 100% { transform: scale(1);    opacity: var(--ring-base-op, 0.15); }
+  50%       { transform: scale(1.05); opacity: calc(var(--ring-base-op, 0.15) * 0.5); }
+}
+.ring-1 { --ring-base-op: 0.30; }
+.ring-2 { --ring-base-op: 0.18; }
+.ring-3 { --ring-base-op: 0.09; }
+
+.center-disc {
+  position: relative;
+  z-index: 1;
+  width: 148px;
+  height: 148px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, var(--pearson-purple) 0%, var(--pearson-amethyst) 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 16px;
+  box-shadow: 0 0 0 6px var(--pearson-mist-purple), 0 8px 32px rgba(13,0,77,0.40);
+}
+
+.center-disc svg {
+  width: 28px;
+  height: 28px;
+  color: var(--pearson-light-purple);
+  flex-shrink: 0;
+  margin-bottom: 6px;
+}
+
+.center-disc-label {
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: var(--pearson-light-purple);
+  line-height: 1.35;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-variant-ligatures: none;
+}
+
+/* ─── DRAWER OVERLAY ──────────────────────────────────────────── */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(13,0,77,0.5);
+  backdrop-filter: blur(3px);
+  z-index: 100;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s var(--ease-out);
+}
+.overlay.open { opacity: 1; pointer-events: all; }
+
+.drawer {
+  position: fixed;
+  top: 0; right: 0;
+  height: 100dvh;
+  width: min(520px, 94vw);
+  background: var(--pearson-white);
+  z-index: 101;
+  transform: translateX(105%);
+  transition: transform 0.45s var(--ease-spring);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: -12px 0 60px rgba(13,0,77,0.22);
+}
+.drawer.open { transform: translateX(0); }
+
+.drawer-top-bar {
+  height: 5px;
+  background: var(--d-accent);
+  flex-shrink: 0;
+  transition: background 0.3s;
+}
+
+.drawer-header {
+  padding: 28px 28px 20px;
+  border-bottom: 1px solid var(--pearson-mist-purple);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.drawer-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 12px;
+  border-radius: 99px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: var(--d-tint);
+  color: var(--d-accent-dark, var(--pearson-purple));
+  margin-bottom: 14px;
+  font-variant-ligatures: none;
+}
+.drawer-badge-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--d-accent);
+  flex-shrink: 0;
+}
+
+.drawer-header h2 {
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: var(--pearson-purple);
+  line-height: var(--lh-headline);
+  margin-bottom: 10px;
+  font-variant-ligatures: none;
+}
+
+.drawer-header p {
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--pearson-ux-black);
+  line-height: var(--lh-body);
+  font-variant-ligatures: none;
+}
+
+.drawer-close {
+  position: absolute;
+  top: 24px; right: 24px;
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  border: 1.5px solid var(--pearson-mist-purple);
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, border-color 0.2s, transform 0.3s var(--ease-spring);
+}
+.drawer-close:hover {
+  background: var(--pearson-mist-purple);
+  border-color: var(--pearson-light-purple);
+  transform: rotate(90deg);
+}
+.drawer-close svg { width: 15px; height: 15px; color: var(--pearson-purple); }
+
+.drawer-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px 28px 48px;
+}
+
+.drawer-section-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--pearson-amethyst);
+  margin-bottom: 18px;
+  font-variant-ligatures: none;
+}
+
+/* Example placeholder cards */
+.example-card {
+  background: var(--pearson-mist-purple);
+  border: 1.5px solid var(--pearson-light-purple);
+  border-radius: 12px;
+  padding: 20px 22px;
+  margin-bottom: 14px;
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateX(20px);
+  transition: opacity 0.4s var(--ease-out), transform 0.4s var(--ease-spring);
+}
+.example-card.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.example-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.55) 50%, transparent 100%);
+  transform: translateX(-100%);
+  animation: shimmer 2.2s ease-in-out infinite;
+}
+@keyframes shimmer { to { transform: translateX(100%); } }
+
+.ex-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 99px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: var(--d-tint);
+  color: var(--d-accent-dark, var(--pearson-purple));
+  margin-bottom: 10px;
+  font-variant-ligatures: none;
+}
+
+.ex-title {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--pearson-purple);
+  margin-bottom: 6px;
+  line-height: 1.3;
+  font-variant-ligatures: none;
+}
+
+.ex-lines { display: flex; flex-direction: column; gap: 3px; }
+
+.ex-line {
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: var(--pearson-ux-black);
+  line-height: var(--lh-body);
+  font-variant-ligatures: none;
+}
+
+/* Clickable example card variant */
+a.example-card {
+  text-decoration: none;
+  display: block;
+  cursor: pointer;
+  border-color: var(--d-accent);
+}
+a.example-card:hover {
+  background: var(--pearson-white);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(13,0,77,0.12);
+}
+a.example-card .ex-link-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--d-accent-dark, var(--pearson-amethyst));
+  margin-top: 10px;
+  font-variant-ligatures: none;
+  transition: gap 0.2s;
+}
+a.example-card:hover .ex-link-cta { gap: 9px; }
+
+.coming-soon {
+  margin-top: 24px;
+  padding: 16px 18px;
+  border-radius: 10px;
+  border: 1.5px dashed var(--d-accent);
+  background: var(--d-tint);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--d-accent-dark, var(--pearson-purple));
+  font-variant-ligatures: none;
+}
+.coming-soon svg { width: 17px; height: 17px; flex-shrink: 0; }
+
+/* Drawer accent tokens */
+.d-turquoise { --d-accent: var(--pearson-turquoise); --d-tint: var(--pearson-turquoise-t); --d-accent-dark: #0B7373; }
+.d-fuchsia   { --d-accent: var(--pearson-fuchsia);   --d-tint: var(--pearson-fuchsia-t);   --d-accent-dark: #8B1687; }
+.d-amethyst  { --d-accent: var(--pearson-amethyst);  --d-tint: var(--pearson-light-purple); --d-accent-dark: var(--pearson-amethyst); }
+.d-amber     { --d-accent: var(--pearson-amber);     --d-tint: var(--pearson-amber-t);      --d-accent-dark: #7A5F00; }
+
+/* ─── FOOTER ──────────────────────────────────────────────────── */
+.footer {
+  background: var(--pearson-purple);
+  padding: 32px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.footer-logo { height: 22px; width: auto; opacity: 0.85; }
+
+.footer-text {
+  font-size: 0.72rem;
+  font-weight: 400;
+  color: var(--pearson-light-purple);
+  opacity: 0.7;
+  font-variant-ligatures: none;
+}
+
+/* ─── RESPONSIVE ──────────────────────────────────────────────── */
+@media (max-width: 860px) {
+  /* On mobile, stack cards and show center above them */
+  .diagram-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding-top: 100px; /* room for absolute center disc */
+  }
+  .connectors { display: none; }
+  .center-col {
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .nav { padding: 0 20px; height: 80px; }
+  .nav-logo { height: 60px; }
+  .hero { padding: 56px 20px 52px; }
+  .section { padding: 40px 20px 60px; }
+  .footer { padding: 24px 20px; }
+  .nav-label { display: none; }
+}
+
+@media (max-width: 480px) {
+  .hero h1 { font-size: 2.1rem; }
+  .comp-card { padding: 32px 24px 28px; }
+  .comp-card h3 { font-size: 1.1rem; }
+  .comp-card ul li { font-size: 0.88rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <img src="assets/Logo/primary/PEARSON_LOGO_WHITE_RGB.svg" alt="Pearson" class="nav-logo">
+  <span class="nav-label">AI Readiness Framework</span>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-inner">
+    <p class="hero-eyebrow">AI Workforce Readiness</p>
+    <h1>The AI Playbook</h1>
+    <p class="hero-sub">Key capabilities and skill competencies for thriving in an AI-powered world</p>
+    <span class="hero-cta-hint">
+      Select a competency to explore
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 2v10M3 8l4 4 4-4"/></svg>
+    </span>
+  </div>
+</header>
+
+<!-- MAIN -->
+<main>
+  <div class="section">
+    <div class="section-header">
+      <p class="section-label">Four Competency Areas</p>
+      <h2>Select a competency below to explore practical examples</h2>
+    </div>
+
+    <div class="diagram-grid" id="diagram-grid">
+
+      <!-- SVG connectors (drawn by JS) -->
+      <svg class="connectors" id="connectors" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"></svg>
+
+      <!-- TOP LEFT — Functional AI Proficiency -->
+      <div class="slot slot-tl">
+        <a class="comp-link" href="functional-ai-proficiency.html" aria-label="Functional AI Proficiency — explore competency">
+          <div class="comp-card card-turquoise">
+            <img src="assets/pictograms/picto-turquoise-12.png" alt="" class="card-picto" aria-hidden="true">
+            <h3>Functional AI Proficiency</h3>
+            <ul>
+              <li>Ability to use AI tools effectively</li>
+              <li>Skills in prompting or instructing AI tools</li>
+              <li>Understanding of how AI technologies work</li>
+            </ul>
+            <span class="card-cta">
+              Explore Competency
+              <span class="arrow">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+              </span>
+            </span>
+          </div>
+        </a>
+      </div>
+
+      <!-- TOP RIGHT — Critical Human Skills -->
+      <div class="slot slot-tr">
+        <a class="comp-link" href="#" aria-label="Critical Human Skills — explore competency"
+           onclick="openDrawer('c2'); return false;"
+           onkeydown="if(event.key==='Enter'||event.key===' '){openDrawer('c2');event.preventDefault();}">
+          <div class="comp-card card-fuchsia">
+            <img src="assets/pictograms/picto-fuchsia-14.png" alt="" class="card-picto" aria-hidden="true">
+            <h3>Critical Human Skills</h3>
+            <ul>
+              <li>Adaptability and continuous learning mindset</li>
+              <li>Communication and collaboration skills</li>
+              <li>Creativity and innovative thinking</li>
+              <li>Complex problem-solving / emotional intelligence</li>
+            </ul>
+            <span class="card-cta">
+              Explore Competency
+              <span class="arrow">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+              </span>
+            </span>
+          </div>
+        </a>
+      </div>
+
+      <!-- CENTER NODE -->
+      <div class="center-col" id="center-node">
+        <div class="center-ring-wrap">
+          <div class="ring ring-1"></div>
+          <div class="ring ring-2"></div>
+          <div class="ring ring-3"></div>
+          <div class="center-disc">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="8" r="4"/>
+              <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+            </svg>
+            <span class="center-disc-label">The AI<br>Playbook</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- BOTTOM LEFT — Ethical Stewardship -->
+      <div class="slot slot-bl">
+        <a class="comp-link" href="#" aria-label="Ethical Stewardship — explore competency"
+           onclick="openDrawer('c3'); return false;"
+           onkeydown="if(event.key==='Enter'||event.key===' '){openDrawer('c3');event.preventDefault();}">
+          <div class="comp-card card-amethyst">
+            <img src="assets/pictograms/picto-purple-08.png" alt="" class="card-picto" aria-hidden="true">
+            <h3>Ethical Stewardship</h3>
+            <ul>
+              <li>Critical thinking about AI recommendations / outputs</li>
+              <li>Ability to evaluate and verify AI outputs for accuracy</li>
+              <li>Understanding of AI bias, fairness, and limitations</li>
+              <li>Data privacy and ethical considerations</li>
+            </ul>
+            <span class="card-cta">
+              Explore Competency
+              <span class="arrow">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+              </span>
+            </span>
+          </div>
+        </a>
+      </div>
+
+      <!-- BOTTOM RIGHT — Strategic Intelligence -->
+      <div class="slot slot-br">
+        <a class="comp-link" href="#" aria-label="Strategic Intelligence — explore competency"
+           onclick="openDrawer('c4'); return false;"
+           onkeydown="if(event.key==='Enter'||event.key===' '){openDrawer('c4');event.preventDefault();}">
+          <div class="comp-card card-amber">
+            <img src="assets/pictograms/picto-amber-03.png" alt="" class="card-picto" aria-hidden="true">
+            <h3>Strategic Intelligence</h3>
+            <ul>
+              <li>Ability to identify where AI can create value</li>
+              <li>Understanding of AI's impact on a specific industry</li>
+              <li>Critical thinking about AI recommendations / outputs</li>
+              <li>Ability to work effectively alongside AI systems</li>
+            </ul>
+            <span class="card-cta">
+              Explore Competency
+              <span class="arrow">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+              </span>
+            </span>
+          </div>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <img src="assets/Logo/primary/PEARSON_LOGO_WHITE_RGB.svg" alt="Pearson" class="footer-logo">
+  <span class="footer-text">© Pearson plc. Helping people realize the life they imagine through learning.</span>
+</footer>
+
+<!-- OVERLAY -->
+<div class="overlay" id="overlay" onclick="closeDrawer()" aria-hidden="true"></div>
+
+<!-- DRAWER -->
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title" tabindex="-1">
+  <div class="drawer-top-bar"></div>
+  <div class="drawer-header">
+    <div class="drawer-badge">
+      <span class="drawer-badge-dot"></span>
+      <span id="drawer-badge-text"></span>
+    </div>
+    <h2 id="drawer-title"></h2>
+    <p id="drawer-desc"></p>
+    <button class="drawer-close" id="drawer-close-btn" aria-label="Close panel">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+        <path d="M18 6 6 18M6 6l12 12"/>
+      </svg>
+    </button>
+  </div>
+  <div class="drawer-body" id="drawer-body"></div>
+</aside>
+
+<script>
+/* ── DATA ──────────────────────────────────────────────────────── */
+const DATA = {
+  c1: {
+    badge: 'Functional AI Proficiency',
+    title: 'Functional AI Proficiency',
+    desc: 'The hands-on ability to work with AI tools — from prompting and instructing AI systems to understanding how the underlying technologies actually function.',
+    drawerClass: 'd-turquoise',
+    examples: [
+      { tag: 'Tool Use',   title: 'Navigating AI Tools',     lines: ['Using ChatGPT, Copilot, or Gemini to accelerate everyday tasks', 'Selecting the right tool for the right job'], url: 'functional-ai-tool-use.html' },
+      { tag: 'Prompting', title: 'Crafting Effective Prompts for Complex Tasks',  lines: ['Structuring prompts with context, role, and constraints', 'Iterating prompts based on output quality'] },
+      { tag: 'Concepts',  title: 'Understanding AI Tool Capabilities & Limits',     lines: ['What LLMs can and cannot reliably do', 'Token windows, hallucinations, and context management'] },
+      { tag: 'Workflow',  title: 'Building AI-Augmented Work Pipelines',          lines: ['Integrating AI tools into existing workflows', 'Automating repetitive tasks with AI assistance'] },
+    ]
+  },
+  c2: {
+    badge: 'Critical Human Skills',
+    title: 'Critical Human Skills',
+    desc: 'The distinctly human capabilities that AI cannot replicate — adaptability, empathy, creative synthesis, and the social intelligence to collaborate in fast-changing environments.',
+    drawerClass: 'd-fuchsia',
+    examples: [
+      { tag: 'Adaptability',    title: 'Thriving Through Rapid Technological Change',        lines: ['Building a continuous learning habit', 'Embracing uncertainty as a career advantage'] },
+      { tag: 'Communication',   title: 'Communicating Across Disciplines and Roles',         lines: ['Translating technical AI output for non-technical audiences', 'Facilitating cross-functional team alignment'] },
+      { tag: 'Creativity',      title: 'Using AI as a Creative Collaborator',                lines: ['Generating novel ideas with AI assistance', 'Evaluating and elevating AI-generated concepts'] },
+      { tag: 'Problem-Solving', title: 'Complex Decision-Making in Ambiguous Situations',    lines: ['Applying emotional intelligence in team dynamics', 'Structuring unstructured problems with human judgment'] },
+    ]
+  },
+  c3: {
+    badge: 'Ethical Stewardship',
+    title: 'Ethical Stewardship',
+    desc: 'The responsibility to critically evaluate AI outputs, detect bias and inaccuracy, and uphold standards of fairness, privacy, and transparency in AI-influenced decisions.',
+    drawerClass: 'd-amethyst',
+    examples: [
+      { tag: 'Verification',     title: 'Fact-Checking and Validating AI Outputs',         lines: ['Cross-referencing AI-generated content with authoritative sources', 'Building verification habits before acting on AI recommendations'] },
+      { tag: 'Bias Awareness',   title: 'Recognizing and Mitigating Algorithmic Bias',     lines: ['Identifying when training data skews outputs', 'Advocating for fairness audits in AI-powered systems'] },
+      { tag: 'Privacy',          title: 'Data Privacy and Responsible AI Use',             lines: ['Understanding what data AI tools collect and retain', 'Applying data minimization principles in workflows'] },
+      { tag: 'Critical Thinking',title: 'Questioning AI-Driven Recommendations',           lines: ['When to trust vs. challenge an AI suggestion', 'Escalating concerns in AI-assisted decision pipelines'] },
+    ]
+  },
+  c4: {
+    badge: 'Strategic Intelligence',
+    title: 'Strategic Intelligence',
+    desc: 'The ability to see the larger picture — identifying where AI creates genuine value, understanding industry-specific implications, and working alongside AI systems with strategic clarity.',
+    drawerClass: 'd-amber',
+    examples: [
+      { tag: 'Value ID',         title: 'Spotting High-Impact AI Opportunities',            lines: ['Mapping workflows where AI provides outsized ROI', 'Distinguishing AI hype from practical business value'] },
+      { tag: 'Industry',         title: "AI's Transformative Effect on Your Sector",        lines: ['Understanding disruption patterns in your industry', 'Benchmarking against AI-forward competitors'] },
+      { tag: 'Human-AI Teaming', title: 'Designing Effective Human–AI Collaboration',       lines: ['Defining where humans lead and where AI assists', 'Building feedback loops that improve AI performance over time'] },
+      { tag: 'Analysis',         title: 'Evaluating AI Recommendations Strategically',      lines: ['Weighing AI output against business goals and constraints', 'Presenting AI-informed insights to leadership with confidence'] },
+    ]
+  }
+};
+
+/* ── DRAWER OPEN / CLOSE ───────────────────────────────────────── */
+function openDrawer(key) {
+  const d    = DATA[key];
+  const el   = document.getElementById('drawer');
+  const over = document.getElementById('overlay');
+
+  // Reset class
+  el.className = 'drawer ' + d.drawerClass;
+
+  // Header
+  document.getElementById('drawer-badge-text').textContent = d.badge;
+  document.getElementById('drawer-title').textContent      = d.title;
+  document.getElementById('drawer-desc').textContent       = d.desc;
+
+  // Body
+  let html = `<p class="drawer-section-label">Practical Examples</p>`;
+  d.examples.forEach((ex, i) => {
+    const tag   = ex.url ? `a href="${ex.url}"` : 'div';
+    const close = ex.url ? 'a' : 'div';
+    const cta   = ex.url
+      ? `<span class="ex-link-cta">Open example <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 6.5h9M8 3l3 3.5-3 3.5"/></svg></span>`
+      : '';
+    html += `
+      <${tag} class="example-card${ex.url ? '' : ''}" style="transition-delay:${i * 80}ms">
+        <span class="ex-tag">${ex.tag}</span>
+        <p class="ex-title">${ex.title}</p>
+        <div class="ex-lines">
+          ${ex.lines.map(l => `<span class="ex-line">· ${l}</span>`).join('')}
+        </div>
+        ${cta}
+      </${close}>`;
+  });
+
+  html += `
+    <div class="coming-soon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/>
+      </svg>
+      Full case studies and interactive exercises coming soon
+    </div>`;
+
+  const body = document.getElementById('drawer-body');
+  body.innerHTML = html;
+  body.scrollTop = 0;
+
+  // Open
+  over.classList.add('open');
+  el.classList.add('open');
+  el.focus();
+  document.body.style.overflow = 'hidden';
+
+  // Stagger example cards in
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      document.querySelectorAll('.example-card').forEach(c => c.classList.add('visible'));
+    });
+  });
+}
+
+function closeDrawer() {
+  document.getElementById('overlay').classList.remove('open');
+  document.getElementById('drawer').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('drawer-close-btn').addEventListener('click', closeDrawer);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
+
+/* ── SVG CONNECTORS ────────────────────────────────────────────── */
+function drawConnectors() {
+  const svg    = document.getElementById('connectors');
+  const grid   = document.getElementById('diagram-grid');
+  const center = document.getElementById('center-node');
+
+  if (window.innerWidth <= 800) { svg.innerHTML = ''; return; }
+
+  const gr = grid.getBoundingClientRect();
+  const cr = center.getBoundingClientRect();
+  const cx = cr.left - gr.left + cr.width  / 2;
+  const cy = cr.top  - gr.top  + cr.height / 2;
+
+  svg.setAttribute('viewBox', `0 0 ${gr.width} ${gr.height}`);
+  svg.innerHTML = '';
+
+  document.querySelectorAll('.comp-card').forEach(card => {
+    const r  = card.getBoundingClientRect();
+    const x  = r.left - gr.left + r.width  / 2;
+    const y  = r.top  - gr.top  + r.height / 2;
+    const ln = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    ln.setAttribute('x1', cx); ln.setAttribute('y1', cy);
+    ln.setAttribute('x2', x);  ln.setAttribute('y2', y);
+    ln.setAttribute('class', 'c-line');
+    svg.appendChild(ln);
+  });
+}
+
+window.addEventListener('load',   drawConnectors);
+window.addEventListener('resize', drawConnectors);
+</script>
+</body>
+</html>

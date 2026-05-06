@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Navigating AI Tools — The AI Playbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* ─── PEARSON BRAND TOKENS ───────────────────────────────────── */
+:root {
+  --pearson-purple:      #0D004D;
+  --pearson-white:       #FFFFFF;
+  --pearson-light-purple:#C1BFFF;
+  --pearson-mist-purple: #EDECF6;
+  --pearson-amethyst:    #512EAB;
+  --pearson-turquoise:   #56E2E1;
+  --pearson-turquoise-t: #B3F2F1;
+  --pearson-amber:       #FFCE00;
+  --pearson-amber-t:     #FFE67F;
+  --pearson-ux-black:    #333333;
+  --accent:              var(--pearson-turquoise);
+  --accent-t:            var(--pearson-turquoise-t);
+  --accent-dark:         #0B7373;
+
+  --font: 'Plus Jakarta Sans', Helvetica, Verdana, sans-serif;
+  --lh-headline: 1.1;
+  --lh-body: 1.5;
+  --radius: 14px;
+  --shadow: 0 2px 16px rgba(13,0,77,0.10);
+  --shadow-md: 0 8px 32px rgba(13,0,77,0.14);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font);
+  font-variant-ligatures: none;
+  background: var(--pearson-mist-purple);
+  color: var(--pearson-purple);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ─── NAV ────────────────────────────────────────────────────── */
+.nav {
+  background: var(--pearson-purple);
+  padding: 0 40px;
+  height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  box-shadow: 0 2px 16px rgba(13,0,77,0.3);
+}
+.nav-logo { height: 63px; width: auto; display: block; }
+.nav-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--pearson-light-purple);
+  text-decoration: none;
+  font-variant-ligatures: none;
+  transition: color 0.2s, gap 0.25s var(--ease-spring);
+  opacity: 0.8;
+}
+.nav-back:hover { color: var(--pearson-white); opacity: 1; gap: 12px; }
+.nav-back svg { transition: transform 0.25s var(--ease-spring); }
+.nav-back:hover svg { transform: translateX(-3px); }
+
+/* ─── HERO ───────────────────────────────────────────────────── */
+.hero {
+  background: var(--pearson-purple);
+  padding: 56px 40px 64px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  width: 500px; height: 500px;
+  border-radius: 50%;
+  border: 1px solid rgba(193,191,255,0.12);
+  top: -160px; right: -80px;
+  animation: ring-drift 8s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes ring-drift {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  50% { transform: scale(1.06) rotate(8deg); }
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 28px;
+  opacity: 0;
+  animation: fade-up 0.5s var(--ease-out) 0.1s forwards;
+}
+.breadcrumb a, .breadcrumb span {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-variant-ligatures: none;
+  text-decoration: none;
+}
+.breadcrumb a { color: var(--pearson-light-purple); opacity: 0.7; }
+.breadcrumb a:hover { opacity: 1; }
+.breadcrumb .sep { color: rgba(193,191,255,0.35); font-size: 0.6rem; }
+.breadcrumb span { color: var(--accent); }
+
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 14px;
+  border-radius: 99px;
+  background: rgba(86,226,225,0.15);
+  border: 1px solid rgba(86,226,225,0.35);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 20px;
+  font-variant-ligatures: none;
+  opacity: 0;
+  animation: fade-up 0.5s var(--ease-out) 0.2s forwards;
+}
+.hero-tag-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: blink 2s ease-in-out infinite;
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; } 50% { opacity: 0.3; }
+}
+
+.hero h1 {
+  font-size: clamp(2rem, 4.5vw, 3.4rem);
+  font-weight: 700;
+  color: var(--pearson-white);
+  line-height: var(--lh-headline);
+  max-width: 720px;
+  margin-bottom: 18px;
+  font-variant-ligatures: none;
+  opacity: 0;
+  animation: fade-up 0.6s var(--ease-out) 0.3s forwards;
+}
+
+.hero-desc {
+  font-size: 1.05rem;
+  font-weight: 300;
+  color: var(--pearson-light-purple);
+  max-width: 580px;
+  line-height: var(--lh-body);
+  font-variant-ligatures: none;
+  opacity: 0;
+  animation: fade-up 0.6s var(--ease-out) 0.45s forwards;
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── STAT BAR ───────────────────────────────────────────────── */
+.stat-bar {
+  background: var(--pearson-amethyst);
+  padding: 24px 40px;
+  display: flex;
+  gap: 48px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.stat-item { display: flex; flex-direction: column; gap: 3px; }
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--pearson-white);
+  line-height: 1;
+  font-variant-ligatures: none;
+}
+.stat-value em { color: var(--accent); font-style: normal; }
+.stat-label {
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--pearson-light-purple);
+  opacity: 0.8;
+  font-variant-ligatures: none;
+}
+.stat-divider { width: 1px; height: 36px; background: rgba(193,191,255,0.2); align-self: center; }
+
+/* ─── MAIN LAYOUT ────────────────────────────────────────────── */
+.page-body {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 60px 40px 80px;
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 48px;
+  align-items: start;
+}
+
+/* ─── CONTENT COLUMN ─────────────────────────────────────────── */
+.content-col { min-width: 0; }
+
+.section-eyebrow {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent-dark);
+  margin-bottom: 12px;
+  font-variant-ligatures: none;
+}
+
+.section-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--pearson-purple);
+  line-height: var(--lh-headline);
+  margin-bottom: 16px;
+  font-variant-ligatures: none;
+}
+
+.section-body {
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--pearson-ux-black);
+  line-height: var(--lh-body);
+  margin-bottom: 32px;
+  font-variant-ligatures: none;
+}
+
+/* Platform cards grid */
+.platform-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.platform-card {
+  background: var(--pearson-white);
+  border-radius: var(--radius);
+  padding: 24px 20px;
+  box-shadow: var(--shadow);
+  border-top: 3px solid var(--p-color);
+  opacity: 0;
+  transform: translateY(16px);
+  transition: box-shadow 0.25s, transform 0.3s var(--ease-spring);
+}
+.platform-card.visible { opacity: 1; transform: translateY(0); }
+.platform-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
+
+.platform-logo {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+  display: block;
+}
+.platform-name {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--pearson-purple);
+  margin-bottom: 6px;
+  font-variant-ligatures: none;
+}
+.platform-maker {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--p-color);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 10px;
+  font-variant-ligatures: none;
+}
+.platform-desc {
+  font-size: 0.78rem;
+  color: var(--pearson-ux-black);
+  line-height: 1.45;
+  font-variant-ligatures: none;
+}
+
+.p-green  { --p-color: #16A34A; }
+.p-blue   { --p-color: #0369A1; }
+.p-orange { --p-color: #EA4335; }
+.p-indigo { --p-color: var(--pearson-amethyst); }
+.p-teal   { --p-color: #0D9488; }
+.p-amber  { --p-color: #B45309; }
+
+/* Decision framework */
+.decision-table {
+  background: var(--pearson-white);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  margin-bottom: 40px;
+  border: 1.5px solid var(--pearson-mist-purple);
+}
+.dt-header {
+  background: var(--pearson-purple);
+  padding: 16px 24px;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: 12px;
+}
+.dt-header span {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--pearson-light-purple);
+  font-variant-ligatures: none;
+}
+.dt-row {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: 12px;
+  padding: 14px 24px;
+  border-bottom: 1px solid var(--pearson-mist-purple);
+  transition: background 0.15s;
+}
+.dt-row:last-child { border-bottom: none; }
+.dt-row:hover { background: var(--pearson-mist-purple); }
+.dt-cell {
+  font-size: 0.82rem;
+  color: var(--pearson-ux-black);
+  line-height: 1.4;
+  font-variant-ligatures: none;
+}
+.dt-cell.bold { font-weight: 600; color: var(--pearson-purple); }
+.dt-cell .dot {
+  display: inline-block;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+/* Tips list */
+.tips-list { display: flex; flex-direction: column; gap: 14px; margin-bottom: 40px; }
+.tip-item {
+  display: flex;
+  gap: 16px;
+  background: var(--pearson-white);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  box-shadow: var(--shadow);
+  border-left: 4px solid var(--accent);
+  opacity: 0;
+  transform: translateX(-12px);
+  transition: opacity 0.4s, transform 0.4s var(--ease-spring), box-shadow 0.25s;
+}
+.tip-item.visible { opacity: 1; transform: translateX(0); }
+.tip-item:hover { box-shadow: var(--shadow-md); }
+.tip-num {
+  flex-shrink: 0;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--accent-t);
+  color: var(--accent-dark);
+  font-size: 0.8rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-variant-ligatures: none;
+}
+.tip-text { flex: 1; }
+.tip-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--pearson-purple);
+  margin-bottom: 4px;
+  font-variant-ligatures: none;
+}
+.tip-body {
+  font-size: 0.82rem;
+  color: var(--pearson-ux-black);
+  line-height: 1.45;
+  font-variant-ligatures: none;
+}
+
+/* ─── SIDEBAR ────────────────────────────────────────────────── */
+.sidebar { display: flex; flex-direction: column; gap: 20px; }
+
+.sidebar-card {
+  background: var(--pearson-white);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow);
+}
+
+.sidebar-card-title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--pearson-amethyst);
+  margin-bottom: 14px;
+  font-variant-ligatures: none;
+}
+
+.skill-pill-list { display: flex; flex-direction: column; gap: 8px; }
+.skill-pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 99px;
+  background: var(--pearson-mist-purple);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--pearson-purple);
+  font-variant-ligatures: none;
+  transition: background 0.2s;
+}
+.skill-pill:hover { background: var(--pearson-light-purple); }
+.skill-pill-icon { font-size: 1rem; flex-shrink: 0; }
+.skill-pill-check {
+  margin-left: auto;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  border: 1.5px solid var(--pearson-light-purple);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+
+.progress-bar-wrap { margin-bottom: 12px; }
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--pearson-ux-black);
+  margin-bottom: 6px;
+  font-variant-ligatures: none;
+}
+.progress-label span { color: var(--pearson-amethyst); }
+.progress-track {
+  height: 6px;
+  border-radius: 99px;
+  background: var(--pearson-mist-purple);
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  border-radius: 99px;
+  background: linear-gradient(90deg, var(--pearson-amethyst), var(--accent));
+  width: 0;
+  transition: width 1s var(--ease-out);
+}
+
+.related-list { display: flex; flex-direction: column; gap: 10px; }
+.related-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: var(--pearson-mist-purple);
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--pearson-purple);
+  font-variant-ligatures: none;
+  transition: background 0.2s, transform 0.2s var(--ease-spring);
+  border: 1.5px solid transparent;
+}
+.related-link:hover {
+  background: var(--pearson-white);
+  border-color: var(--pearson-light-purple);
+  transform: translateX(3px);
+}
+.related-link-tag {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--pearson-amethyst);
+  background: var(--pearson-light-purple);
+  padding: 2px 8px;
+  border-radius: 99px;
+  margin-left: auto;
+  flex-shrink: 0;
+  font-variant-ligatures: none;
+}
+
+.coming-soon-card {
+  background: linear-gradient(135deg, var(--pearson-purple) 0%, var(--pearson-amethyst) 100%);
+  border-radius: var(--radius);
+  padding: 24px;
+  text-align: center;
+}
+.coming-soon-card p {
+  font-size: 0.82rem;
+  color: var(--pearson-light-purple);
+  line-height: var(--lh-body);
+  margin-bottom: 16px;
+  font-variant-ligatures: none;
+}
+.coming-soon-card strong {
+  display: block;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--pearson-white);
+  margin-bottom: 8px;
+  font-variant-ligatures: none;
+}
+.notify-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  background: var(--accent);
+  color: var(--pearson-purple);
+  border-radius: 99px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  font-variant-ligatures: none;
+  font-family: var(--font);
+  transition: transform 0.2s var(--ease-spring), box-shadow 0.2s;
+}
+.notify-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(86,226,225,0.4); }
+
+/* ─── FOOTER ─────────────────────────────────────────────────── */
+.footer {
+  background: var(--pearson-purple);
+  padding: 28px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.footer-logo { height: 22px; width: auto; opacity: 0.85; }
+.footer-text {
+  font-size: 0.72rem;
+  color: var(--pearson-light-purple);
+  opacity: 0.7;
+  font-variant-ligatures: none;
+}
+
+/* ─── RESPONSIVE ─────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .page-body { grid-template-columns: 1fr; padding: 40px 24px 60px; }
+  .platform-grid { grid-template-columns: 1fr 1fr; }
+  .nav { padding: 0 20px; }
+  .hero { padding: 40px 24px 52px; }
+  .footer { padding: 24px 20px; }
+  .stat-bar { padding: 20px 24px; gap: 24px; }
+}
+@media (max-width: 560px) {
+  .platform-grid { grid-template-columns: 1fr; }
+  .dt-header, .dt-row { grid-template-columns: 1fr 1fr; }
+  .dt-cell:nth-child(3), .dt-cell:nth-child(4),
+  .dt-header span:nth-child(3), .dt-header span:nth-child(4) { display: none; }
+  .stat-divider { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <img src="assets/Logo/primary/PEARSON_LOGO_WHITE_RGB.svg" alt="Pearson" class="nav-logo">
+  <a href="index.html" class="nav-back">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 2L4 7l5 5"/></svg>
+    Back to Framework
+  </a>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="index.html">The AI Playbook</a>
+    <span class="sep">›</span>
+    <a href="index.html">Functional AI Proficiency</a>
+    <span class="sep">›</span>
+    <span>Tool Use</span>
+  </nav>
+  <div class="hero-tag">
+    <span class="hero-tag-dot"></span>
+    Tool Use
+  </div>
+  <h1>Navigating AI Tools</h1>
+  <p class="hero-desc">Learn how to choose and use the right AI tool for every task — from drafting documents to data analysis, creative work to code assistance.</p>
+</header>
+
+<!-- STAT BAR -->
+<div class="stat-bar">
+  <div class="stat-item">
+    <span class="stat-value"><em>3+</em></span>
+    <span class="stat-label">Major platforms covered</span>
+  </div>
+  <div class="stat-divider"></div>
+  <div class="stat-item">
+    <span class="stat-value"><em>4</em></span>
+    <span class="stat-label">Practical tips</span>
+  </div>
+  <div class="stat-divider"></div>
+  <div class="stat-item">
+    <span class="stat-value"><em>~15</em> min</span>
+    <span class="stat-label">Estimated read time</span>
+  </div>
+  <div class="stat-divider"></div>
+  <div class="stat-item">
+    <span class="stat-value">Foundational</span>
+    <span class="stat-label">Skill level</span>
+  </div>
+</div>
+
+<!-- PAGE BODY -->
+<div class="page-body">
+
+  <!-- CONTENT COLUMN -->
+  <main class="content-col">
+
+    <!-- Overview -->
+    <p class="section-eyebrow">Overview</p>
+    <h2 class="section-title">Why platform literacy matters</h2>
+    <p class="section-body">AI tools are multiplying fast — and choosing the wrong one for a task wastes time, produces weaker results, and erodes trust. Knowing what each platform is optimised for, and when to switch between them, is one of the most immediately practical AI skills you can build.</p>
+
+    <!-- Platform cards -->
+    <p class="section-eyebrow">Major Platforms</p>
+    <h2 class="section-title">Know your tools</h2>
+    <p class="section-body">Each major AI platform has distinct strengths. The best AI-ready professionals aren't loyal to one tool — they're fluent across several.</p>
+
+    <div class="platform-grid">
+      <div class="platform-card p-green" style="transition-delay:0ms">
+        <span class="platform-logo">🤖</span>
+        <p class="platform-name">ChatGPT</p>
+        <p class="platform-maker">OpenAI</p>
+        <p class="platform-desc">Best for open-ended conversation, drafting, brainstorming, summarising, and general-purpose reasoning across many domains.</p>
+      </div>
+      <div class="platform-card p-blue" style="transition-delay:80ms">
+        <span class="platform-logo">💠</span>
+        <p class="platform-name">Microsoft Copilot</p>
+        <p class="platform-maker">Microsoft</p>
+        <p class="platform-desc">Embedded in Office 365. Best for summarising meetings, drafting emails in Outlook, and analysing data in Excel spreadsheets.</p>
+      </div>
+      <div class="platform-card p-orange" style="transition-delay:160ms">
+        <span class="platform-logo">✦</span>
+        <p class="platform-name">Gemini</p>
+        <p class="platform-maker">Google</p>
+        <p class="platform-desc">Integrated with Google Workspace. Best for real-time web-grounded research, Gmail drafts, and Docs/Slides collaboration.</p>
+      </div>
+      <div class="platform-card p-indigo" style="transition-delay:240ms">
+        <span class="platform-logo">⚡</span>
+        <p class="platform-name">Claude</p>
+        <p class="platform-maker">Anthropic</p>
+        <p class="platform-desc">Excellent for long-document analysis, nuanced writing, careful reasoning, and tasks requiring thoughtful, calibrated outputs.</p>
+      </div>
+      <div class="platform-card p-teal" style="transition-delay:320ms">
+        <span class="platform-logo">🔍</span>
+        <p class="platform-name">Perplexity</p>
+        <p class="platform-maker">Perplexity AI</p>
+        <p class="platform-desc">Best for research tasks requiring cited, sourced answers. Combines web search with AI synthesis and provides reference links.</p>
+      </div>
+      <div class="platform-card p-amber" style="transition-delay:400ms">
+        <span class="platform-logo">🛠</span>
+        <p class="platform-name">GitHub Copilot</p>
+        <p class="platform-maker">GitHub / OpenAI</p>
+        <p class="platform-desc">IDE-embedded code assistant. Best for autocomplete, generating boilerplate, explaining existing code, and writing tests.</p>
+      </div>
+    </div>
+
+    <!-- Decision table -->
+    <p class="section-eyebrow">Decision Framework</p>
+    <h2 class="section-title">Selecting the right tool for the job</h2>
+    <p class="section-body">Use this quick-reference guide to pick the most effective platform based on your task type.</p>
+
+    <div class="decision-table">
+      <div class="dt-header">
+        <span>Task type</span>
+        <span>Best platform</span>
+        <span>Why</span>
+        <span>Avoid</span>
+      </div>
+      <div class="dt-row">
+        <div class="dt-cell bold">Drafting emails / reports</div>
+        <div class="dt-cell"><span class="dot" style="background:#0369A1"></span>Copilot</div>
+        <div class="dt-cell">Embedded in your existing Office workflow</div>
+        <div class="dt-cell">Switching context to a separate tool</div>
+      </div>
+      <div class="dt-row">
+        <div class="dt-cell bold">Research with citations</div>
+        <div class="dt-cell"><span class="dot" style="background:#0D9488"></span>Perplexity</div>
+        <div class="dt-cell">Live web search + sourced answers</div>
+        <div class="dt-cell">ChatGPT (knowledge cutoff, no sources)</div>
+      </div>
+      <div class="dt-row">
+        <div class="dt-cell bold">Brainstorming / ideation</div>
+        <div class="dt-cell"><span class="dot" style="background:#16A34A"></span>ChatGPT</div>
+        <div class="dt-cell">Fast, creative, wide-ranging responses</div>
+        <div class="dt-cell">Over-relying on first output</div>
+      </div>
+      <div class="dt-row">
+        <div class="dt-cell bold">Analysing long documents</div>
+        <div class="dt-cell"><span class="dot" style="background:var(--pearson-amethyst)"></span>Claude</div>
+        <div class="dt-cell">Large context window, careful reading</div>
+        <div class="dt-cell">Models with short context windows</div>
+      </div>
+      <div class="dt-row">
+        <div class="dt-cell bold">Writing or reviewing code</div>
+        <div class="dt-cell"><span class="dot" style="background:#B45309"></span>Copilot / Cursor</div>
+        <div class="dt-cell">IDE-native, sees your full codebase</div>
+        <div class="dt-cell">Copy-pasting code into chat interfaces</div>
+      </div>
+      <div class="dt-row">
+        <div class="dt-cell bold">Meeting summaries</div>
+        <div class="dt-cell"><span class="dot" style="background:#0369A1"></span>Copilot</div>
+        <div class="dt-cell">Integrated with Teams / Calendar</div>
+        <div class="dt-cell">Manual transcription first</div>
+      </div>
+    </div>
+
+    <!-- Tips -->
+    <p class="section-eyebrow">Practical Tips</p>
+    <h2 class="section-title">Getting more from every platform</h2>
+    <p class="section-body">Regardless of which tool you use, these habits will consistently improve your results and help you build genuine platform fluency.</p>
+
+    <div class="tips-list">
+      <div class="tip-item" style="transition-delay:0ms">
+        <div class="tip-num">1</div>
+        <div class="tip-text">
+          <p class="tip-title">Start with the context, not the question</p>
+          <p class="tip-body">Before asking the AI anything, give it relevant background: your role, the audience, the format you need, and any constraints. "I'm a marketing manager writing a one-page summary for our CFO about our Q3 campaign results" produces far better output than "summarise this."</p>
+        </div>
+      </div>
+      <div class="tip-item" style="transition-delay:80ms">
+        <div class="tip-num">2</div>
+        <div class="tip-text">
+          <p class="tip-title">Iterate, don't regenerate</p>
+          <p class="tip-body">When output isn't quite right, refine it in the same conversation rather than starting over. Say "make this more concise" or "change the tone to be more formal" — the model retains context and improves on its previous answer more effectively than a fresh prompt.</p>
+        </div>
+      </div>
+      <div class="tip-item" style="transition-delay:160ms">
+        <div class="tip-num">3</div>
+        <div class="tip-text">
+          <p class="tip-title">Use the tool where your work already lives</p>
+          <p class="tip-body">The highest-value AI integrations are the ones embedded in your existing workflow. Copilot in Word, Gemini in Docs, or Copilot in your IDE. Switching context to a separate browser tab adds friction and reduces the value of AI assistance.</p>
+        </div>
+      </div>
+      <div class="tip-item" style="transition-delay:240ms">
+        <div class="tip-num">4</div>
+        <div class="tip-text">
+          <p class="tip-title">Verify before you send</p>
+          <p class="tip-body">AI platforms can confidently produce incorrect facts, outdated statistics, or fabricated citations. Before forwarding AI-generated content to a colleague or client, spot-check any specific claims, numbers, or attributed quotes against a primary source.</p>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <!-- Skills checklist -->
+    <div class="sidebar-card">
+      <p class="sidebar-card-title">Skills in this example</p>
+      <div class="skill-pill-list">
+        <div class="skill-pill">
+          <span class="skill-pill-icon">🖥</span>
+          Platform navigation
+          <div class="skill-pill-check"></div>
+        </div>
+        <div class="skill-pill">
+          <span class="skill-pill-icon">🎯</span>
+          Tool selection
+          <div class="skill-pill-check"></div>
+        </div>
+        <div class="skill-pill">
+          <span class="skill-pill-icon">⚙️</span>
+          Workflow integration
+          <div class="skill-pill-check"></div>
+        </div>
+        <div class="skill-pill">
+          <span class="skill-pill-icon">✅</span>
+          Output verification
+          <div class="skill-pill-check"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Progress tracker -->
+    <div class="sidebar-card">
+      <p class="sidebar-card-title">Your progress</p>
+      <div class="progress-bar-wrap">
+        <div class="progress-label">Functional AI Proficiency <span>1 / 4</span></div>
+        <div class="progress-track"><div class="progress-fill" data-width="25"></div></div>
+      </div>
+      <div class="progress-bar-wrap">
+        <div class="progress-label">Overall framework <span>1 / 16</span></div>
+        <div class="progress-track"><div class="progress-fill" data-width="6"></div></div>
+      </div>
+    </div>
+
+    <!-- Related examples -->
+    <div class="sidebar-card">
+      <p class="sidebar-card-title">Next in this competency</p>
+      <div class="related-list">
+        <a href="#" class="related-link">
+          Crafting Effective Prompts
+          <span class="related-link-tag">Prompting</span>
+        </a>
+        <a href="#" class="related-link">
+          Understanding AI Tool Capabilities &amp; Limits
+          <span class="related-link-tag">Concepts</span>
+        </a>
+        <a href="#" class="related-link">
+          Building AI-Augmented Pipelines
+          <span class="related-link-tag">Workflow</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Coming soon -->
+    <div class="coming-soon-card">
+      <strong>Interactive exercises coming soon</strong>
+      <p>Hands-on practice scenarios, self-assessments, and real workplace simulations for this skill.</p>
+      <button class="notify-btn">Notify me</button>
+    </div>
+
+  </aside>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <img src="assets/Logo/primary/PEARSON_LOGO_WHITE_RGB.svg" alt="Pearson" class="footer-logo">
+  <span class="footer-text">© Pearson plc. Helping people realize the life they imagine through learning.</span>
+</footer>
+
+<script>
+// Animate elements into view as they scroll into the viewport
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.platform-card, .tip-item').forEach(el => observer.observe(el));
+
+// Animate progress bars
+const barObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.querySelectorAll('.progress-fill').forEach(bar => {
+        bar.style.width = bar.dataset.width + '%';
+      });
+      barObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.3 });
+
+document.querySelectorAll('.sidebar-card').forEach(el => barObserver.observe(el));
+</script>
+</body>
+</html>
