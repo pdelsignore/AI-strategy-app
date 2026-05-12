@@ -257,7 +257,8 @@ body {
 .slot { position: relative; z-index: 1; padding: 0; }
 
 /* ─── COMPETENCY CARD (LINK) ──────────────────────────────────── */
-.comp-link {
+.comp-link,
+.comp-static {
   display: block;
   text-decoration: none;
   color: inherit;
@@ -268,10 +269,16 @@ body {
   transform: translateY(24px);
   animation: card-in 0.55s var(--ease-spring) forwards;
 }
+.comp-static {
+  cursor: default;
+}
 .slot-tl .comp-link { animation-delay: 0.5s; }
-.slot-tr .comp-link { animation-delay: 0.65s; }
-.slot-bl .comp-link { animation-delay: 0.8s; }
-.slot-br .comp-link { animation-delay: 0.95s; }
+.slot-tr .comp-link,
+.slot-tr .comp-static { animation-delay: 0.65s; }
+.slot-bl .comp-link,
+.slot-bl .comp-static { animation-delay: 0.8s; }
+.slot-br .comp-link,
+.slot-br .comp-static { animation-delay: 0.95s; }
 
 @keyframes card-in {
   to { opacity: 1; transform: translateY(0); }
@@ -832,9 +839,7 @@ a.example-card:hover .ex-link-cta { gap: 9px; }
 
       <!-- TOP RIGHT — Critical Human Skills -->
       <div class="slot slot-tr">
-        <a class="comp-link" href="#" aria-label="Critical Human Skills — explore competency"
-           onclick="openDrawer('c2'); return false;"
-           onkeydown="if(event.key==='Enter'||event.key===' '){openDrawer('c2');event.preventDefault();}">
+        <a class="comp-link" href="critical-human-skills.html" aria-label="Critical Human Skills — explore competency">
           <div class="comp-card card-fuchsia">
             <img src="assets/pictograms/picto-fuchsia-14.png" alt="" class="card-picto" aria-hidden="true">
             <h3>Critical Human Skills</h3>
@@ -872,9 +877,7 @@ a.example-card:hover .ex-link-cta { gap: 9px; }
 
       <!-- BOTTOM LEFT — Ethical Stewardship -->
       <div class="slot slot-bl">
-        <a class="comp-link" href="#" aria-label="Ethical Stewardship — explore competency"
-           onclick="openDrawer('c3'); return false;"
-           onkeydown="if(event.key==='Enter'||event.key===' '){openDrawer('c3');event.preventDefault();}">
+        <a class="comp-link" href="ethical-stewardship.html" aria-label="Ethical Stewardship — explore competency">
           <div class="comp-card card-amethyst">
             <img src="assets/pictograms/picto-purple-08.png" alt="" class="card-picto" aria-hidden="true">
             <h3>Ethical Stewardship</h3>
@@ -896,9 +899,7 @@ a.example-card:hover .ex-link-cta { gap: 9px; }
 
       <!-- BOTTOM RIGHT — Strategic Intelligence -->
       <div class="slot slot-br">
-        <a class="comp-link" href="#" aria-label="Strategic Intelligence — explore competency"
-           onclick="openDrawer('c4'); return false;"
-           onkeydown="if(event.key==='Enter'||event.key===' '){openDrawer('c4');event.preventDefault();}">
+        <a class="comp-link" href="strategic-intelligence.html" aria-label="Strategic Intelligence — explore competency">
           <div class="comp-card card-amber">
             <img src="assets/pictograms/picto-amber-03.png" alt="" class="card-picto" aria-hidden="true">
             <h3>Strategic Intelligence</h3>

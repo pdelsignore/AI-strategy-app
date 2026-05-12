@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Strategic Intelligence — The AI Playbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* ─── PEARSON TOKENS ─────────────────────────────────────────── */
+:root {
+  --pp:   #0D004D;
+  --pw:   #FFFFFF;
+  --lp:   #C1BFFF;
+  --mp:   #EDECF6;
+  --am:   #512EAB;
+  --tq:   #56E2E1;
+  --tqt:  #B3F2F1;
+  --amb:  #FFCE00;
+  --ambt: #FFE67F;
+  --fu:   #DF41CF;
+  --fut:  #EFA0E7;
+  --ux:   #333333;
+  --accent: var(--amb);
+  --accent-t: var(--ambt);
+  --accent-dk: #7A5F00;
+
+  --font: 'Plus Jakarta Sans', Helvetica, Verdana, sans-serif;
+  --r: 14px;
+  --sh: 0 2px 16px rgba(13,0,77,.10);
+  --sh-md: 0 8px 32px rgba(13,0,77,.16);
+  --spring: cubic-bezier(.34,1.56,.64,1);
+  --eout:  cubic-bezier(.4,0,.2,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);font-variant-ligatures:none;background:var(--mp);color:var(--pp);min-height:100vh;overflow-x:hidden}
+
+/* ─── NAV ────────────────────────────────────────────────────── */
+.nav{background:var(--pp);padding:0 40px;height:76px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;box-shadow:0 2px 16px rgba(13,0,77,.3)}
+.nav-logo{height:63px;width:auto;display:block}
+.nav-back{display:inline-flex;align-items:center;gap:8px;font-size:.78rem;font-weight:600;color:var(--lp);text-decoration:none;font-variant-ligatures:none;transition:color .2s,gap .25s var(--spring);opacity:.8}
+.nav-back:hover{color:var(--pw);opacity:1;gap:12px}
+.nav-back svg{transition:transform .25s var(--spring)}
+.nav-back:hover svg{transform:translateX(-3px)}
+
+/* ─── HERO ───────────────────────────────────────────────────── */
+.hero{background:var(--pp);padding:60px 40px 72px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;width:700px;height:700px;border-radius:50%;border:1px solid rgba(255,206,0,.12);top:-220px;right:-120px;animation:drift 9s ease-in-out infinite;pointer-events:none}
+.hero::after{content:'';position:absolute;width:400px;height:400px;border-radius:50%;border:1px solid rgba(255,230,127,.08);bottom:-150px;left:-80px;animation:drift 11s ease-in-out infinite 2s;pointer-events:none}
+@keyframes drift{0%,100%{transform:scale(1) rotate(0)}50%{transform:scale(1.05) rotate(6deg)}}
+
+.hero-tag{display:inline-flex;align-items:center;gap:8px;padding:5px 14px;border-radius:99px;background:rgba(255,206,0,.15);border:1px solid rgba(255,206,0,.35);font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--amb);margin-bottom:20px;font-variant-ligatures:none;opacity:0;animation:fup .5s var(--eout) .1s forwards}
+.hero-dot{width:6px;height:6px;border-radius:50%;background:var(--amb);animation:heroDotBlink 2s ease-in-out infinite}
+@keyframes heroDotBlink{0%,100%{opacity:1}50%{opacity:.25}}
+
+.hero h1{font-size:clamp(2.2rem,5vw,3.8rem);font-weight:700;color:var(--pw);line-height:1.1;max-width:min(920px,100%);margin-bottom:0;font-variant-ligatures:none;opacity:0;animation:fup .65s var(--eout) .28s forwards}
+.hero-title-main{display:block;white-space:nowrap}
+.hero h1 strong{color:var(--lp);font-weight:300;display:block;font-size:.49em;margin-top:.14em;letter-spacing:.01em;white-space:normal}
+@keyframes fup{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+
+/* ─── LAYOUT ─────────────────────────────────────────────────── */
+.page-wrap{max-width:1120px;margin:0 auto;padding:56px 40px 80px;display:grid;grid-template-columns:1fr 296px;gap:52px;align-items:start}
+
+/* ─── SECTION BLOCK ──────────────────────────────────────────── */
+.ex-section{margin-bottom:72px;scroll-margin-top:100px}
+.ex-section:last-child{margin-bottom:0}
+
+.section-badge{display:inline-flex;align-items:center;gap:8px;padding:4px 14px 4px 8px;border-radius:99px;background:var(--accent-t);font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-dk);margin-bottom:16px;font-variant-ligatures:none}
+.badge-num{width:22px;height:22px;border-radius:50%;background:var(--accent);color:var(--accent-dk);font-size:.68rem;font-weight:700;display:flex;align-items:center;justify-content:center}
+
+.ex-title{font-size:1.7rem;font-weight:700;color:var(--pp);line-height:1.15;margin-bottom:16px;font-variant-ligatures:none;max-width:640px}
+
+.divider{height:1px;background:linear-gradient(90deg,var(--amb) 0%,transparent 100%);margin:56px 0;opacity:.3}
+
+/* ─── EYEBROW ────────────────────────────────────────────────── */
+.eyebrow{font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-dk);margin-bottom:14px;font-variant-ligatures:none}
+
+.sub-title{font-size:1.15rem;font-weight:700;color:var(--pp);margin-bottom:14px;font-variant-ligatures:none}
+
+/* ─── DECISION TABLE ─────────────────────────────────────────── */
+.post-steps-table{margin-top:36px}
+.data-table{background:var(--pw);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);margin-bottom:8px;border:1.5px solid var(--mp)}
+.dt-head{background:var(--pp);padding:14px 22px;display:grid;gap:12px}
+.dt-head span{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--lp);font-variant-ligatures:none}
+.dt-row{display:grid;gap:12px;padding:13px 22px;border-bottom:1px solid var(--mp);transition:background .15s}
+.dt-row:last-child{border-bottom:none}
+.dt-row:hover{background:var(--mp)}
+.dt-cell{font-size:.82rem;color:var(--ux);line-height:1.4;font-variant-ligatures:none}
+.dt-cell.strong{font-weight:600;color:var(--pp)}
+.cols-3 .dt-head,.cols-3 .dt-row{grid-template-columns:1.4fr 1fr 1.4fr}
+.cols-4 .dt-head,.cols-4 .dt-row{grid-template-columns:1.35fr 1fr 1.05fr 1fr}
+.cdot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:middle}
+.dt-pill{display:inline-flex;align-items:center;padding:2px 10px;border-radius:99px;font-size:.72rem;font-weight:700;font-variant-ligatures:none}
+
+/* ─── WORKFLOW STEPS ─────────────────────────────────────────── */
+.workflow-steps{display:flex;flex-direction:column;gap:0;margin-bottom:0;position:relative;--rail-top:24px;--rail-height:120px}
+.workflow-steps::before{content:'';position:absolute;left:19px;top:var(--rail-top);height:var(--rail-height);width:2px;background:linear-gradient(to bottom,var(--amb),var(--am));opacity:.35;z-index:0;pointer-events:none}
+.wf-step{display:flex;gap:16px;position:relative;z-index:1;padding-bottom:20px}
+.wf-step:last-child{padding-bottom:0}
+.wf-num{flex-shrink:0;width:40px;height:40px;border-radius:50%;background:var(--pp);border:2px solid var(--accent);color:var(--ambt);font-size:.82rem;font-weight:700;display:flex;align-items:center;justify-content:center;font-variant-ligatures:none}
+.wf-body{flex:1;background:var(--pw);border-radius:var(--r);padding:18px 20px;box-shadow:var(--sh);opacity:0;transform:translateY(10px);transition:opacity .4s,transform .4s var(--spring),box-shadow .25s}
+.wf-body.vis{opacity:1;transform:translateY(0)}
+.wf-body:hover{box-shadow:var(--sh-md)}
+.wf-title{font-size:1.125rem;font-weight:700;color:var(--pp);margin-bottom:5px;font-variant-ligatures:none}
+.wf-text{font-size:1.025rem;color:var(--ux);line-height:1.45;font-variant-ligatures:none}
+.wf-text.wf-lean{margin-top:10px}
+.wf-bullets{margin:8px 0 0;padding-left:1.25rem;font-size:1.025rem;color:var(--ux);line-height:1.45;font-variant-ligatures:none}
+.wf-bullets li{margin-bottom:4px}
+ol.wf-bullets{list-style:decimal;padding-left:1.5rem}
+
+/* Outcome callout */
+.wf-outcome{margin-top:12px;padding:10px 14px;border-radius:10px;background:rgba(255,206,0,.1);border-left:3px solid var(--accent);font-size:.85rem;color:var(--pp);font-variant-ligatures:none}
+.wf-outcome strong{color:var(--accent-dk)}
+
+/* ─── INSIGHT BOX ────────────────────────────────────────────── */
+.insight-box{margin-top:14px;border:1.5px solid rgba(255,206,0,.4);border-radius:12px;padding:14px;background:linear-gradient(180deg,#FFFFFF 0%,#FFFBEA 100%)}
+.insight-box-title{font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-dk);margin-bottom:10px;font-variant-ligatures:none}
+.insight-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.insight-card{background:#FFFFFF;border:1px solid rgba(13,0,77,.1);border-radius:10px;padding:10px}
+.insight-card-a{border-left:4px solid var(--amb)}
+.insight-card-b{border-left:4px solid var(--am)}
+.insight-card-label{display:inline-block;font-size:.66rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:3px 8px;margin-bottom:8px}
+.insight-card-a .insight-card-label{color:var(--accent-dk);background:var(--ambt)}
+.insight-card-b .insight-card-label{color:var(--am);background:var(--lp)}
+.insight-copy{font-size:.82rem;line-height:1.45;color:var(--ux);font-variant-ligatures:none}
+
+/* ─── RESOURCES ──────────────────────────────────────────────── */
+.resource-block{margin-top:22px;padding-top:18px;border-top:1px solid rgba(13,0,77,.14)}
+.resource-heading{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--pp);margin-bottom:12px;font-variant-ligatures:none}
+.resource-list{list-style:none;display:flex;flex-wrap:wrap;align-items:stretch;gap:10px;margin:0;padding:0}
+.resource-list li{margin:0;padding:0}
+.resource-list a{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;background:#FFFFFF;border:1px solid rgba(255,206,0,.5);border-radius:8px;font-size:.8rem;font-weight:400;line-height:1.35;font-variant-ligatures:none;color:var(--pp);text-decoration:none;transition:background .2s,border-color .2s,box-shadow .2s;box-shadow:0 1px 2px rgba(13,0,77,.04)}
+.resource-list a:hover{background:var(--ambt);border-color:rgba(255,206,0,.8);box-shadow:0 2px 8px rgba(13,0,77,.08)}
+.resource-list a .res-ico{font-size:1.05rem;line-height:1;flex-shrink:0}
+.resource-list a .res-label{white-space:normal}
+
+/* ─── SIDEBAR ────────────────────────────────────────────────── */
+.sidebar{display:flex;flex-direction:column;gap:20px;position:sticky;top:96px}
+.s-card{background:var(--pw);border-radius:var(--r);padding:22px;box-shadow:var(--sh)}
+.s-title{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--am);margin-bottom:14px;font-variant-ligatures:none}
+
+/* Jump nav */
+.jump-nav{display:flex;flex-direction:column;gap:6px}
+.jump-link{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;text-decoration:none;font-size:.82rem;font-weight:500;color:var(--ux);font-variant-ligatures:none;transition:background .15s,color .15s,transform .2s var(--spring);border:1.5px solid transparent}
+.jump-link:hover,.jump-link.active{background:var(--mp);color:var(--pp);border-color:var(--ambt);transform:translateX(3px)}
+.jump-link.active{font-weight:700;color:var(--accent-dk)}
+.jl-num{width:22px;height:22px;border-radius:50%;background:var(--mp);font-size:.68rem;font-weight:700;color:var(--am);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s}
+.jump-link.active .jl-num{background:var(--accent);color:var(--accent-dk)}
+.jl-text{flex:1;line-height:1.3}
+.jl-tag{font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-dk);background:var(--accent-t);padding:2px 8px;border-radius:99px;font-variant-ligatures:none;margin-top:2px}
+
+/* Progress */
+.prog-wrap{margin-bottom:12px}
+.prog-labels{display:flex;justify-content:space-between;font-size:.72rem;font-weight:600;color:var(--ux);margin-bottom:6px;font-variant-ligatures:none}
+.prog-labels span{color:var(--am)}
+.prog-track{height:6px;border-radius:99px;background:var(--mp);overflow:hidden}
+.prog-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--am),var(--amb));width:0;transition:width 1s var(--eout)}
+
+/* Related competencies */
+.rel-list{display:flex;flex-direction:column;gap:8px}
+.rel-link{display:flex;align-items:center;gap:10px;padding:11px 13px;border-radius:10px;text-decoration:none;font-size:.8rem;font-weight:500;color:var(--pp);background:var(--mp);font-variant-ligatures:none;transition:background .2s,transform .2s var(--spring),border-color .2s;border:1.5px solid transparent}
+.rel-link:hover{background:var(--pw);border-color:var(--lp);transform:translateX(3px)}
+.rel-tag{font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:99px;margin-left:auto;font-variant-ligatures:none;flex-shrink:0}
+
+/* ─── FOOTER ─────────────────────────────────────────────────── */
+.footer{background:var(--pp);padding:28px 40px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.footer-logo{height:22px;width:auto;opacity:.85}
+.footer-text{font-size:.72rem;color:var(--lp);opacity:.7;font-variant-ligatures:none}
+
+/* ─── RESPONSIVE ─────────────────────────────────────────────── */
+@media(max-width:900px){
+  .page-wrap{grid-template-columns:1fr;padding:40px 24px 60px;gap:32px}
+  .sidebar{position:static}
+  .nav{padding:0 20px}
+  .hero{padding:40px 24px 56px}
+  .footer{padding:24px 20px}
+}
+@media(max-width:560px){
+  .hero h1{font-size:clamp(1.55rem,5.2vw,2.35rem)}
+  .cols-3 .dt-head,.cols-3 .dt-row{grid-template-columns:1.05fr 1fr 1fr}
+  .insight-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <img src="assets/Logo/primary/PEARSON_LOGO_WHITE_RGB.svg" alt="Pearson" class="nav-logo">
+  <a href="index.html" class="nav-back">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 2L4 7l5 5"/></svg>
+    Back to Framework
+  </a>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-tag"><span class="hero-dot"></span>Competency 4 of 4</div>
+  <h1><span class="hero-title-main">Strategic Intelligence</span><strong>Seeing the larger picture in an AI-powered world</strong></h1>
+</header>
+
+<!-- PAGE -->
+<div class="page-wrap">
+
+  <!-- MAIN CONTENT -->
+  <main>
+
+    <!-- ── 1. VALUE ID ────────────────────────────────────────── -->
+    <section class="ex-section" id="value-id">
+      <div class="section-badge"><span class="badge-num">1</span>Value ID</div>
+      <h2 class="ex-title">Spotting High-Impact AI Opportunities</h2>
+      <p class="eyebrow">Action steps</p>
+      <div class="workflow-steps">
+        <div class="wf-step">
+          <div class="wf-num">1</div>
+          <div class="wf-body">
+            <p class="wf-title">Audit your workflows for AI opportunity</p>
+            <p class="wf-text">Strategic AI adoption starts with a clear-eyed inventory of where you actually spend your time and which of those activities are strong candidates for AI augmentation.</p>
+            <p class="wf-text wf-lean"><strong>High-signal AI opportunities share these characteristics:</strong></p>
+            <ul class="wf-bullets">
+              <li>High volume, repetitive, or predictable in structure</li>
+              <li>Involves drafting, summarizing, or synthesizing information</li>
+              <li>Requires research across many sources</li>
+              <li>Has a defined quality standard AI can be evaluated against</li>
+              <li>Generates output that a human still reviews before acting</li>
+            </ul>
+            <p class="wf-text wf-lean">For each opportunity, estimate: <strong>time saved × weekly frequency × strategic importance</strong> to prioritize where to start.</p>
+            <div class="wf-outcome"><strong>Measurable outcome:</strong> Complete a workflow audit identifying at least 5 high-potential AI opportunities in your current role, ranked by estimated impact.</div>
+          </div>
+        </div>
+        <div class="wf-step">
+          <div class="wf-num">2</div>
+          <div class="wf-body">
+            <p class="wf-title">Distinguish genuine value from hype</p>
+            <p class="wf-text">The volume of AI announcements, demos, and case studies makes it easy to mistake novelty for value. The ability to cut through hype and evaluate AI claims rigorously is a genuine competitive skill.</p>
+            <p class="wf-text wf-lean"><strong>Questions that cut through hype:</strong></p>
+            <ul class="wf-bullets">
+              <li>"What specific problem does this solve — and how is it solved today?"</li>
+              <li>"What does the failure mode look like? What happens when it's wrong?"</li>
+              <li>"Has this been validated in a context similar to mine, at similar scale?"</li>
+              <li>"What does implementation actually cost — in time, training, and change management?"</li>
+              <li>"Who benefits from me believing this works?"</li>
+            </ul>
+            <div class="wf-outcome"><strong>Measurable outcome:</strong> Evaluate 5 AI tools or use cases using a consistent value-assessment framework and document your scoring rationale.</div>
+          </div>
+        </div>
+        <div class="wf-step">
+          <div class="wf-num">3</div>
+          <div class="wf-body">
+            <p class="wf-title">Build and maintain a personal AI opportunity map</p>
+            <p class="wf-text">A one-time audit becomes stale within months. The goal is a living document that evolves as the AI landscape and your own role change.</p>
+            <p class="wf-text wf-lean"><strong>Three-horizon structure:</strong></p>
+            <ul class="wf-bullets">
+              <li><strong>Now:</strong> Opportunities you can act on today with available tools</li>
+              <li><strong>Next:</strong> Emerging capabilities worth piloting in the next 6 months</li>
+              <li><strong>Later:</strong> Speculative developments worth monitoring from a distance</li>
+            </ul>
+            <p class="wf-text wf-lean">Review and update the map every quarter — what moves from "Later" to "Now" is often the most strategically significant shift to track.</p>
+            <div class="wf-outcome"><strong>Measurable outcome:</strong> Build your AI opportunity map and update it at the end of each quarter for one year.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="post-steps-table">
+        <p class="eyebrow">Decision framework</p>
+        <p class="sub-title">When AI is likely to add the most value</p>
+        <div class="data-table cols-3" role="region" aria-label="AI value potential by work type">
+          <div class="dt-head"><span>Work type</span><span>AI value potential</span><span>Human role</span></div>
+          <div class="dt-row"><div class="dt-cell strong">High-volume repetitive text processing</div><div class="dt-cell"><span class="dt-pill" style="background:#ECFDF5;color:#14532D;border:1px solid #A7F3D0">Very high</span></div><div class="dt-cell">QA, exception handling, final judgment</div></div>
+          <div class="dt-row"><div class="dt-cell strong">Research synthesis across many sources</div><div class="dt-cell"><span class="dt-pill" style="background:#ECFDF5;color:#14532D;border:1px solid #A7F3D0">High</span></div><div class="dt-cell">Validation, insight extraction, framing</div></div>
+          <div class="dt-row"><div class="dt-cell strong">First-draft creation — docs, emails, code</div><div class="dt-cell"><span class="dt-pill" style="background:#ECFDF5;color:#14532D;border:1px solid #A7F3D0">High</span></div><div class="dt-cell">Editing, refinement, voice, judgment</div></div>
+          <div class="dt-row"><div class="dt-cell strong">Creative direction and brand-defining work</div><div class="dt-cell"><span class="dt-pill" style="background:#FFFBEB;color:#7A5F00;border:1px solid #FFE67F">Medium</span></div><div class="dt-cell">Human defines direction; AI executes</div></div>
+          <div class="dt-row"><div class="dt-cell strong">Real-time stakeholder-facing decisions</div><div class="dt-cell"><span class="dt-pill" style="background:#FEF2F2;color:#7F1D1D;border:1px solid #FECACA">Low</span></div><div class="dt-cell">Human leads throughout</div></div>
+          <div class="dt-row"><div class="dt-cell strong">Novel strategy in uncertain conditions</div><div class="dt-cell"><span class="dt-pill" style="background:#FEF2F2;color:#7F1D1D;border:1px solid #FECACA">Low</span></div><div class="dt-cell">Human leads; AI provides inputs only</div></div>
+          <div class="dt-row"><div class="dt-cell strong">High-stakes compliance and legal decisions</div><div class="dt-cell"><span class="dt-pill" style="background:#FEF2F2;color:#7F1D1D;border:1px solid #FECACA">Low</span></div><div class="dt-cell">Human accountable; qualified expert verifies</div></div>
+        </div>
+      </div>
+
+      <div class="resource-block">
+        <p class="resource-heading">Suggested resources</p>
+        <ul class="resource-list">
+          <li><a href="https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai" target="_blank" rel="noopener noreferrer"><span class="res-ico" aria-hidden="true">📰</span><span class="res-label">McKinsey — State of AI</span></a></li>
+          <li><a href="https://www.weforum.org/reports/the-future-of-jobs-report-2025" target="_blank" rel="noopener noreferrer"><span class="res-ico" aria-hidden="true">📖</span><span class="res-label">WEF — Future of Jobs Report</span></a></li>
+          <li><a href="https://hbr.org/topic/subject/ai-and-machine-learning" target="_blank" rel="noopener noreferrer"><span class="res-ico" aria-hidden="true">📰</span><span class="res-label">HBR — AI &amp; Machine Learning</span></a></li>
+        </ul>
+      </div>
+    </section>
+
+    <div class="divider" aria-hidden="true"></div>
+
+    <!-- ── 2. INDUSTRY ────────────────────────────────────────── -->
+    <section class="ex-section" id="industry">
+      <div class="section-badge"><span class="badge-num">2</span>Industry</div>
+      <h2 class="ex-title">AI's Transformative Effect on Your Sector</h2>
+      <p class="eyebrow">Action steps</p>
+      <div class="workflow-steps">
+        <div class="wf-step">
+          <div class="wf-num">1</div>
+          <div class="wf-body">
+            <p class="wf-title">Map AI's disruption pattern in your specific industry</p>
+            <p class="wf-text">AI doesn't transform industries uniformly. The disruption pattern in education looks very different from finance, healthcare, or manufacturing. Understanding the specific dynamics in your sector is a prerequisite for acting strategically.</p>
+            <p class="wf-text wf-lean"><strong>Research questions to answer for your industry:</strong></p>
+            <ul class="wf-bullets">
+              <li>Which job functions are being automated — and at what pace?</li>
+              <li>Which functions are being augmented — becoming more powerful with AI?</li>
+              <li>Which human skills are becoming more valuable precisely because AI can't replicate them?</li>
+              <li>Which business models in your sector are being threatened or enabled by AI?</li>
+              <li>Where are the regulatory and ethical constraints that will shape AI adoption?</li>
+            </ul>
+            <div class="wf-outcome"><strong>Measurable outcome:</strong> Write a one-page "AI in my industry" brief — the top 3 transformative impacts, 2 risks, and your personal strategic implication.</div>
+          </div>
+        </div>
+        <div class="wf-step">
+          <div class="wf-num">2</div>
+          <div class="wf-body">
+            <p class="wf-title">Benchmark against AI-forward peers and competitors</p>
+            <p class="wf-text">Strategic advantage from AI comes from moving faster or smarter than peers. You can't calibrate your position without understanding theirs.</p>
+            <p class="wf-text wf-lean"><strong>Competitive intelligence methods:</strong></p>
+            <ul class="wf-bullets">
+              <li>Track competitor job postings — their AI-related hires reveal their strategy</li>
+              <li>Follow product announcements and press releases for AI feature signals</li>
+              <li>Read industry analyst reports (Gartner, Forrester, IDC) for benchmarks</li>
+              <li>Attend at least one industry conference per year focused on AI adoption</li>
+              <li>Talk to peers in your network — informal intelligence is often faster than published research</li>
+            </ul>
+            <div class="wf-outcome"><strong>Measurable outcome:</strong> Complete a competitive AI benchmarking exercise comparing your organization to 3 peers or competitors across 5 capability dimensions.</div>
+          </div>
+        </div>
+        <div class="wf-step">
+          <div class="wf-num">3</div>
+          <div class="wf-body">
+            <p class="wf-title">Build deep expertise in the AI applications most relevant to your role</p>
+            <p class="wf-text">Generalist AI knowledge is a foundation. Industry- and function-specific expertise is the differentiator. The professionals who create the most value will be those who combine deep domain knowledge with strong AI fluency.</p>
+            <p class="wf-text wf-lean"><strong>Build your expertise stack:</strong></p>
+            <ul class="wf-bullets">
+              <li>Identify the 3 AI applications most relevant to your specific function and sector</li>
+              <li>Go deep on at least one: read practitioner case studies, run experiments, talk to people doing it well</li>
+              <li>Build a point of view — be able to explain what works, what doesn't, and why, in your context</li>
+            </ul>
+            <div class="wf-outcome"><strong>Measurable outcome:</strong> Develop a written point of view on one AI application in your sector — what the current state is, what the potential is, and what the barriers are.</div>
+          </div>
+        </div>
+      </div>
+      <div class="resource-block">
+        <p class="resource-heading">Suggested resources</p>
+        <ul class="resource-list">
+          <li><a href="https://www.gartner.com/en/topics/artificial-intelligence" target="_blank" rel="noopener noreferrer"><span class="res-ico" aria-hidden="true">📊</span><span class="res-label">Gartner — AI Research</span></a></li>
+          <li><a href="https://www.mckinsey.com/capabilities/quantumblack/our-insights" target="_blank" rel="noopener noreferrer"><span class="res-ico" aria-hidden="true">📰</span><span class="res-label">McKinsey QuantumBlack Insights</span></a></li>
+          <li><a href="https://www.technologyreview.com/" target="_blank" rel="noopener noreferrer"><span class="res-ico" aria-hidden="true">📖</span><span class="res-label">MIT Technology Review</span></a></li>
+        </ul>
+      </div>
+    </section>
+
+    <div class="divider" aria-hidden="true"></div>
+
+    <!-- ── 3. HUMAN-AI TEAMING ─────────────────────────────────── -->
+    <section class="ex-section" id="teaming">
+      <div class="section-badge"><span class="badge-num">3</span>Human-AI Teaming</div>
+      <h2 class="ex-title">Designing Effective Human–AI Collaboration</h2>
+      <p class="eyebrow">Action steps</p>
+      <div class="workflow-steps">
+        <div class="wf-step">
+          <div class="wf-num">1</div>
+          <div class="wf-body">
+            <p class="wf-title">Define human and AI roles explicitly for each workflow</p>
+            <p class="wf-text">The biggest source of wasted effort in human-AI collaboration is ambiguity about who does what. High-performing teams define the handoffs deliberately rather than letting them emerge by accident.</p>
+            <p class="wf-text wf-lean"><strong>For each significant workflow, answer three questions:</strong></p>
+            <ul class="wf-bullets">
+              <li>Where does AI start, and what exactly does it produce?</li>
+              <li>What does the human review, enhance, or override — and by what standard?</li>
+              <li>What steps must remain entirely human, and why?</li>
+            </ul>
+            <div class="insight-box">
+              <p class="insight-box-title">Two workflow patterns</p>
+              <div class="insight-grid">
+                <div class="insight-card insight-card-a">
+                  <span class="insight-card-label">AI-first</span>
+                  <p class="insight-copy">AI generates a complete first draft. Human reviews, edits, and approves. Best for: high-volume, well-defined outputs where speed matters and quality can be verified quickly.</p>
+                </div>
+                <div class="insight-card insight-card-b">
+                  <span class="insight-card-label">Human-first</span>
+                  <p class="insight-copy">Human sets direction, context, and judgment. AI executes specific sub-tasks within that frame. Best for: strategic, novel, or high-stakes work where human ownership of the outcome matters.</p>
+                </div>
+              </div>
+            </div>
+            <div class="wf-outcome"><strong>Measurable outcome:</strong> Map 5 of your regular workflows with explicit human/AI role definitions, and share the mapping with one colleague for feedback.</div>
+          </div>
+        </div>
+        <div class="wf-step">
+          <div class="wf-num">2</div>
+          <div class="wf-body">
+            <p class="wf-title">Build feedback loops that improve AI performance over time</p>
+            <p class="wf-text">AI doesn't get better in your workflow by itself. The people who compound the fastest are those who systematically learn what works and apply that knowledge to the next task.</p>
+            <p class="wf-text wf-lean"><strong>Feedback practices to build:</strong></p>
+            <ul class="wf-bullets">
+              <li>Keep a prompt log — document which prompts produced high-quality outputs and why</li>
+              <li>Track degradation — when does output quality drop? What triggers it?</li>
+              <li>Run retrospectives: after any significant AI-assisted project, note what you'd do differently</li>
+              <li>Share learnings with colleagues — collective intelligence compounds faster than individual learning</li>
+            </ul>
+            <div class="wf-outcome"><strong>Measurable outcome:</strong> Maintain a personal AI feedback log for 3 months. At each month-end, identify one practice change based on what you've observed.</div>
+          </div>
+        </div>
+        <div class="wf-step">
+          <div class="wf-num">3</div>
+          <div class="wf-body">
+            <p class="wf-title">Move from ad-hoc use to systematic process design</p>
+            <p class="wf-text">The highest-value AI use isn't an individual using a tool — it's AI embedded thoughtfully into how a team works. Moving from personal use to process design is the strategic leap.</p>
+            <p class="wf-text wf-lean"><strong>How to make the move:</strong></p>
+            <ul class="wf-bullets">
+              <li>Identify a team workflow where your personal AI practice could be systematized</li>
+              <li>Document the proposed process: where AI fits, what it produces, who reviews it</li>
+              <li>Pilot it with one or two colleagues before proposing it broadly</li>
+              <li>Define success criteria upfront — speed, quality, capacity freed up — so you can evaluate it</li>
+            </ul>
+            <div class="wf-outcome"><strong>Measurable outcome:</strong> Design and propose one AI-embedded process improvement to your team, including a pilot plan and success criteria.</div>
+          </div>
+        </div>
+      </div>
+      <div class="resource-block">
+        <p class="resource-heading">Suggested resources</p>
+        <ul class="resource-list">
+          <li><a href="https://www.coursera.org/learn/ai-for-everyone" target="_blank" rel="noopener noreferrer"><span class="res-ico" aria-hidden="true">📚</span><span class="res-label">AI For Everyone — Andrew Ng, Coursera</span></a></li>
+          <li><a href="https://hbr.org/topic/subject/human-computer-interaction" target="_blank" rel="noopener noreferrer"><span class="res-ico" aria-hidden="true">📰</span><span class="res-label">HBR — Human-Computer Interaction</span></a></li>
+          <li><a href="https://www.linkedin.com/learning/topics/ai-productivity" target="_blank" rel="noopener noreferrer"><span class="res-ico" aria-hidden="true">🎓</span><span class="res-label">AI Productivity — LinkedIn Learning</span></a></li>
+        </ul>
+      </div>
+    </section>
+
+    <div class="divider" aria-hidden="true"></div>
+
+    <!-- ── 4. ANALYSIS ────────────────────────────────────────── -->
+    <section class="ex-section" id="analysis">
+      <div class="section-badge"><span class="badge-num">4</span>Analysis</div>
+      <h2 class="ex-title">Evaluating AI Recommendations Strategically</h2>
+      <p class="eyebrow">Action steps</p>
+      <div class="workflow-steps">
+        <div class="wf-step">
+          <div class="wf-num">1</div>
+          <div class="wf-body">
+            <p class="wf-title">Layer human context onto AI-generated analysis</p>
+            <p class="wf-text">AI optimizes for what you tell it to optimize for. It doesn't know your organization's history, political landscape, unstated constraints, or values. That translation from AI output to actionable insight is entirely yours.</p>
+            <p class="wf-text wf-lean"><strong>Before presenting any AI-informed analysis, add:</strong></p>
+            <ul class="wf-bullets">
+              <li>Organizational context: what does AI not know about our specific situation?</li>
+              <li>Constraint mapping: what strategic, political, or resource constraints shape what's actually feasible?</li>
+              <li>Risk flags: what assumptions is this analysis making that could be wrong?</li>
+              <li>Your recommendation: don't hand over AI output — hand over your judgment informed by AI</li>
+            </ul>
+            <div class="wf-outcome"><strong>Measurable outcome:</strong> Complete 5 AI-assisted strategic analyses where you explicitly document your human additions — context, constraints, and judgment calls — separate from the AI output.</div>
+          </div>
+        </div>
+        <div class="wf-step">
+          <div class="wf-num">2</div>
+          <div class="wf-body">
+            <p class="wf-title">Present AI-informed insights with confidence and transparency</p>
+            <p class="wf-text">Leaders want your judgment, not an AI printout. How you present AI-informed work signals your fluency — and your accountability for the recommendation.</p>
+            <p class="wf-text wf-lean"><strong>Presentation principles:</strong></p>
+            <ul class="wf-bullets">
+              <li>Lead with your recommendation, not a description of the AI process</li>
+              <li>Disclose AI's role clearly: "I used AI to synthesize the research; this interpretation is mine"</li>
+              <li>Acknowledge uncertainty and limitations — it builds trust rather than undermining it</li>
+              <li>Be prepared for: "How confident are you?" and "What would change your view?"</li>
+            </ul>
+            <div class="wf-outcome"><strong>Measurable outcome:</strong> Present 3 AI-informed recommendations to a team or stakeholder, using a structured format that separates AI contribution from your own judgment and recommendation.</div>
+          </div>
+        </div>
+        <div class="wf-step">
+          <div class="wf-num">3</div>
+          <div class="wf-body">
+            <p class="wf-title">Systematize how you track and act on AI developments</p>
+            <p class="wf-text">The AI landscape moves faster than any individual can track casually. Building a system — even a lightweight one — ensures you learn from signal rather than noise and connect learning to action.</p>
+            <p class="wf-text wf-lean"><strong>A minimal signal-tracking system:</strong></p>
+            <ul class="wf-bullets">
+              <li>Choose 3–5 sources you trust and read consistently (newsletters, analysts, practitioners)</li>
+              <li>For each significant development you track, write one implication for your work</li>
+              <li>Set a monthly review: what did I learn this month, and what will I do differently?</li>
+              <li>Share your most valuable findings — becoming a connector compounds your own learning</li>
+            </ul>
+            <div class="wf-outcome"><strong>Measurable outcome:</strong> Run your signal-tracking system for 6 months. Produce one "AI implications" briefing per month — one page, three insights, one action.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="post-steps-table">
+        <p class="eyebrow">Evaluation framework</p>
+        <p class="sub-title">How to stress-test an AI recommendation before acting on it</p>
+        <div class="data-table cols-3" role="region" aria-label="AI recommendation evaluation framework">
+          <div class="dt-head"><span>Dimension</span><span>Question to ask</span><span>What to verify</span></div>
+          <div class="dt-row"><div class="dt-cell strong">Relevance</div><div class="dt-cell">Does this apply to our specific context and constraints?</div><div class="dt-cell">Training data domain fit; any context the AI didn't have</div></div>
+          <div class="dt-row"><div class="dt-cell strong">Completeness</div><div class="dt-cell">What's missing from this analysis?</div><div class="dt-cell">Data gaps, unstated assumptions, omitted perspectives</div></div>
+          <div class="dt-row"><div class="dt-cell strong">Recency</div><div class="dt-cell">Is this based on current information?</div><div class="dt-cell">Training cutoff date; market or regulatory changes since</div></div>
+          <div class="dt-row"><div class="dt-cell strong">Bias</div><div class="dt-cell">Who or what might be systematically underrepresented here?</div><div class="dt-cell">Fairness check; whose interests does this reflect?</div></div>
+          <div class="dt-row"><div class="dt-cell strong">Accountability</div><div class="dt-cell">Who owns this decision if it's wrong?</div><div class="dt-cell">Human judgment must remain in the loop for consequential calls</div></div>
+          <div class="dt-row"><div class="dt-cell strong">Confidence</div><div class="dt-cell">How certain is this, and does the AI signal that uncertainty?</div><div class="dt-cell">Confident language ≠ accurate; probe the basis of the claim</div></div>
+        </div>
+      </div>
+
+      <div class="resource-block">
+        <p class="resource-heading">Suggested resources</p>
+        <ul class="resource-list">
+          <li><a href="https://www.coursera.org/learn/ai-for-business-strategy" target="_blank" rel="noopener noreferrer"><span class="res-ico" aria-hidden="true">📚</span><span class="res-label">AI for Business Strategy — Coursera</span></a></li>
+          <li><a href="https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai" target="_blank" rel="noopener noreferrer"><span class="res-ico" aria-hidden="true">📊</span><span class="res-label">McKinsey — State of AI</span></a></li>
+          <li><a href="https://hbr.org/topic/subject/ai-and-machine-learning" target="_blank" rel="noopener noreferrer"><span class="res-ico" aria-hidden="true">📰</span><span class="res-label">HBR — AI Strategy</span></a></li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <div class="s-card">
+      <p class="s-title">Practical areas</p>
+      <nav class="jump-nav" aria-label="Practical areas">
+        <a href="#value-id" class="jump-link active" data-section="value-id">
+          <span class="jl-num">1</span>
+          <span class="jl-text">Value ID<br><span class="jl-tag">AI opportunities</span></span>
+        </a>
+        <a href="#industry" class="jump-link" data-section="industry">
+          <span class="jl-num">2</span>
+          <span class="jl-text">Industry<br><span class="jl-tag">Sector transformation</span></span>
+        </a>
+        <a href="#teaming" class="jump-link" data-section="teaming">
+          <span class="jl-num">3</span>
+          <span class="jl-text">Human-AI Teaming<br><span class="jl-tag">Collaboration design</span></span>
+        </a>
+        <a href="#analysis" class="jump-link" data-section="analysis">
+          <span class="jl-num">4</span>
+          <span class="jl-text">Analysis<br><span class="jl-tag">Strategic evaluation</span></span>
+        </a>
+      </nav>
+    </div>
+
+    <div class="s-card">
+      <p class="s-title">Your progress</p>
+      <div class="prog-wrap">
+        <div class="prog-labels">This competency <span>4 / 4</span></div>
+        <div class="prog-track"><div class="prog-fill" data-w="100"></div></div>
+      </div>
+      <div class="prog-wrap">
+        <div class="prog-labels">Full framework <span>4 / 4</span></div>
+        <div class="prog-track"><div class="prog-fill" data-w="100"></div></div>
+      </div>
+    </div>
+
+    <div class="s-card">
+      <p class="s-title">Other competencies</p>
+      <div class="rel-list">
+        <a href="functional-ai-proficiency.html" class="rel-link">Functional AI Proficiency <span class="rel-tag" style="background:var(--tqt);color:#0B7373">Explore</span></a>
+        <a href="critical-human-skills.html" class="rel-link">Critical Human Skills <span class="rel-tag" style="background:#EFA0E7;color:#8B1687">Explore</span></a>
+        <a href="ethical-stewardship.html" class="rel-link">Ethical Stewardship <span class="rel-tag" style="background:var(--lp);color:var(--am)">Explore</span></a>
+      </div>
+    </div>
+
+  </aside>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <img src="assets/Logo/primary/PEARSON_LOGO_WHITE_RGB.svg" alt="Pearson" class="footer-logo">
+  <span class="footer-text">© Pearson plc. Helping people realize the life they imagine through learning.</span>
+</footer>
+
+<script>
+function updateWorkflowRails() {
+  document.querySelectorAll('.workflow-steps').forEach(function (rail) {
+    var nums = rail.querySelectorAll('.wf-num');
+    if (nums.length < 2) return;
+    var last = nums[nums.length - 1];
+    var first = nums[0];
+    var srail = rail.getBoundingClientRect();
+    var fr = first.getBoundingClientRect();
+    var lr = last.getBoundingClientRect();
+    var topPx = fr.top - srail.top + fr.height / 2;
+    var endPx = lr.top - srail.top + lr.height / 2;
+    rail.style.setProperty('--rail-top', topPx + 'px');
+    rail.style.setProperty('--rail-height', Math.max(0, endPx - topPx) + 'px');
+  });
+}
+
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('vis');
+      io.unobserve(e.target);
+      requestAnimationFrame(updateWorkflowRails);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.wf-body').forEach(el => io.observe(el));
+
+const po = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.prog-fill').forEach(b => { b.style.width = b.dataset.w + '%'; });
+      po.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('.s-card').forEach(el => po.observe(el));
+
+const sectionIds = ['value-id', 'industry', 'teaming', 'analysis'];
+const sectionEls = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
+const so = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const id = e.target.id;
+      document.querySelectorAll('.jump-link').forEach(l => l.classList.toggle('active', l.dataset.section === id));
+    }
+  });
+}, { rootMargin: '-28% 0px -52% 0px', threshold: 0 });
+sectionEls.forEach(el => so.observe(el));
+
+window.addEventListener('resize', function () { requestAnimationFrame(updateWorkflowRails); });
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { requestAnimationFrame(updateWorkflowRails); });
+window.addEventListener('load', function () { requestAnimationFrame(updateWorkflowRails); });
+requestAnimationFrame(updateWorkflowRails);
+setTimeout(updateWorkflowRails, 400);
+</script>
+</body>
+</html>

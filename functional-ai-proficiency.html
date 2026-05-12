@@ -88,6 +88,7 @@ body{font-family:var(--font);font-variant-ligatures:none;background:var(--mp);co
 .dt-cell{font-size:.82rem;color:var(--ux);line-height:1.4;font-variant-ligatures:none}
 .dt-cell.strong{font-weight:600;color:var(--pp)}
 .cols-4 .dt-head,.cols-4 .dt-row{grid-template-columns:1.35fr 1fr 1.05fr 1fr}
+.cols-3 .dt-head,.cols-3 .dt-row{grid-template-columns:1.25fr 1.1fr 1.15fr}
 .cdot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:middle}
 
 /* ─── WORKFLOW STEPS ─────────────────────────────────────────── */
@@ -102,6 +103,117 @@ body{font-family:var(--font);font-variant-ligatures:none;background:var(--mp);co
 .wf-body:hover{box-shadow:var(--sh-md)}
 .wf-title{font-size:1.125rem;font-weight:700;color:var(--pp);margin-bottom:5px;font-variant-ligatures:none}
 .wf-text{font-size:1.025rem;color:var(--ux);line-height:1.45;font-variant-ligatures:none}
+.wf-text.wf-lean{margin-top:10px}
+.wf-bullets{margin:8px 0 0;padding-left:1.25rem;font-size:1.025rem;color:var(--ux);line-height:1.45;font-variant-ligatures:none}
+.wf-bullets li{margin-bottom:4px}
+ol.wf-bullets{list-style:decimal;padding-left:1.5rem}
+
+/* Outcome callout */
+.wf-outcome{margin-top:12px;padding:10px 14px;border-radius:10px;background:rgba(86,226,225,.1);border-left:3px solid var(--accent);font-size:.85rem;color:var(--pp);font-variant-ligatures:none}
+.wf-outcome strong{color:var(--accent-dk)}
+
+/* Prompt framework example (before/after + breakdown) */
+.prompt-example{
+  margin-top:14px;
+  border:1.5px solid rgba(81,46,171,.28);
+  border-radius:12px;
+  padding:14px;
+  background:linear-gradient(180deg,#FFFFFF 0%, #F5F3FF 100%);
+}
+.prompt-example-title{
+  font-size:.78rem;
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--am);
+  margin-bottom:10px;
+  font-variant-ligatures:none;
+}
+.prompt-example-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-bottom:10px;
+}
+.prompt-card{
+  background:#FFFFFF;
+  border:1px solid rgba(13,0,77,.14);
+  border-radius:10px;
+  padding:10px;
+}
+.prompt-card-basic{border-left:4px solid #EA4335}
+.prompt-card-better{border-left:4px solid #16A34A}
+.prompt-card-label{
+  display:inline-block;
+  font-size:.66rem;
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--accent-dk);
+  background:var(--accent-t);
+  border-radius:999px;
+  padding:3px 8px;
+  margin-bottom:8px;
+}
+.prompt-card-basic .prompt-card-label{
+  color:#8B1E1E;
+  background:#FEE2E2;
+}
+.prompt-card-better .prompt-card-label{
+  color:#14532D;
+  background:#DCFCE7;
+}
+.prompt-copy{
+  font-size:.82rem;
+  line-height:1.45;
+  color:var(--ux);
+  font-variant-ligatures:none;
+}
+.prompt-breakdown{
+  display:grid;
+  grid-template-columns:repeat(4, minmax(0, 1fr));
+  gap:8px;
+}
+.prompt-part{
+  background:#FFFFFF;
+  border:1px solid rgba(13,0,77,.1);
+  border-radius:9px;
+  padding:8px;
+  font-size:.76rem;
+  line-height:1.35;
+  color:var(--ux);
+}
+.prompt-part strong{color:var(--pp)}
+.prompt-part-role{border-top:3px solid #7C3AED;background:#F5F3FF}
+.prompt-part-context{border-top:3px solid #0369A1;background:#EFF6FF}
+.prompt-part-task{border-top:3px solid #16A34A;background:#F0FDF4}
+.prompt-part-format{border-top:3px solid #B45309;background:#FFFBEB}
+
+/* Image prompting block (under text frameworks in step 1) */
+.wf-image-prompt{
+  margin-top:14px;
+  border:1.5px solid rgba(81,46,171,.28);
+  border-radius:12px;
+  padding:14px;
+  background:linear-gradient(180deg,#FFFFFF 0%, #F5F3FF 100%);
+}
+.wf-image-prompt-title{
+  font-size:.78rem;
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--am);
+  margin-bottom:10px;
+  font-variant-ligatures:none;
+}
+.wf-image-prompt-img{
+  display:block;
+  width:100%;
+  max-width:100%;
+  height:auto;
+  border-radius:8px;
+  border:1px solid rgba(13,0,77,.1);
+}
 
 /* ─── RESOURCES (horizontal chips — white pills, purple border) ─ */
 .resource-block{margin-top:22px;padding-top:18px;border-top:1px solid rgba(13,0,77,.14)}
@@ -194,6 +306,8 @@ body{font-family:var(--font);font-variant-ligatures:none;background:var(--mp);co
   .hero h1{font-size:clamp(1.55rem,5.2vw,2.35rem)}
   .cols-4 .dt-head,.cols-4 .dt-row{grid-template-columns:1.2fr 1fr 1fr}
   .cols-4 .dt-head span:last-child,.cols-4 .dt-cell:last-child{display:none}
+  .cols-3 .dt-head,.cols-3 .dt-row{grid-template-columns:1.05fr 1fr 1fr}
+  .prompt-example-grid,.prompt-breakdown{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -228,31 +342,54 @@ body{font-family:var(--font);font-variant-ligatures:none;background:var(--mp);co
         <div class="wf-step">
           <div class="wf-num">1</div>
           <div class="wf-body">
-            <p class="wf-title">Start a daily AI tool practice habit</p>
-            <p class="wf-text">Practice one AI tool every day for a real work task, such as drafting, summarizing, researching, or organizing information.</p>
+            <p class="wf-title">Start a daily tool practice habit</p>
+            <p class="wf-text">Practice using one AI tool every day for a real-world task, such as drafting, summarizing, researching, or organizing information.</p>
+            <p class="wf-text wf-lean"><strong>Focus on features and capabilities:</strong></p>
+            <p class="wf-text wf-lean">Examples:</p>
+            <ul class="wf-bullets">
+              <li>Try image generation</li>
+              <li>Test web search mode</li>
+              <li>Upload a document and analyze it</li>
+              <li>Try AI coding assistance</li>
+              <li>Explore voice interaction</li>
+            </ul>
+            <div class="wf-outcome"><strong>Measurable outcome:</strong> Use at least one AI tool daily for 30 consecutive days.</div>
           </div>
         </div>
         <div class="wf-step">
           <div class="wf-num">2</div>
           <div class="wf-body">
-            <p class="wf-title">Create a project portfolio</p>
-            <p class="wf-text">Compile a list of completed projects that demonstrate how you have applied standard AI tools to specific professional workflows.</p>
+            <p class="wf-title">Build a Personal AI Tool Directory</p>
+            <p class="wf-text">Create a document or spreadsheet tracking AI tools you discover.</p>
+            <p class="wf-text wf-lean"><strong>Fields to Include:</strong></p>
+            <ul class="wf-bullets">
+              <li>Tool name</li>
+              <li>Primary purpose</li>
+              <li>Best use cases</li>
+              <li>Pricing</li>
+              <li>Strengths</li>
+              <li>Weaknesses</li>
+              <li>Notes/examples</li>
+            </ul>
+            <div class="wf-outcome"><strong>Measurable outcome:</strong> Document at least 15 tools.</div>
           </div>
         </div>
         <div class="wf-step">
           <div class="wf-num">3</div>
           <div class="wf-body">
-            <p class="wf-title">Build a prompt library</p>
-            <p class="wf-text">Develop and document a set of reusable prompt templates that use specific personas and constraints to improve the effectiveness of your AI instructions.</p>
+            <p class="wf-title">Curate a list of YouTube channels that demo tools</p>
+            <p class="wf-text">Search and subscribe to at least 5 channels that discuss and demo AI tools. These should be trusted content creators who speak to you.</p>
+            <p class="wf-text wf-lean">Examples appear in the suggested resources below.</p>
+            <div class="wf-outcome"><strong>Measurable outcome:</strong> Subscribe to at least 5 channels and watch one video per week for 4 weeks.</div>
           </div>
         </div>
       </div>
       <div class="resource-block">
         <p class="resource-heading">Suggested resources</p>
         <ul class="resource-list">
-          <li><a href="https://www.coursera.org/specializations/prompting-essentials-google" target="_blank" rel="noopener noreferrer"><span class="res-ico" aria-hidden="true">📚</span><span class="res-label">Google Prompting Essentials</span></a></li>
-          <li><a href="https://learnprompting.org/" target="_blank" rel="noopener noreferrer"><span class="res-ico" aria-hidden="true">📚</span><span class="res-label">Learn Prompting</span></a></li>
-          <li><a href="https://www.coursera.org/learn/generative-ai-prompt-engineering-for-everyone" target="_blank" rel="noopener noreferrer"><span class="res-ico" aria-hidden="true">📚</span><span class="res-label">IBM Generative AI: Prompt Engineering Basics</span></a></li>
+          <li><a href="https://www.youtube.com/@mreflow/videos" target="_blank" rel="noopener noreferrer"><span class="res-ico" aria-hidden="true">📺</span><span class="res-label">Matt Wolf</span></a></li>
+          <li><a href="https://www.youtube.com/@GregIsenberg" target="_blank" rel="noopener noreferrer"><span class="res-ico" aria-hidden="true">📺</span><span class="res-label">Greg Isenberg</span></a></li>
+          <li><a href="https://www.youtube.com/@aiadvantage/videos" target="_blank" rel="noopener noreferrer"><span class="res-ico" aria-hidden="true">📺</span><span class="res-label">AI Advantage</span></a></li>
         </ul>
       </div>
     </section>
@@ -261,28 +398,89 @@ body{font-family:var(--font);font-variant-ligatures:none;background:var(--mp);co
 
     <section class="ex-section" id="prompting">
       <div class="section-badge"><span class="badge-num">2</span>Prompting</div>
-      <h2 class="ex-title">Crafting Effective Prompts for Complex Tasks</h2>
+      <h2 class="ex-title">Crafting Effective Prompts</h2>
       <p class="eyebrow">Action steps</p>
       <div class="workflow-steps">
         <div class="wf-step">
           <div class="wf-num">1</div>
           <div class="wf-body">
-            <p class="wf-title">Start a daily AI tool practice habit</p>
-            <p class="wf-text">Practice one AI tool every day for a real work task, such as drafting, summarizing, researching, or organizing information.</p>
+            <p class="wf-title">Use prompt frameworks</p>
+            <p class="wf-text">When writing prompts, follow a framework that works for you.</p>
+            <p class="wf-text wf-lean">Then ask AI to elaborate on what you wrote to add more detail.</p>
+            <div class="prompt-example">
+              <p class="prompt-example-title">Write Better Prompt Framework (Role, Context, Task, Format)</p>
+              <div class="prompt-example-grid">
+                <div class="prompt-card prompt-card-basic">
+                  <span class="prompt-card-label">Basic prompt</span>
+                  <p class="prompt-copy">"Summarize this report."</p>
+                </div>
+                <div class="prompt-card prompt-card-better">
+                  <span class="prompt-card-label">Improved prompt</span>
+                  <p class="prompt-copy">"Role: You are a strategy analyst. Context: This is a Q3 operations report for senior leadership. Task: Summarize the top 3 performance insights and 2 risks. Format: Use concise bullet points and include one recommended next action per risk."</p>
+                </div>
+              </div>
+              <div class="prompt-breakdown">
+                <div class="prompt-part prompt-part-role"><strong>Role:</strong> sets the perspective and expertise.</div>
+                <div class="prompt-part prompt-part-context"><strong>Context:</strong> tells the model who the output is for and why.</div>
+                <div class="prompt-part prompt-part-task"><strong>Task:</strong> defines exactly what to produce.</div>
+                <div class="prompt-part prompt-part-format"><strong>Format:</strong> specifies the output structure and level of detail.</div>
+              </div>
+            </div>
+            <div class="wf-outcome"><strong>Measurable outcome:</strong> Write 20 prompts using the RCTF framework and compare output quality against your previous basic prompts.</div>
+            <div class="wf-image-prompt">
+              <p class="wf-image-prompt-title">Image prompting</p>
+              <img src="assets/image-prompting.png" alt="Image prompting reference" class="wf-image-prompt-img" loading="lazy" decoding="async">
+            </div>
           </div>
         </div>
         <div class="wf-step">
           <div class="wf-num">2</div>
           <div class="wf-body">
-            <p class="wf-title">Create a project portfolio</p>
-            <p class="wf-text">Compile a list of completed projects that demonstrate how you have applied standard AI tools to specific professional workflows.</p>
+            <p class="wf-title">Create a Prompt Library</p>
+            <p class="wf-text">Develop and document a set of reusable prompt templates that use specific personas and constraints to improve the effectiveness of your AI instructions.</p>
+            <p class="wf-text wf-lean">You can use Google Keep, a Notes app, or vibe code your own prompt library tool.</p>
+            <p class="wf-text wf-lean"><strong>Suggested Categories:</strong></p>
+            <ul class="wf-bullets">
+              <li>Writing</li>
+              <li>Research</li>
+              <li>Brainstorming</li>
+              <li>Images</li>
+              <li>Coding</li>
+              <li>Marketing</li>
+            </ul>
+            <div class="wf-outcome"><strong>Measurable outcome:</strong> Build a prompt library with at least 10 templates across 3 or more categories.</div>
           </div>
         </div>
         <div class="wf-step">
           <div class="wf-num">3</div>
           <div class="wf-body">
-            <p class="wf-title">Build a prompt library</p>
-            <p class="wf-text">Develop and document a set of reusable prompt templates that use specific personas and constraints to improve the effectiveness of your AI instructions.</p>
+            <p class="wf-title">Practice Prompt Iteration</p>
+            <p class="wf-text">Improve a result through follow-up prompting instead of starting over.</p>
+            <p class="wf-text wf-lean"><strong>Examples:</strong></p>
+            <ul class="wf-bullets">
+              <li>“Make this shorter.”</li>
+              <li>“Add examples.”</li>
+              <li>“Rewrite for executives.”</li>
+              <li>“Turn this into bullet points.”</li>
+            </ul>
+            <div class="wf-outcome"><strong>Measurable outcome:</strong> Complete 5 multi-turn prompt refinement sessions.</div>
+          </div>
+        </div>
+        <div class="wf-step">
+          <div class="wf-num">4</div>
+          <div class="wf-body">
+            <p class="wf-title">Learn Prompt Sequencing</p>
+            <p class="wf-text">Break large tasks into smaller prompt chains.</p>
+            <p class="wf-text wf-lean"><strong>Example Workflow:</strong></p>
+            <ol class="wf-bullets">
+              <li>Brainstorm ideas</li>
+              <li>Select best idea</li>
+              <li>Create outline</li>
+              <li>Draft content</li>
+              <li>Edit tone</li>
+              <li>Create final version</li>
+            </ol>
+            <div class="wf-outcome"><strong>Measurable outcome:</strong> Complete one multi-step AI workflow using 5+ prompts.</div>
           </div>
         </div>
       </div>
@@ -306,22 +504,62 @@ body{font-family:var(--font);font-variant-ligatures:none;background:var(--mp);co
         <div class="wf-step">
           <div class="wf-num">1</div>
           <div class="wf-body">
-            <p class="wf-title">Start a daily AI tool practice habit</p>
-            <p class="wf-text">Practice one AI tool every day for a real work task, such as drafting, summarizing, researching, or organizing information.</p>
+            <p class="wf-title">Create Your AI Toolkit</p>
+            <p class="wf-text">For every AI task, use at least 2 AI tools at the same time.</p>
+            <p class="wf-text wf-lean">Compare how each tool responds.</p>
+            <p class="wf-text wf-lean"><strong>For Example (for text based tasks like brainstorming)</strong></p>
+            <ul class="wf-bullets">
+              <li>Gemini</li>
+              <li>Claude</li>
+              <li>ChatGPT</li>
+            </ul>
+            <p class="wf-text wf-lean"><strong>Here is my current primary toolkit per capability:</strong></p>
+            <ul class="wf-bullets">
+              <li>Claude Code - for everything</li>
+              <li>Cursor - for IDE and Vibe coding</li>
+              <li>Claude Opus 4.6 - Model preference</li>
+              <li>NotebookLM - for research &amp; learning</li>
+              <li>MyMind - for curating content</li>
+              <li>Gemini 3.1 Flash &amp; pro Image - for visualizations</li>
+              <li>Gemini Veo 3 - for video</li>
+              <li>HeyGen - for avatars &amp; video</li>
+              <li>Sudo &amp; Moises - for music exploration</li>
+              <li>ChatGPT mobile app - for voice mode</li>
+            </ul>
+            <div class="wf-outcome"><strong>Measurable outcome:</strong> Build a personal toolkit of at least 5 tools with documented strengths and best-use cases for each.</div>
           </div>
         </div>
         <div class="wf-step">
           <div class="wf-num">2</div>
           <div class="wf-body">
-            <p class="wf-title">Create a project portfolio</p>
-            <p class="wf-text">Compile a list of completed projects that demonstrate how you have applied standard AI tools to specific professional workflows.</p>
+            <p class="wf-title">Explore Multimodal Capabilities</p>
+            <p class="wf-text">Test tools beyond text.</p>
+            <p class="wf-text wf-lean"><strong>Examples:</strong></p>
+            <ul class="wf-bullets">
+              <li>Upload an image</li>
+              <li>Upload a PDF</li>
+              <li>Use voice interaction</li>
+              <li>Generate visuals</li>
+              <li>Analyze charts</li>
+            </ul>
+            <div class="wf-outcome"><strong>Measurable outcome:</strong> Complete 5 multimodal tasks and document strengths/weaknesses.</div>
           </div>
         </div>
         <div class="wf-step">
           <div class="wf-num">3</div>
           <div class="wf-body">
-            <p class="wf-title">Build a prompt library</p>
-            <p class="wf-text">Develop and document a set of reusable prompt templates that use specific personas and constraints to improve the effectiveness of your AI instructions.</p>
+            <p class="wf-title">Practice Output Formatting</p>
+            <p class="wf-text">Request outputs in specific structures.</p>
+            <p class="wf-text wf-lean"><strong>Examples:</strong></p>
+            <ul class="wf-bullets">
+              <li>Tables</li>
+              <li>JSON</li>
+              <li>Bullet lists</li>
+              <li>Slide outlines</li>
+              <li>Checklists</li>
+              <li>CSV format</li>
+            </ul>
+            <div class="wf-outcome"><strong>Measurable outcome:</strong> Generate 10 structured outputs successfully.</div>
           </div>
         </div>
       </div>
@@ -329,24 +567,16 @@ body{font-family:var(--font);font-variant-ligatures:none;background:var(--mp);co
       <div class="post-steps-table">
         <p class="eyebrow">Decision framework</p>
         <p class="sub-title">Selecting the right tool for the task</p>
-        <div class="data-table cols-4" role="region" aria-label="Suggested AI tools by workplace task">
-          <div class="dt-head"><span>Task</span><span>Best platform</span><span>Why it wins</span><span>What to avoid</span></div>
-          <div class="dt-row"><div class="dt-cell strong">Drafting emails / reports</div><div class="dt-cell"><span class="cdot" style="background:#0369A1"></span>Copilot</div><div class="dt-cell">Embedded in your Office workflow</div><div class="dt-cell">Switching to a separate tab unnecessarily</div></div>
-          <div class="dt-row"><div class="dt-cell strong">Research with citations</div><div class="dt-cell"><span class="cdot" style="background:#0D9488"></span>Perplexity</div><div class="dt-cell">Live web search + sourced answers</div><div class="dt-cell">Relying on a model with a stale knowledge cutoff alone</div></div>
-          <div class="dt-row"><div class="dt-cell strong">Brainstorming ideas</div><div class="dt-cell"><span class="cdot" style="background:#16A34A"></span>ChatGPT</div><div class="dt-cell">Fast, wide-ranging creative output</div><div class="dt-cell">Trusting the first draft without iteration</div></div>
-          <div class="dt-row"><div class="dt-cell strong">Analysing long documents</div><div class="dt-cell"><span class="cdot" style="background:var(--am)"></span>Claude</div><div class="dt-cell">Large context window, careful reading</div><div class="dt-cell">Models with very small context windows</div></div>
-          <div class="dt-row"><div class="dt-cell strong">Writing or reviewing code</div><div class="dt-cell"><span class="cdot" style="background:#B45309"></span>GitHub Copilot</div><div class="dt-cell">IDE-native; sees your full codebase context</div><div class="dt-cell">Copy-pasting code into a chat-only tool</div></div>
+        <div class="data-table cols-3" role="region" aria-label="Suggested AI tools by workplace task">
+          <div class="dt-head"><span>Task</span><span>Best platform</span><span>Why it wins</span></div>
+          <div class="dt-row"><div class="dt-cell strong">Research with citations</div><div class="dt-cell"><span class="cdot" style="background:#4285F4"></span>NotebookLM</div><div class="dt-cell">Live web search + sourced answers</div></div>
+          <div class="dt-row"><div class="dt-cell strong">Brainstorming ideas</div><div class="dt-cell"><span class="cdot" style="background:var(--am)"></span>Claude</div><div class="dt-cell">Fast, wide-ranging creative output</div></div>
+          <div class="dt-row"><div class="dt-cell strong">Visual output</div><div class="dt-cell"><span class="cdot" style="background:#EA8600"></span>Gemini Nano Banana, GPT Image</div><div class="dt-cell">best image models</div></div>
+          <div class="dt-row"><div class="dt-cell strong">Analyzing long documents</div><div class="dt-cell"><span class="cdot" style="background:#4285F4"></span>Gemini</div><div class="dt-cell">Largest context window</div></div>
+          <div class="dt-row"><div class="dt-cell strong">Vibe Coding</div><div class="dt-cell"><span class="cdot" style="background:#B45309"></span>Claude Code, Cursor</div><div class="dt-cell">Harness</div></div>
         </div>
       </div>
 
-      <div class="resource-block">
-        <p class="resource-heading">Suggested resources</p>
-        <ul class="resource-list">
-          <li><a href="https://www.elementsofai.com/" target="_blank" rel="noopener noreferrer"><span class="res-ico" aria-hidden="true">📚</span><span class="res-label">Elements of AI</span></a></li>
-          <li><a href="https://www.coursera.org/learn/generative-ai-prompt-engineering-for-everyone" target="_blank" rel="noopener noreferrer"><span class="res-ico" aria-hidden="true">📚</span><span class="res-label">IBM Generative AI: Prompt Engineering Basics</span></a></li>
-          <li><a href="https://learnprompting.org/" target="_blank" rel="noopener noreferrer"><span class="res-ico" aria-hidden="true">📚</span><span class="res-label">Learn Prompting</span></a></li>
-        </ul>
-      </div>
     </section>
 
     <div class="divider" aria-hidden="true"></div>
@@ -359,32 +589,40 @@ body{font-family:var(--font);font-variant-ligatures:none;background:var(--mp);co
         <div class="wf-step">
           <div class="wf-num">1</div>
           <div class="wf-body">
-            <p class="wf-title">Start a daily AI tool practice habit</p>
-            <p class="wf-text">Practice one AI tool every day for a real work task, such as drafting, summarizing, researching, or organizing information.</p>
+            <p class="wf-title">Chain Multiple AI Tasks Together</p>
+            <p class="wf-text">Use outputs from one AI task as inputs for another.</p>
+            <p class="wf-text wf-lean"><strong>Example:</strong> Research → summarize → generate slides → create social posts</p>
+            <div class="wf-outcome"><strong>Measurable outcome:</strong> Build one workflow using 3+ connected AI steps.</div>
           </div>
         </div>
         <div class="wf-step">
           <div class="wf-num">2</div>
           <div class="wf-body">
-            <p class="wf-title">Create a project portfolio</p>
-            <p class="wf-text">Compile a list of completed projects that demonstrate how you have applied standard AI tools to specific professional workflows.</p>
+            <p class="wf-title">Combine Multiple AI Tools in One Workflow</p>
+            <p class="wf-text">Use specialized tools together.</p>
+            <p class="wf-text wf-lean"><strong>Example stack:</strong></p>
+            <ul class="wf-bullets">
+              <li>Research tool</li>
+              <li>Writing assistant</li>
+              <li>Image generator</li>
+              <li>Automation platform</li>
+            </ul>
+            <div class="wf-outcome"><strong>Measurable outcome:</strong> Complete one project using at least 3 AI tools.</div>
           </div>
         </div>
         <div class="wf-step">
           <div class="wf-num">3</div>
           <div class="wf-body">
-            <p class="wf-title">Build a prompt library</p>
-            <p class="wf-text">Develop and document a set of reusable prompt templates that use specific personas and constraints to improve the effectiveness of your AI instructions.</p>
+            <p class="wf-title">Connect Tools</p>
+            <p class="wf-text">Connect 2 tools so the output from one feeds directly into the other. Set up a simple automation using a no-code tool (Zapier, Make).</p>
+            <p class="wf-text wf-lean"><strong>Examples:</strong></p>
+            <ul class="wf-bullets">
+              <li>AI summary → Notion</li>
+              <li>AI draft → Google Docs</li>
+            </ul>
+            <div class="wf-outcome"><strong>Measurable outcome:</strong> Set up at least one live automation where an AI output flows directly into another tool without manual copying.</div>
           </div>
         </div>
-      </div>
-      <div class="resource-block">
-        <p class="resource-heading">Suggested resources</p>
-        <ul class="resource-list">
-          <li><a href="https://www.elementsofai.com/" target="_blank" rel="noopener noreferrer"><span class="res-ico" aria-hidden="true">📚</span><span class="res-label">Elements of AI</span></a></li>
-          <li><a href="https://www.coursera.org/learn/wharton-ai-strategy-governance" target="_blank" rel="noopener noreferrer"><span class="res-ico" aria-hidden="true">📚</span><span class="res-label">Wharton AI Strategy and Governance</span></a></li>
-          <li><a href="https://sloanreview.mit.edu/topic/ai-machine-learning/" target="_blank" rel="noopener noreferrer"><span class="res-ico" aria-hidden="true">📚</span><span class="res-label">MIT Sloan Management Review – AI &amp; Machine Learning</span></a></li>
-        </ul>
       </div>
     </section>
 
@@ -430,9 +668,9 @@ body{font-family:var(--font);font-variant-ligatures:none;background:var(--mp);co
     <div class="s-card">
       <p class="s-title">Other competencies</p>
       <div class="rel-list">
-        <a href="#" class="rel-link">Critical Human Skills <span class="rel-tag" style="background:var(--fuchsia-t,#EFA0E7);color:#8B1687">Coming soon</span></a>
-        <a href="#" class="rel-link">Ethical Stewardship <span class="rel-tag" style="background:var(--lp);color:var(--am)">Coming soon</span></a>
-        <a href="#" class="rel-link">Strategic Intelligence <span class="rel-tag" style="background:var(--ambt);color:#7A5F00">Coming soon</span></a>
+        <a href="critical-human-skills.html" class="rel-link">Critical Human Skills <span class="rel-tag" style="background:#EFA0E7;color:#8B1687">Explore</span></a>
+        <a href="ethical-stewardship.html" class="rel-link">Ethical Stewardship <span class="rel-tag" style="background:var(--lp);color:var(--am)">Explore</span></a>
+        <a href="strategic-intelligence.html" class="rel-link">Strategic Intelligence <span class="rel-tag" style="background:var(--ambt);color:#7A5F00">Explore</span></a>
       </div>
     </div>
 
@@ -449,14 +687,14 @@ body{font-family:var(--font);font-variant-ligatures:none;background:var(--mp);co
 function updateWorkflowRails() {
   document.querySelectorAll('.workflow-steps').forEach(function (rail) {
     var nums = rail.querySelectorAll('.wf-num');
-    if (nums.length < 3) return;
-    var third = nums[2];
+    if (nums.length < 2) return;
+    var last = nums[nums.length - 1];
     var first = nums[0];
     var srail = rail.getBoundingClientRect();
     var fr = first.getBoundingClientRect();
-    var tr = third.getBoundingClientRect();
+    var lr = last.getBoundingClientRect();
     var topPx = fr.top - srail.top + fr.height / 2;
-    var endPx = tr.top - srail.top + tr.height / 2;
+    var endPx = lr.top - srail.top + lr.height / 2;
     rail.style.setProperty('--rail-top', topPx + 'px');
     rail.style.setProperty('--rail-height', Math.max(0, endPx - topPx) + 'px');
   });

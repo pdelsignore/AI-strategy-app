@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Critical Human Skills — The AI Playbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* ─── PEARSON TOKENS ─────────────────────────────────────────── */
+:root {
+  --pp:   #0D004D;
+  --pw:   #FFFFFF;
+  --lp:   #C1BFFF;
+  --mp:   #EDECF6;
+  --am:   #512EAB;
+  --tq:   #56E2E1;
+  --tqt:  #B3F2F1;
+  --amb:  #FFCE00;
+  --ambt: #FFE67F;
+  --fu:   #DF41CF;
+  --fut:  #EFA0E7;
+  --ux:   #333333;
+  --accent: var(--fu);
+  --accent-t: var(--fut);
+  --accent-dk: #8B1687;
+
+  --font: 'Plus Jakarta Sans', Helvetica, Verdana, sans-serif;
+  --r: 14px;
+  --sh: 0 2px 16px rgba(13,0,77,.10);
+  --sh-md: 0 8px 32px rgba(13,0,77,.16);
+  --spring: cubic-bezier(.34,1.56,.64,1);
+  --eout:  cubic-bezier(.4,0,.2,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);font-variant-ligatures:none;background:var(--mp);color:var(--pp);min-height:100vh;overflow-x:hidden}
+
+/* ─── NAV ────────────────────────────────────────────────────── */
+.nav{background:var(--pp);padding:0 40px;height:76px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;box-shadow:0 2px 16px rgba(13,0,77,.3)}
+.nav-logo{height:63px;width:auto;display:block}
+.nav-back{display:inline-flex;align-items:center;gap:8px;font-size:.78rem;font-weight:600;color:var(--lp);text-decoration:none;font-variant-ligatures:none;transition:color .2s,gap .25s var(--spring);opacity:.8}
+.nav-back:hover{color:var(--pw);opacity:1;gap:12px}
+.nav-back svg{transition:transform .25s var(--spring)}
+.nav-back:hover svg{transform:translateX(-3px)}
+
+/* ─── HERO ───────────────────────────────────────────────────── */
+.hero{background:var(--pp);padding:60px 40px 72px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;width:700px;height:700px;border-radius:50%;border:1px solid rgba(223,65,207,.12);top:-220px;right:-120px;animation:drift 9s ease-in-out infinite;pointer-events:none}
+.hero::after{content:'';position:absolute;width:400px;height:400px;border-radius:50%;border:1px solid rgba(239,160,231,.1);bottom:-150px;left:-80px;animation:drift 11s ease-in-out infinite 2s;pointer-events:none}
+@keyframes drift{0%,100%{transform:scale(1) rotate(0)}50%{transform:scale(1.05) rotate(6deg)}}
+
+.hero-tag{display:inline-flex;align-items:center;gap:8px;padding:5px 14px;border-radius:99px;background:rgba(223,65,207,.15);border:1px solid rgba(223,65,207,.35);font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:20px;font-variant-ligatures:none;opacity:0;animation:fup .5s var(--eout) .1s forwards}
+.hero-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:heroDotBlink 2s ease-in-out infinite}
+@keyframes heroDotBlink{0%,100%{opacity:1}50%{opacity:.25}}
+
+.hero h1{font-size:clamp(2.2rem,5vw,3.8rem);font-weight:700;color:var(--pw);line-height:1.1;max-width:min(920px,100%);margin-bottom:0;font-variant-ligatures:none;opacity:0;animation:fup .65s var(--eout) .28s forwards}
+.hero-title-main{display:block;white-space:nowrap}
+.hero h1 strong{color:var(--lp);font-weight:300;display:block;font-size:.49em;margin-top:.14em;letter-spacing:.01em;white-space:normal}
+@keyframes fup{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+
+/* ─── LAYOUT ─────────────────────────────────────────────────── */
+.page-wrap{max-width:1120px;margin:0 auto;padding:56px 40px 80px;display:grid;grid-template-columns:1fr 296px;gap:52px;align-items:start}
+
+/* ─── SECTION BLOCK ──────────────────────────────────────────── */
+.ex-section{margin-bottom:72px;scroll-margin-top:100px}
+.ex-section:last-child{margin-bottom:0}
+
+.section-badge{display:inline-flex;align-items:center;gap:8px;padding:4px 14px 4px 8px;border-radius:99px;background:var(--accent-t);font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-dk);margin-bottom:16px;font-variant-ligatures:none}
+.badge-num{width:22px;height:22px;border-radius:50%;background:var(--accent);color:var(--pw);font-size:.68rem;font-weight:700;display:flex;align-items:center;justify-content:center}
+
+.ex-title{font-size:1.7rem;font-weight:700;color:var(--pp);line-height:1.15;margin-bottom:16px;font-variant-ligatures:none;max-width:640px}
+
+.divider{height:1px;background:linear-gradient(90deg,var(--fu) 0%,transparent 100%);margin:56px 0;opacity:.25}
+
+/* ─── EYEBROW ────────────────────────────────────────────────── */
+.eyebrow{font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-dk);margin-bottom:14px;font-variant-ligatures:none}
+
+.sub-title{font-size:1.15rem;font-weight:700;color:var(--pp);margin-bottom:14px;font-variant-ligatures:none}
+
+/* ─── DECISION TABLE ─────────────────────────────────────────── */
+.post-steps-table{margin-top:36px}
+.data-table{background:var(--pw);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);margin-bottom:8px;border:1.5px solid var(--mp)}
+.dt-head{background:var(--pp);padding:14px 22px;display:grid;gap:12px}
+.dt-head span{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--lp);font-variant-ligatures:none}
+.dt-row{display:grid;gap:12px;padding:13px 22px;border-bottom:1px solid var(--mp);transition:background .15s}
+.dt-row:last-child{border-bottom:none}
+.dt-row:hover{background:var(--mp)}
+.dt-cell{font-size:.82rem;color:var(--ux);line-height:1.4;font-variant-ligatures:none}
+.dt-cell.strong{font-weight:600;color:var(--pp)}
+.cols-3 .dt-head,.cols-3 .dt-row{grid-template-columns:1.25fr 1.1fr 1.15fr}
+.cols-4 .dt-head,.cols-4 .dt-row{grid-template-columns:1.35fr 1fr 1.05fr 1fr}
+.cdot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:middle}
+.dt-pill{display:inline-flex;align-items:center;padding:2px 10px;border-radius:99px;font-size:.72rem;font-weight:700;font-variant-ligatures:none}
+
+/* ─── WORKFLOW STEPS ─────────────────────────────────────────── */
+.workflow-steps{display:flex;flex-direction:column;gap:0;margin-bottom:0;position:relative;--rail-top:24px;--rail-height:120px}
+.workflow-steps::before{content:'';position:absolute;left:19px;top:var(--rail-top);height:var(--rail-height);width:2px;background:linear-gradient(to bottom,var(--fu),var(--am));opacity:.35;z-index:0;pointer-events:none}
+.wf-step{display:flex;gap:16px;position:relative;z-index:1;padding-bottom:20px}
+.wf-step:last-child{padding-bottom:0}
+.wf-num{flex-shrink:0;width:40px;height:40px;border-radius:50%;background:var(--pp);border:2px solid var(--accent);color:var(--lp);font-size:.82rem;font-weight:700;display:flex;align-items:center;justify-content:center;font-variant-ligatures:none}
+.wf-body{flex:1;background:var(--pw);border-radius:var(--r);padding:18px 20px;box-shadow:var(--sh);opacity:0;transform:translateY(10px);transition:opacity .4s,transform .4s var(--spring),box-shadow .25s}
+.wf-body.vis{opacity:1;transform:translateY(0)}
+.wf-body:hover{box-shadow:var(--sh-md)}
+.wf-title{font-size:1.125rem;font-weight:700;color:var(--pp);margin-bottom:5px;font-variant-ligatures:none}
+.wf-text{font-size:1.025rem;color:var(--ux);line-height:1.45;font-variant-ligatures:none}
+.wf-text.wf-lean{margin-top:10px}
+.wf-bullets{margin:8px 0 0;padding-left:1.25rem;font-size:1.025rem;color:var(--ux);line-height:1.45;font-variant-ligatures:none}
+.wf-bullets li{margin-bottom:4px}
+ol.wf-bullets{list-style:decimal;padding-left:1.5rem}
+
+/* Outcome callout */
+.wf-outcome{margin-top:12px;padding:10px 14px;border-radius:10px;background:rgba(223,65,207,.08);border-left:3px solid var(--accent);font-size:.85rem;color:var(--pp);font-variant-ligatures:none}
+.wf-outcome strong{color:var(--accent-dk)}
+
+/* ─── INSIGHT BOX ────────────────────────────────────────────── */
+.insight-box{margin-top:14px;border:1.5px solid rgba(223,65,207,.28);border-radius:12px;padding:14px;background:linear-gradient(180deg,#FFFFFF 0%,#FDF0FC 100%)}
+.insight-box-title{font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-dk);margin-bottom:10px;font-variant-ligatures:none}
+.insight-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:0}
+.insight-card{background:#FFFFFF;border:1px solid rgba(13,0,77,.1);border-radius:10px;padding:10px}
+.insight-card-human{border-left:4px solid var(--fu)}
+.insight-card-ai{border-left:4px solid var(--am)}
+.insight-card-label{display:inline-block;font-size:.66rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:3px 8px;margin-bottom:8px}
+.insight-card-human .insight-card-label{color:var(--accent-dk);background:var(--accent-t)}
+.insight-card-ai .insight-card-label{color:var(--am);background:var(--lp)}
+.insight-copy{font-size:.82rem;line-height:1.45;color:var(--ux);font-variant-ligatures:none}
+
+/* ─── RESOURCES ──────────────────────────────────────────────── */
+.resource-block{margin-top:22px;padding-top:18px;border-top:1px solid rgba(13,0,77,.14)}
+.resource-heading{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--pp);margin-bottom:12px;font-variant-ligatures:none}
+.resource-list{list-style:none;display:flex;flex-wrap:wrap;align-items:stretch;gap:10px;margin:0;padding:0}
+.resource-list li{margin:0;padding:0}
+.resource-list a{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;background:#FFFFFF;border:1px solid rgba(223,65,207,.38);border-radius:8px;font-size:.8rem;font-weight:400;line-height:1.35;font-variant-ligatures:none;color:var(--pp);text-decoration:none;transition:background .2s,border-color .2s,box-shadow .2s;box-shadow:0 1px 2px rgba(13,0,77,.04)}
+.resource-list a:hover{background:var(--mp);border-color:rgba(223,65,207,.65);box-shadow:0 2px 8px rgba(13,0,77,.08)}
+.resource-list a .res-ico{font-size:1.05rem;line-height:1;flex-shrink:0}
+.resource-list a .res-label{white-space:normal}
+
+/* ─── SIDEBAR ────────────────────────────────────────────────── */
+.sidebar{display:flex;flex-direction:column;gap:20px;position:sticky;top:96px}
+.s-card{background:var(--pw);border-radius:var(--r);padding:22px;box-shadow:var(--sh)}
+.s-title{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--am);margin-bottom:14px;font-variant-ligatures:none}
+
+/* Jump nav */
+.jump-nav{display:flex;flex-direction:column;gap:6px}
+.jump-link{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;text-decoration:none;font-size:.82rem;font-weight:500;color:var(--ux);font-variant-ligatures:none;transition:background .15s,color .15s,transform .2s var(--spring);border:1.5px solid transparent}
+.jump-link:hover,.jump-link.active{background:var(--mp);color:var(--pp);border-color:var(--fut);transform:translateX(3px)}
+.jump-link.active{font-weight:700;color:var(--accent-dk)}
+.jl-num{width:22px;height:22px;border-radius:50%;background:var(--mp);font-size:.68rem;font-weight:700;color:var(--am);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s}
+.jump-link.active .jl-num{background:var(--accent);color:var(--pw)}
+.jl-text{flex:1;line-height:1.3}
+.jl-tag{font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-dk);background:var(--accent-t);padding:2px 8px;border-radius:99px;font-variant-ligatures:none;margin-top:2px}
+
+/* Progress */
+.prog-wrap{margin-bottom:12px}
+.prog-labels{display:flex;justify-content:space-between;font-size:.72rem;font-weight:600;color:var(--ux);margin-bottom:6px;font-variant-ligatures:none}
+.prog-labels span{color:var(--am)}
+.prog-track{height:6px;border-radius:99px;background:var(--mp);overflow:hidden}
+.prog-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--fu),var(--am));width:0;transition:width 1s var(--eout)}
+
+/* Related competencies */
+.rel-list{display:flex;flex-direction:column;gap:8px}
+.rel-link{display:flex;align-items:center;gap:10px;padding:11px 13px;border-radius:10px;text-decoration:none;font-size:.8rem;font-weight:500;color:var(--pp);background:var(--mp);font-variant-ligatures:none;transition:background .2s,transform .2s var(--spring),border-color .2s;border:1.5px solid transparent}
+.rel-link:hover{background:var(--pw);border-color:var(--lp);transform:translateX(3px)}
+.rel-tag{font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:99px;margin-left:auto;font-variant-ligatures:none;flex-shrink:0}
+
+/* ─── FOOTER ─────────────────────────────────────────────────── */
+.footer{background:var(--pp);padding:28px 40px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.footer-logo{height:22px;width:auto;opacity:.85}
+.footer-text{font-size:.72rem;color:var(--lp);opacity:.7;font-variant-ligatures:none}
+
+/* ─── RESPONSIVE ─────────────────────────────────────────────── */
+@media(max-width:900px){
+  .page-wrap{grid-template-columns:1fr;padding:40px 24px 60px;gap:32px}
+  .sidebar{position:static}
+  .nav{padding:0 20px}
+  .hero{padding:40px 24px 56px}
+  .footer{padding:24px 20px}
+}
+@media(max-width:560px){
+  .hero h1{font-size:clamp(1.55rem,5.2vw,2.35rem)}
+  .cols-4 .dt-head,.cols-4 .dt-row{grid-template-columns:1.2fr 1fr 1fr}
+  .cols-4 .dt-head span:last-child,.cols-4 .dt-cell:last-child{display:none}
+  .cols-3 .dt-head,.cols-3 .dt-row{grid-template-columns:1.05fr 1fr 1fr}
+  .insight-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <img src="assets/Logo/primary/PEARSON_LOGO_WHITE_RGB.svg" alt="Pearson" class="nav-logo">
+  <a href="index.html" class="nav-back">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 2L4 7l5 5"/></svg>
+    Back to Framework
+  </a>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-tag"><span class="hero-dot"></span>Competency 2 of 4</div>
+  <h1><span class="hero-title-main">Critical Human Skills</span><strong>The capabilities AI cannot replace</strong></h1>
+</header>
+
+<!-- PAGE -->
+<div class="page-wrap">
+
+  <!-- MAIN CONTENT -->
+  <main>
+
+    <!-- ── 1. ADAPTABILITY ───────────────────────────────────── -->
+    <section class="ex-section" id="adaptability">
+      <div class="section-badge"><span class="badge-num">1</span>Adaptability</div>
+      <h2 class="ex-title">Thriving Through Rapid Technological Change</h2>
+      <p class="eyebrow">Action steps</p>
+      <div class="workflow-steps">
+        <div class="wf-step">
+          <div class="wf-num">1</div>
+          <div class="wf-body">
+            <p class="wf-title">Build a structured continuous learning habit</p>
+            <p class="wf-text">Dedicate 30 minutes per day to learning something new about AI, your industry, or adjacent skills. The discipline of showing up consistently matters more than the content.</p>
+            <p class="wf-text wf-lean"><strong>Starting points:</strong></p>
+            <ul class="wf-bullets">
+              <li>Schedule a recurring "learning block" in your calendar — protect it like a meeting</li>
+              <li>Rotate formats: one week read, one week watch, one week do</li>
+              <li>Keep a learning log: one sentence per day on what you absorbed</li>
+            </ul>
+            <div class="wf-outcome"><strong>Measurable outcome:</strong> Complete 1 structured course per quarter. Log 60 days of learning entries.</div>
+          </div>
+        </div>
+        <div class="wf-step">
+          <div class="wf-num">2</div>
+          <div class="wf-body">
+            <p class="wf-title">Run deliberate adoption experiments</p>
+            <p class="wf-text">When a new tool, process, or methodology appears, resist the reflexive "not for me." Commit to a 2-week trial with a defined success condition.</p>
+            <p class="wf-text wf-lean"><strong>Experiment template:</strong></p>
+            <ul class="wf-bullets">
+              <li>Name the thing you've been avoiding</li>
+              <li>Define what "gave it a fair shot" looks like</li>
+              <li>Set a 2-week timeframe with specific tasks to complete</li>
+              <li>Write a 3-sentence retrospective: what worked, what didn't, will I continue?</li>
+            </ul>
+            <div class="wf-outcome"><strong>Measurable outcome:</strong> Complete 3 deliberate adoption experiments per year.</div>
+          </div>
+        </div>
+        <div class="wf-step">
+          <div class="wf-num">3</div>
+          <div class="wf-body">
+            <p class="wf-title">Build a personal learning network</p>
+            <p class="wf-text">The fastest learners don't learn alone. Surround yourself with people who pull you forward.</p>
+            <p class="wf-text wf-lean"><strong>Ways to build yours:</strong></p>
+            <ul class="wf-bullets">
+              <li>Join 2–3 online communities active in AI and your field (LinkedIn groups, Discord, Slack)</li>
+              <li>Attend one industry event or webinar per month</li>
+              <li>Share one insight with your team each week — teaching accelerates your own learning</li>
+            </ul>
+            <div class="wf-outcome"><strong>Measurable outcome:</strong> Join 2 communities, attend 4 events or webinars, and share one insight per week for one month.</div>
+          </div>
+        </div>
+      </div>
+      <div class="resource-block">
+        <p class="resource-heading">Suggested resources</p>
+        <ul class="resource-list">
+          <li><a href="https://www.coursera.org/learn/adaptability-and-resiliency" target="_blank" rel="noopener noreferrer"><span class="res-ico" aria-hidden="true">📚</span><span class="res-label">Adaptability &amp; Resiliency — Coursera</span></a></li>
+          <li><a href="https://www.mindsetworks.com/science/" target="_blank" rel="noopener noreferrer"><span class="res-ico" aria-hidden="true">📖</span><span class="res-label">Growth Mindset — Carol Dweck</span></a></li>
+          <li><a href="https://www.linkedin.com/learning/topics/continuous-learning" target="_blank" rel="noopener noreferrer"><span class="res-ico" aria-hidden="true">🎓</span><span class="res-label">Continuous Learning — LinkedIn Learning</span></a></li>
+        </ul>
+      </div>
+    </section>
+
+    <div class="divider" aria-hidden="true"></div>
+
+    <!-- ── 2. COMMUNICATION ──────────────────────────────────── -->
+    <section class="ex-section" id="communication">
+      <div class="section-badge"><span class="badge-num">2</span>Communication</div>
+      <h2 class="ex-title">Communicating Across Disciplines and Roles</h2>
+      <p class="eyebrow">Action steps</p>
+      <div class="workflow-steps">
+        <div class="wf-step">
+          <div class="wf-num">1</div>
+          <div class="wf-body">
+            <p class="wf-title">Practice AI output translation</p>
+            <p class="wf-text">AI rarely produces something ready for its intended audience. The skill is knowing how to translate it. Take any AI-generated output and rewrite it for three distinct audiences.</p>
+            <p class="wf-text wf-lean"><strong>Translation exercise:</strong></p>
+            <ul class="wf-bullets">
+              <li><strong>For your team</strong> — full context, technical where appropriate</li>
+              <li><strong>For a non-technical stakeholder</strong> — no jargon, outcome-first framing</li>
+              <li><strong>For leadership</strong> — 3 sentences max: what, so what, now what</li>
+            </ul>
+            <p class="wf-text wf-lean">Apply the "so what" test to every AI-generated insight before sharing it.</p>
+            <div class="wf-outcome"><strong>Measurable outcome:</strong> Complete 5 three-audience translation exercises.</div>
+          </div>
+        </div>
+        <div class="wf-step">
+          <div class="wf-num">2</div>
+          <div class="wf-body">
+            <p class="wf-title">Develop your AI storytelling vocabulary</p>
+            <p class="wf-text">Learn to talk about AI honestly — its possibilities and its limits — without either hype or fear. People trust communicators who acknowledge uncertainty.</p>
+            <p class="wf-text wf-lean"><strong>Phrases to practice:</strong></p>
+            <ul class="wf-bullets">
+              <li>"AI suggested this, and here's why I agree / disagree…"</li>
+              <li>"This is a draft from AI that I've reviewed and edited."</li>
+              <li>"I used AI to speed up the research; here's my interpretation."</li>
+              <li>"This is a 70% confidence output — I'd want to validate the key claims."</li>
+            </ul>
+            <div class="wf-outcome"><strong>Measurable outcome:</strong> Use at least 3 of these framing phrases in real workplace conversations over the next 2 weeks.</div>
+          </div>
+        </div>
+        <div class="wf-step">
+          <div class="wf-num">3</div>
+          <div class="wf-body">
+            <p class="wf-title">Strengthen cross-functional collaboration</p>
+            <p class="wf-text">AI tools increasingly span department boundaries. The ability to work across disciplines is no longer optional.</p>
+            <p class="wf-text wf-lean"><strong>Build this muscle:</strong></p>
+            <ul class="wf-bullets">
+              <li>Volunteer for a cross-functional AI project outside your primary domain</li>
+              <li>Schedule monthly coffee chats with someone in a different department</li>
+              <li>Create a one-page "how I work with AI" document to share with collaborators</li>
+            </ul>
+            <div class="wf-outcome"><strong>Measurable outcome:</strong> Lead or meaningfully participate in 2 cross-functional AI-related projects.</div>
+          </div>
+        </div>
+      </div>
+      <div class="resource-block">
+        <p class="resource-heading">Suggested resources</p>
+        <ul class="resource-list">
+          <li><a href="https://www.coursera.org/learn/communication-skills-leadership" target="_blank" rel="noopener noreferrer"><span class="res-ico" aria-hidden="true">📚</span><span class="res-label">Communicating for Leadership Success</span></a></li>
+          <li><a href="https://www.youtube.com/@TED" target="_blank" rel="noopener noreferrer"><span class="res-ico" aria-hidden="true">📺</span><span class="res-label">TED Talks — Communication</span></a></li>
+          <li><a href="https://hbr.org/topic/subject/communication" target="_blank" rel="noopener noreferrer"><span class="res-ico" aria-hidden="true">📰</span><span class="res-label">HBR — Communication</span></a></li>
+        </ul>
+      </div>
+    </section>
+
+    <div class="divider" aria-hidden="true"></div>
+
+    <!-- ── 3. CREATIVITY ─────────────────────────────────────── -->
+    <section class="ex-section" id="creativity">
+      <div class="section-badge"><span class="badge-num">3</span>Creativity</div>
+      <h2 class="ex-title">Using AI as a Creative Collaborator</h2>
+      <p class="eyebrow">Action steps</p>
+      <div class="workflow-steps">
+        <div class="wf-step">
+          <div class="wf-num">1</div>
+          <div class="wf-body">
+            <p class="wf-title">Use AI for divergence, humans for convergence</p>
+            <p class="wf-text">AI is a powerful idea generator. Humans are better at knowing which ideas are actually worth pursuing. Use AI to generate quantity, then apply your judgment.</p>
+            <p class="wf-text wf-lean"><strong>The 100-idea exercise:</strong></p>
+            <ol class="wf-bullets">
+              <li>Pick a real challenge you're working on</li>
+              <li>Ask AI to generate 100 variations, angles, or ideas</li>
+              <li>Read through without editing — let it wash over you</li>
+              <li>Highlight the 5 that surprise you or feel generative</li>
+              <li>Combine and remix those 5 in ways AI wouldn't</li>
+            </ol>
+            <div class="wf-outcome"><strong>Measurable outcome:</strong> Run the 100-idea exercise on 3 different real projects.</div>
+          </div>
+        </div>
+        <div class="wf-step">
+          <div class="wf-num">2</div>
+          <div class="wf-body">
+            <p class="wf-title">Never use the first output as final</p>
+            <p class="wf-text">The first AI draft is a starting point, not an endpoint. The creative gap between "AI output" and "great work" is where your value lives.</p>
+            <p class="wf-text wf-lean"><strong>Iteration prompts to build the habit:</strong></p>
+            <ul class="wf-bullets">
+              <li>"What are the weaknesses in this approach?"</li>
+              <li>"Give me a completely different angle on this."</li>
+              <li>"What would someone who disagrees with this say?"</li>
+              <li>"Make this more surprising / more opinionated / more concrete."</li>
+            </ul>
+            <div class="insight-box">
+              <p class="insight-box-title">Human vs. AI in the creative process</p>
+              <div class="insight-grid">
+                <div class="insight-card insight-card-human">
+                  <span class="insight-card-label">Human leads</span>
+                  <p class="insight-copy">Taste and curation — knowing what's worth pursuing. Emotional resonance. Breaking conventions with intent. Unique lived perspective.</p>
+                </div>
+                <div class="insight-card insight-card-ai">
+                  <span class="insight-card-label">AI assists</span>
+                  <p class="insight-copy">Generating high volume rapidly. Exploring style variations. First-draft scaffolding. Surfacing patterns from large datasets.</p>
+                </div>
+              </div>
+            </div>
+            <div class="wf-outcome"><strong>Measurable outcome:</strong> Complete 10 AI-assisted creative tasks where you iterate beyond the first draft before finalizing.</div>
+          </div>
+        </div>
+        <div class="wf-step">
+          <div class="wf-num">3</div>
+          <div class="wf-body">
+            <p class="wf-title">Cultivate a creative signature</p>
+            <p class="wf-text">AI can mimic many styles, but it can't replicate you. Your creative signature — the perspective, aesthetic, and values that make your work distinctly yours — becomes more valuable as AI output becomes ubiquitous.</p>
+            <p class="wf-text wf-lean"><strong>Build yours:</strong></p>
+            <ul class="wf-bullets">
+              <li>Collect 20 examples of work (yours or others') that resonates — what do they share?</li>
+              <li>Write 3 sentences that describe your creative values or aesthetic principles</li>
+              <li>Use AI to execute your vision, not define it</li>
+            </ul>
+            <div class="wf-outcome"><strong>Measurable outcome:</strong> Write your creative values statement and apply it to guide one AI-assisted project from brief to final output.</div>
+          </div>
+        </div>
+      </div>
+      <div class="resource-block">
+        <p class="resource-heading">Suggested resources</p>
+        <ul class="resource-list">
+          <li><a href="https://www.ideou.com/pages/design-thinking" target="_blank" rel="noopener noreferrer"><span class="res-ico" aria-hidden="true">💡</span><span class="res-label">IDEO — Design Thinking</span></a></li>
+          <li><a href="https://www.coursera.org/learn/creative-thinking-techniques-and-tools-for-success" target="_blank" rel="noopener noreferrer"><span class="res-ico" aria-hidden="true">📚</span><span class="res-label">Creative Thinking — Coursera</span></a></li>
+          <li><a href="https://www.youtube.com/@TED/search?query=creativity" target="_blank" rel="noopener noreferrer"><span class="res-ico" aria-hidden="true">📺</span><span class="res-label">TED Talks — Creativity</span></a></li>
+        </ul>
+      </div>
+    </section>
+
+    <div class="divider" aria-hidden="true"></div>
+
+    <!-- ── 4. PROBLEM-SOLVING ─────────────────────────────────── -->
+    <section class="ex-section" id="problem-solving">
+      <div class="section-badge"><span class="badge-num">4</span>Problem-Solving</div>
+      <h2 class="ex-title">Complex Decision-Making in Ambiguous Situations</h2>
+      <p class="eyebrow">Action steps</p>
+      <div class="workflow-steps">
+        <div class="wf-step">
+          <div class="wf-num">1</div>
+          <div class="wf-body">
+            <p class="wf-title">Invest in problem definition before solution generation</p>
+            <p class="wf-text">AI is excellent at generating solutions — but only for the problem you describe. A poorly framed problem produces a plausible-sounding wrong answer. Spend 80% of your time on the question before handing it to AI.</p>
+            <p class="wf-text wf-lean"><strong>Framing toolkit:</strong></p>
+            <ul class="wf-bullets">
+              <li>Use "5 Whys" to find root causes before jumping to solutions</li>
+              <li>Define what success looks like before generating options</li>
+              <li>List constraints and non-negotiables explicitly</li>
+              <li>Ask: "Am I solving the right problem, or the presenting problem?"</li>
+            </ul>
+            <div class="wf-outcome"><strong>Measurable outcome:</strong> Apply structured problem-framing to 5 real challenges, documenting the shift from presenting to root problem.</div>
+          </div>
+        </div>
+        <div class="wf-step">
+          <div class="wf-num">2</div>
+          <div class="wf-body">
+            <p class="wf-title">Develop emotional intelligence in AI-augmented teams</p>
+            <p class="wf-text">AI adoption creates anxiety, status uncertainty, and skill displacement fears. The ability to read the room and manage the human dynamics of change is irreplaceable.</p>
+            <p class="wf-text wf-lean"><strong>Practice areas:</strong></p>
+            <ul class="wf-bullets">
+              <li>Acknowledge change anxiety openly — name it before problem-solving it</li>
+              <li>Practice active listening when team members express concerns about AI tools</li>
+              <li>Use AI to reduce administrative friction, freeing time for human conversation</li>
+              <li>Complete an EQ self-assessment to identify personal growth areas</li>
+            </ul>
+            <div class="wf-outcome"><strong>Measurable outcome:</strong> Complete one EQ assessment and identify 2 specific behaviors to practice over 90 days.</div>
+          </div>
+        </div>
+        <div class="wf-step">
+          <div class="wf-num">3</div>
+          <div class="wf-body">
+            <p class="wf-title">Build a personal decision framework</p>
+            <p class="wf-text">Develop a consistent process for making high-stakes decisions when information is incomplete — a condition AI will not solve for you.</p>
+            <p class="wf-text wf-lean"><strong>Framework elements to develop:</strong></p>
+            <ul class="wf-bullets">
+              <li>Document the criteria you use when you make good decisions</li>
+              <li>Identify your top 3 cognitive biases using a structured assessment</li>
+              <li>Practice "red-teaming": argue the strongest case against your own intuition</li>
+              <li>Use AI to surface perspectives and data points you haven't considered — then decide yourself</li>
+            </ul>
+            <div class="wf-outcome"><strong>Measurable outcome:</strong> Document your decision criteria and complete one red-team exercise on a real high-stakes decision.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="post-steps-table">
+        <p class="eyebrow">Decision framework</p>
+        <p class="sub-title">When to lead with human judgment vs. AI input</p>
+        <div class="data-table cols-3" role="region" aria-label="Human judgment vs AI input decision guide">
+          <div class="dt-head"><span>Situation</span><span>Best approach</span><span>Why</span></div>
+          <div class="dt-row"><div class="dt-cell strong">High emotional stakes — hiring, firing, conflict resolution</div><div class="dt-cell"><span class="dt-pill" style="background:#FDF0FC;color:#8B1687;border:1px solid #EFA0E7">Human leads</span></div><div class="dt-cell">Empathy, context, and relational trust cannot be delegated</div></div>
+          <div class="dt-row"><div class="dt-cell strong">Data analysis on a defined problem with clear criteria</div><div class="dt-cell"><span class="dt-pill" style="background:var(--mp);color:var(--am);border:1px solid var(--lp)">AI assists</span></div><div class="dt-cell">Pattern recognition at scale is where AI excels</div></div>
+          <div class="dt-row"><div class="dt-cell strong">Novel situation with no precedent or playbook</div><div class="dt-cell"><span class="dt-pill" style="background:#FDF0FC;color:#8B1687;border:1px solid #EFA0E7">Human leads</span></div><div class="dt-cell">AI is trained on the past; genuinely new problems require human judgment</div></div>
+          <div class="dt-row"><div class="dt-cell strong">Exploring a problem space — generating options</div><div class="dt-cell"><span class="dt-pill" style="background:var(--mp);color:var(--am);border:1px solid var(--lp)">AI assists</span></div><div class="dt-cell">Volume and breadth of option generation is AI's strength</div></div>
+          <div class="dt-row"><div class="dt-cell strong">Ethical judgment calls with competing stakeholder values</div><div class="dt-cell"><span class="dt-pill" style="background:#FDF0FC;color:#8B1687;border:1px solid #EFA0E7">Human leads</span></div><div class="dt-cell">Values are human constructs; AI can inform but not resolve them</div></div>
+          <div class="dt-row"><div class="dt-cell strong">Synthesizing large volumes of text or research</div><div class="dt-cell"><span class="dt-pill" style="background:var(--mp);color:var(--am);border:1px solid var(--lp)">AI assists</span></div><div class="dt-cell">Speed and throughput; human validates accuracy and relevance</div></div>
+        </div>
+      </div>
+
+      <div class="resource-block">
+        <p class="resource-heading">Suggested resources</p>
+        <ul class="resource-list">
+          <li><a href="https://www.coursera.org/learn/creative-thinking-techniques-and-tools-for-success" target="_blank" rel="noopener noreferrer"><span class="res-ico" aria-hidden="true">📚</span><span class="res-label">Critical Thinking &amp; Problem Solving</span></a></li>
+          <li><a href="https://www.mindtools.com/pages/article/newTMC_00.htm" target="_blank" rel="noopener noreferrer"><span class="res-ico" aria-hidden="true">🛠️</span><span class="res-label">MindTools — Decision Making</span></a></li>
+          <li><a href="https://hbr.org/topic/subject/decision-making-and-problem-solving" target="_blank" rel="noopener noreferrer"><span class="res-ico" aria-hidden="true">📰</span><span class="res-label">HBR — Decision Making</span></a></li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <div class="s-card">
+      <p class="s-title">Practical areas</p>
+      <nav class="jump-nav" aria-label="Practical areas">
+        <a href="#adaptability" class="jump-link active" data-section="adaptability">
+          <span class="jl-num">1</span>
+          <span class="jl-text">Adaptability<br><span class="jl-tag">Continuous learning</span></span>
+        </a>
+        <a href="#communication" class="jump-link" data-section="communication">
+          <span class="jl-num">2</span>
+          <span class="jl-text">Communication<br><span class="jl-tag">Cross-discipline skills</span></span>
+        </a>
+        <a href="#creativity" class="jump-link" data-section="creativity">
+          <span class="jl-num">3</span>
+          <span class="jl-text">Creativity<br><span class="jl-tag">AI as collaborator</span></span>
+        </a>
+        <a href="#problem-solving" class="jump-link" data-section="problem-solving">
+          <span class="jl-num">4</span>
+          <span class="jl-text">Problem-Solving<br><span class="jl-tag">Complex decisions</span></span>
+        </a>
+      </nav>
+    </div>
+
+    <div class="s-card">
+      <p class="s-title">Your progress</p>
+      <div class="prog-wrap">
+        <div class="prog-labels">This competency <span>2 / 4</span></div>
+        <div class="prog-track"><div class="prog-fill" data-w="50"></div></div>
+      </div>
+      <div class="prog-wrap">
+        <div class="prog-labels">Full framework <span>2 / 4</span></div>
+        <div class="prog-track"><div class="prog-fill" data-w="50"></div></div>
+      </div>
+    </div>
+
+    <div class="s-card">
+      <p class="s-title">Other competencies</p>
+      <div class="rel-list">
+        <a href="functional-ai-proficiency.html" class="rel-link">Functional AI Proficiency <span class="rel-tag" style="background:var(--tqt);color:#0B7373">Explore</span></a>
+        <a href="ethical-stewardship.html" class="rel-link">Ethical Stewardship <span class="rel-tag" style="background:var(--lp);color:var(--am)">Explore</span></a>
+        <a href="strategic-intelligence.html" class="rel-link">Strategic Intelligence <span class="rel-tag" style="background:var(--ambt);color:#7A5F00">Explore</span></a>
+      </div>
+    </div>
+
+  </aside>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <img src="assets/Logo/primary/PEARSON_LOGO_WHITE_RGB.svg" alt="Pearson" class="footer-logo">
+  <span class="footer-text">© Pearson plc. Helping people realize the life they imagine through learning.</span>
+</footer>
+
+<script>
+function updateWorkflowRails() {
+  document.querySelectorAll('.workflow-steps').forEach(function (rail) {
+    var nums = rail.querySelectorAll('.wf-num');
+    if (nums.length < 2) return;
+    var last = nums[nums.length - 1];
+    var first = nums[0];
+    var srail = rail.getBoundingClientRect();
+    var fr = first.getBoundingClientRect();
+    var lr = last.getBoundingClientRect();
+    var topPx = fr.top - srail.top + fr.height / 2;
+    var endPx = lr.top - srail.top + lr.height / 2;
+    rail.style.setProperty('--rail-top', topPx + 'px');
+    rail.style.setProperty('--rail-height', Math.max(0, endPx - topPx) + 'px');
+  });
+}
+
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('vis');
+      io.unobserve(e.target);
+      requestAnimationFrame(updateWorkflowRails);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.wf-body').forEach(el => io.observe(el));
+
+const po = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.prog-fill').forEach(b => { b.style.width = b.dataset.w + '%'; });
+      po.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('.s-card').forEach(el => po.observe(el));
+
+const sectionIds = ['adaptability', 'communication', 'creativity', 'problem-solving'];
+const sectionEls = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
+const so = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const id = e.target.id;
+      document.querySelectorAll('.jump-link').forEach(l => l.classList.toggle('active', l.dataset.section === id));
+    }
+  });
+}, { rootMargin: '-28% 0px -52% 0px', threshold: 0 });
+sectionEls.forEach(el => so.observe(el));
+
+window.addEventListener('resize', function () { requestAnimationFrame(updateWorkflowRails); });
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { requestAnimationFrame(updateWorkflowRails); });
+window.addEventListener('load', function () { requestAnimationFrame(updateWorkflowRails); });
+requestAnimationFrame(updateWorkflowRails);
+setTimeout(updateWorkflowRails, 400);
+</script>
+</body>
+</html>

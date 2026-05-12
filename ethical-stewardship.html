@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ethical Stewardship — The AI Playbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* ─── PEARSON TOKENS ─────────────────────────────────────────── */
+:root {
+  --pp:   #0D004D;
+  --pw:   #FFFFFF;
+  --lp:   #C1BFFF;
+  --mp:   #EDECF6;
+  --am:   #512EAB;
+  --tq:   #56E2E1;
+  --tqt:  #B3F2F1;
+  --amb:  #FFCE00;
+  --ambt: #FFE67F;
+  --fu:   #DF41CF;
+  --fut:  #EFA0E7;
+  --ux:   #333333;
+  --accent: var(--am);
+  --accent-t: var(--lp);
+  --accent-dk: #3A1E8A;
+
+  --font: 'Plus Jakarta Sans', Helvetica, Verdana, sans-serif;
+  --r: 14px;
+  --sh: 0 2px 16px rgba(13,0,77,.10);
+  --sh-md: 0 8px 32px rgba(13,0,77,.16);
+  --spring: cubic-bezier(.34,1.56,.64,1);
+  --eout:  cubic-bezier(.4,0,.2,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);font-variant-ligatures:none;background:var(--mp);color:var(--pp);min-height:100vh;overflow-x:hidden}
+
+/* ─── NAV ────────────────────────────────────────────────────── */
+.nav{background:var(--pp);padding:0 40px;height:76px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;box-shadow:0 2px 16px rgba(13,0,77,.3)}
+.nav-logo{height:63px;width:auto;display:block}
+.nav-back{display:inline-flex;align-items:center;gap:8px;font-size:.78rem;font-weight:600;color:var(--lp);text-decoration:none;font-variant-ligatures:none;transition:color .2s,gap .25s var(--spring);opacity:.8}
+.nav-back:hover{color:var(--pw);opacity:1;gap:12px}
+.nav-back svg{transition:transform .25s var(--spring)}
+.nav-back:hover svg{transform:translateX(-3px)}
+
+/* ─── HERO ───────────────────────────────────────────────────── */
+.hero{background:var(--pp);padding:60px 40px 72px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;width:700px;height:700px;border-radius:50%;border:1px solid rgba(81,46,171,.18);top:-220px;right:-120px;animation:drift 9s ease-in-out infinite;pointer-events:none}
+.hero::after{content:'';position:absolute;width:400px;height:400px;border-radius:50%;border:1px solid rgba(193,191,255,.12);bottom:-150px;left:-80px;animation:drift 11s ease-in-out infinite 2s;pointer-events:none}
+@keyframes drift{0%,100%{transform:scale(1) rotate(0)}50%{transform:scale(1.05) rotate(6deg)}}
+
+.hero-tag{display:inline-flex;align-items:center;gap:8px;padding:5px 14px;border-radius:99px;background:rgba(81,46,171,.2);border:1px solid rgba(193,191,255,.5);font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--lp);margin-bottom:20px;font-variant-ligatures:none;opacity:0;animation:fup .5s var(--eout) .1s forwards}
+.hero-dot{width:6px;height:6px;border-radius:50%;background:var(--lp);animation:heroDotBlink 2s ease-in-out infinite}
+@keyframes heroDotBlink{0%,100%{opacity:1}50%{opacity:.25}}
+
+.hero h1{font-size:clamp(2.2rem,5vw,3.8rem);font-weight:700;color:var(--pw);line-height:1.1;max-width:min(920px,100%);margin-bottom:0;font-variant-ligatures:none;opacity:0;animation:fup .65s var(--eout) .28s forwards}
+.hero-title-main{display:block;white-space:nowrap}
+.hero h1 strong{color:var(--lp);font-weight:300;display:block;font-size:.49em;margin-top:.14em;letter-spacing:.01em;white-space:normal}
+@keyframes fup{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+
+/* ─── LAYOUT ─────────────────────────────────────────────────── */
+.page-wrap{max-width:1120px;margin:0 auto;padding:56px 40px 80px;display:grid;grid-template-columns:1fr 296px;gap:52px;align-items:start}
+
+/* ─── SECTION BLOCK ──────────────────────────────────────────── */
+.ex-section{margin-bottom:72px;scroll-margin-top:100px}
+.ex-section:last-child{margin-bottom:0}
+
+.section-badge{display:inline-flex;align-items:center;gap:8px;padding:4px 14px 4px 8px;border-radius:99px;background:var(--accent-t);font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-dk);margin-bottom:16px;font-variant-ligatures:none}
+.badge-num{width:22px;height:22px;border-radius:50%;background:var(--accent);color:var(--pw);font-size:.68rem;font-weight:700;display:flex;align-items:center;justify-content:center}
+
+.ex-title{font-size:1.7rem;font-weight:700;color:var(--pp);line-height:1.15;margin-bottom:16px;font-variant-ligatures:none;max-width:640px}
+
+.divider{height:1px;background:linear-gradient(90deg,var(--am) 0%,transparent 100%);margin:56px 0;opacity:.25}
+
+/* ─── EYEBROW ────────────────────────────────────────────────── */
+.eyebrow{font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-dk);margin-bottom:14px;font-variant-ligatures:none}
+
+.sub-title{font-size:1.15rem;font-weight:700;color:var(--pp);margin-bottom:14px;font-variant-ligatures:none}
+
+/* ─── DECISION TABLE ─────────────────────────────────────────── */
+.post-steps-table{margin-top:36px}
+.data-table{background:var(--pw);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);margin-bottom:8px;border:1.5px solid var(--mp)}
+.dt-head{background:var(--pp);padding:14px 22px;display:grid;gap:12px}
+.dt-head span{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--lp);font-variant-ligatures:none}
+.dt-row{display:grid;gap:12px;padding:13px 22px;border-bottom:1px solid var(--mp);transition:background .15s}
+.dt-row:last-child{border-bottom:none}
+.dt-row:hover{background:var(--mp)}
+.dt-cell{font-size:.82rem;color:var(--ux);line-height:1.4;font-variant-ligatures:none}
+.dt-cell.strong{font-weight:600;color:var(--pp)}
+.cols-3 .dt-head,.cols-3 .dt-row{grid-template-columns:1.4fr 1fr 1.4fr}
+.cols-4 .dt-head,.cols-4 .dt-row{grid-template-columns:1.35fr 1fr 1.05fr 1fr}
+.cdot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:middle}
+.dt-pill{display:inline-flex;align-items:center;padding:2px 10px;border-radius:99px;font-size:.72rem;font-weight:700;font-variant-ligatures:none}
+
+/* ─── WORKFLOW STEPS ─────────────────────────────────────────── */
+.workflow-steps{display:flex;flex-direction:column;gap:0;margin-bottom:0;position:relative;--rail-top:24px;--rail-height:120px}
+.workflow-steps::before{content:'';position:absolute;left:19px;top:var(--rail-top);height:var(--rail-height);width:2px;background:linear-gradient(to bottom,var(--am),var(--lp));opacity:.4;z-index:0;pointer-events:none}
+.wf-step{display:flex;gap:16px;position:relative;z-index:1;padding-bottom:20px}
+.wf-step:last-child{padding-bottom:0}
+.wf-num{flex-shrink:0;width:40px;height:40px;border-radius:50%;background:var(--pp);border:2px solid var(--accent);color:var(--lp);font-size:.82rem;font-weight:700;display:flex;align-items:center;justify-content:center;font-variant-ligatures:none}
+.wf-body{flex:1;background:var(--pw);border-radius:var(--r);padding:18px 20px;box-shadow:var(--sh);opacity:0;transform:translateY(10px);transition:opacity .4s,transform .4s var(--spring),box-shadow .25s}
+.wf-body.vis{opacity:1;transform:translateY(0)}
+.wf-body:hover{box-shadow:var(--sh-md)}
+.wf-title{font-size:1.125rem;font-weight:700;color:var(--pp);margin-bottom:5px;font-variant-ligatures:none}
+.wf-text{font-size:1.025rem;color:var(--ux);line-height:1.45;font-variant-ligatures:none}
+.wf-text.wf-lean{margin-top:10px}
+.wf-bullets{margin:8px 0 0;padding-left:1.25rem;font-size:1.025rem;color:var(--ux);line-height:1.45;font-variant-ligatures:none}
+.wf-bullets li{margin-bottom:4px}
+ol.wf-bullets{list-style:decimal;padding-left:1.5rem}
+
+/* Outcome callout */
+.wf-outcome{margin-top:12px;padding:10px 14px;border-radius:10px;background:rgba(81,46,171,.07);border-left:3px solid var(--accent);font-size:.85rem;color:var(--pp);font-variant-ligatures:none}
+.wf-outcome strong{color:var(--accent-dk)}
+
+/* ─── INSIGHT / SIGNAL BOX ───────────────────────────────────── */
+.insight-box{margin-top:14px;border:1.5px solid rgba(81,46,171,.28);border-radius:12px;padding:14px;background:linear-gradient(180deg,#FFFFFF 0%,#F3F2FF 100%)}
+.insight-box-title{font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-dk);margin-bottom:10px;font-variant-ligatures:none}
+.insight-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.insight-card{background:#FFFFFF;border:1px solid rgba(13,0,77,.1);border-radius:10px;padding:10px}
+.insight-card-do{border-left:4px solid #16A34A}
+.insight-card-dont{border-left:4px solid #DC2626}
+.insight-card-label{display:inline-block;font-size:.66rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:3px 8px;margin-bottom:8px}
+.insight-card-do .insight-card-label{color:#14532D;background:#DCFCE7}
+.insight-card-dont .insight-card-label{color:#7F1D1D;background:#FEE2E2}
+.insight-copy{font-size:.82rem;line-height:1.45;color:var(--ux);font-variant-ligatures:none}
+
+/* ─── RESOURCES ──────────────────────────────────────────────── */
+.resource-block{margin-top:22px;padding-top:18px;border-top:1px solid rgba(13,0,77,.14)}
+.resource-heading{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--pp);margin-bottom:12px;font-variant-ligatures:none}
+.resource-list{list-style:none;display:flex;flex-wrap:wrap;align-items:stretch;gap:10px;margin:0;padding:0}
+.resource-list li{margin:0;padding:0}
+.resource-list a{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;background:#FFFFFF;border:1px solid rgba(81,46,171,.38);border-radius:8px;font-size:.8rem;font-weight:400;line-height:1.35;font-variant-ligatures:none;color:var(--pp);text-decoration:none;transition:background .2s,border-color .2s,box-shadow .2s;box-shadow:0 1px 2px rgba(13,0,77,.04)}
+.resource-list a:hover{background:var(--mp);border-color:rgba(81,46,171,.65);box-shadow:0 2px 8px rgba(13,0,77,.08)}
+.resource-list a .res-ico{font-size:1.05rem;line-height:1;flex-shrink:0}
+.resource-list a .res-label{white-space:normal}
+
+/* ─── SIDEBAR ────────────────────────────────────────────────── */
+.sidebar{display:flex;flex-direction:column;gap:20px;position:sticky;top:96px}
+.s-card{background:var(--pw);border-radius:var(--r);padding:22px;box-shadow:var(--sh)}
+.s-title{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--am);margin-bottom:14px;font-variant-ligatures:none}
+
+/* Jump nav */
+.jump-nav{display:flex;flex-direction:column;gap:6px}
+.jump-link{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;text-decoration:none;font-size:.82rem;font-weight:500;color:var(--ux);font-variant-ligatures:none;transition:background .15s,color .15s,transform .2s var(--spring);border:1.5px solid transparent}
+.jump-link:hover,.jump-link.active{background:var(--mp);color:var(--pp);border-color:var(--lp);transform:translateX(3px)}
+.jump-link.active{font-weight:700;color:var(--accent-dk)}
+.jl-num{width:22px;height:22px;border-radius:50%;background:var(--mp);font-size:.68rem;font-weight:700;color:var(--am);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s}
+.jump-link.active .jl-num{background:var(--accent);color:var(--pw)}
+.jl-text{flex:1;line-height:1.3}
+.jl-tag{font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-dk);background:var(--accent-t);padding:2px 8px;border-radius:99px;font-variant-ligatures:none;margin-top:2px}
+
+/* Progress */
+.prog-wrap{margin-bottom:12px}
+.prog-labels{display:flex;justify-content:space-between;font-size:.72rem;font-weight:600;color:var(--ux);margin-bottom:6px;font-variant-ligatures:none}
+.prog-labels span{color:var(--am)}
+.prog-track{height:6px;border-radius:99px;background:var(--mp);overflow:hidden}
+.prog-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--am),var(--lp));width:0;transition:width 1s var(--eout)}
+
+/* Related competencies */
+.rel-list{display:flex;flex-direction:column;gap:8px}
+.rel-link{display:flex;align-items:center;gap:10px;padding:11px 13px;border-radius:10px;text-decoration:none;font-size:.8rem;font-weight:500;color:var(--pp);background:var(--mp);font-variant-ligatures:none;transition:background .2s,transform .2s var(--spring),border-color .2s;border:1.5px solid transparent}
+.rel-link:hover{background:var(--pw);border-color:var(--lp);transform:translateX(3px)}
+.rel-tag{font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:99px;margin-left:auto;font-variant-ligatures:none;flex-shrink:0}
+
+/* ─── FOOTER ─────────────────────────────────────────────────── */
+.footer{background:var(--pp);padding:28px 40px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.footer-logo{height:22px;width:auto;opacity:.85}
+.footer-text{font-size:.72rem;color:var(--lp);opacity:.7;font-variant-ligatures:none}
+
+/* ─── RESPONSIVE ─────────────────────────────────────────────── */
+@media(max-width:900px){
+  .page-wrap{grid-template-columns:1fr;padding:40px 24px 60px;gap:32px}
+  .sidebar{position:static}
+  .nav{padding:0 20px}
+  .hero{padding:40px 24px 56px}
+  .footer{padding:24px 20px}
+}
+@media(max-width:560px){
+  .hero h1{font-size:clamp(1.55rem,5.2vw,2.35rem)}
+  .cols-3 .dt-head,.cols-3 .dt-row{grid-template-columns:1.05fr 1fr 1fr}
+  .insight-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <img src="assets/Logo/primary/PEARSON_LOGO_WHITE_RGB.svg" alt="Pearson" class="nav-logo">
+  <a href="index.html" class="nav-back">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 2L4 7l5 5"/></svg>
+    Back to Framework
+  </a>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-tag"><span class="hero-dot"></span>Competency 3 of 4</div>
+  <h1><span class="hero-title-main">Ethical Stewardship</span><strong>Responsibility in an AI-influenced world</strong></h1>
+</header>
+
+<!-- PAGE -->
+<div class="page-wrap">
+
+  <!-- MAIN CONTENT -->
+  <main>
+
+    <!-- ── 1. VERIFICATION ───────────────────────────────────── -->
+    <section class="ex-section" id="verification">
+      <div class="section-badge"><span class="badge-num">1</span>Verification</div>
+      <h2 class="ex-title">Fact-Checking and Validating AI Outputs</h2>
+      <p class="eyebrow">Action steps</p>
+      <div class="workflow-steps">
+        <div class="wf-step">
+          <div class="wf-num">1</div>
+          <div class="wf-body">
+            <p class="wf-title">Apply a verification checklist before acting on any AI output</p>
+            <p class="wf-text">The key question to ask yourself: "Would I stake my reputation on this being accurate?" If not, it needs verification before you act on it or share it.</p>
+            <p class="wf-text wf-lean"><strong>Personal verification checklist:</strong></p>
+            <ul class="wf-bullets">
+              <li>Is this a specific claim — a number, date, quote, or named citation?</li>
+              <li>Is it time-sensitive or related to recent events?</li>
+              <li>Does it affect a decision with real consequences?</li>
+              <li>Have I checked at least one independent source?</li>
+              <li>Could the AI have confidently guessed here?</li>
+            </ul>
+            <div class="wf-outcome"><strong>Measurable outcome:</strong> Apply your verification checklist to 20 AI outputs over 30 days and log where verification changed or confirmed the output.</div>
+          </div>
+        </div>
+        <div class="wf-step">
+          <div class="wf-num">2</div>
+          <div class="wf-body">
+            <p class="wf-title">Learn to recognize AI hallucination patterns</p>
+            <p class="wf-text">AI generates confident-sounding falsehoods — called hallucinations — most often in predictable contexts. Knowing the patterns makes them easier to catch.</p>
+            <p class="wf-text wf-lean"><strong>Where hallucinations are most common:</strong></p>
+            <ul class="wf-bullets">
+              <li>Specific statistics, percentages, and numerical data</li>
+              <li>Named quotes attributed to real people</li>
+              <li>Citations and references — titles, authors, DOIs</li>
+              <li>Very recent events (post training-data cutoff)</li>
+              <li>Niche, obscure, or highly technical topics</li>
+            </ul>
+            <p class="wf-text wf-lean"><strong>Practice exercise:</strong> Ask AI for 5 specific facts or sources on a topic you know well, then verify each independently and log what it got wrong.</p>
+            <div class="wf-outcome"><strong>Measurable outcome:</strong> Complete 5 hallucination-spotting exercises, documenting what the AI got wrong and the category of error.</div>
+          </div>
+        </div>
+        <div class="wf-step">
+          <div class="wf-num">3</div>
+          <div class="wf-body">
+            <p class="wf-title">Build source-evaluation skills using the SIFT method</p>
+            <p class="wf-text">When verifying AI outputs, the quality of your sources matters. Not all sources used to check a claim are equal. Use the SIFT method as a consistent evaluation framework.</p>
+            <p class="wf-text wf-lean"><strong>SIFT:</strong></p>
+            <ul class="wf-bullets">
+              <li><strong>Stop</strong> — pause before sharing or acting; notice your emotional reaction</li>
+              <li><strong>Investigate the source</strong> — who is behind it? What's their credibility and purpose?</li>
+              <li><strong>Find better coverage</strong> — look for multiple independent sources making the same claim</li>
+              <li><strong>Trace claims</strong> — follow information back to the original, primary source</li>
+            </ul>
+            <div class="wf-outcome"><strong>Measurable outcome:</strong> Apply the SIFT method to 15 sources across 3 weeks and document your source quality ratings.</div>
+          </div>
+        </div>
+      </div>
+      <div class="resource-block">
+        <p class="resource-heading">Suggested resources</p>
+        <ul class="resource-list">
+          <li><a href="https://www.factcheck.org/" target="_blank" rel="noopener noreferrer"><span class="res-ico" aria-hidden="true">🔍</span><span class="res-label">FactCheck.org</span></a></li>
+          <li><a href="https://www.snopes.com/" target="_blank" rel="noopener noreferrer"><span class="res-ico" aria-hidden="true">🔍</span><span class="res-label">Snopes</span></a></li>
+          <li><a href="https://www.coursera.org/learn/mindware" target="_blank" rel="noopener noreferrer"><span class="res-ico" aria-hidden="true">📚</span><span class="res-label">Mindware: Critical Thinking — Coursera</span></a></li>
+        </ul>
+      </div>
+    </section>
+
+    <div class="divider" aria-hidden="true"></div>
+
+    <!-- ── 2. BIAS AWARENESS ──────────────────────────────────── -->
+    <section class="ex-section" id="bias">
+      <div class="section-badge"><span class="badge-num">2</span>Bias Awareness</div>
+      <h2 class="ex-title">Recognizing and Mitigating Algorithmic Bias</h2>
+      <p class="eyebrow">Action steps</p>
+      <div class="workflow-steps">
+        <div class="wf-step">
+          <div class="wf-num">1</div>
+          <div class="wf-body">
+            <p class="wf-title">Understand how bias enters AI systems</p>
+            <p class="wf-text">Bias in AI is not a bug — it's a reflection of the data, decisions, and contexts that shaped the system. Understanding its origins is the first step to recognizing it in practice.</p>
+            <p class="wf-text wf-lean"><strong>Common bias types to know:</strong></p>
+            <ul class="wf-bullets">
+              <li><strong>Representation bias:</strong> certain groups are underrepresented in training data</li>
+              <li><strong>Measurement bias:</strong> the data collected uses flawed proxies for what it claims to measure</li>
+              <li><strong>Historical bias:</strong> AI learns from data that reflects past injustices or inequities</li>
+              <li><strong>Aggregation bias:</strong> one-size-fits-all models applied to populations with real differences</li>
+              <li><strong>Deployment bias:</strong> a model used in a context it wasn't designed or tested for</li>
+            </ul>
+            <div class="wf-outcome"><strong>Measurable outcome:</strong> Identify one real-world example of each bias type from current AI tools or published AI audits.</div>
+          </div>
+        </div>
+        <div class="wf-step">
+          <div class="wf-num">2</div>
+          <div class="wf-body">
+            <p class="wf-title">Run structured bias tests on tools you use</p>
+            <p class="wf-text">Bias in AI tools is often invisible until you actively probe for it. Build the habit of testing tools before trusting them for consequential tasks.</p>
+            <p class="wf-text wf-lean"><strong>Test techniques:</strong></p>
+            <ul class="wf-bullets">
+              <li>Vary names, apparent genders, and locations in otherwise identical prompts — does the output change?</li>
+              <li>Test with different languages or cultural contexts for the same underlying request</li>
+              <li>Check whether the tool handles edge cases that affect underrepresented groups</li>
+              <li>Compare responses when describing the same person with different demographic markers</li>
+            </ul>
+            <div class="wf-outcome"><strong>Measurable outcome:</strong> Complete 3 systematic bias audits on tools you use regularly. Document findings and share with your team.</div>
+          </div>
+        </div>
+        <div class="wf-step">
+          <div class="wf-num">3</div>
+          <div class="wf-body">
+            <p class="wf-title">Build a fairness lens into your AI workflow</p>
+            <p class="wf-text">Before deploying or sharing any significant AI-generated output, run it through a fairness review. This is especially important when AI influences decisions about people.</p>
+            <p class="wf-text wf-lean"><strong>Fairness review questions:</strong></p>
+            <ul class="wf-bullets">
+              <li>Who benefits from this output? Who might be disadvantaged?</li>
+              <li>Whose perspective or experience is absent from this output?</li>
+              <li>If this were wrong in a particular direction, who would be most harmed?</li>
+              <li>Would I be comfortable if the people affected could see how this was produced?</li>
+            </ul>
+            <div class="wf-outcome"><strong>Measurable outcome:</strong> Apply a fairness review to 10 AI-generated outputs and document at least 3 instances where the review changed or improved the final output.</div>
+          </div>
+        </div>
+      </div>
+      <div class="resource-block">
+        <p class="resource-heading">Suggested resources</p>
+        <ul class="resource-list">
+          <li><a href="https://aif360.res.ibm.com/" target="_blank" rel="noopener noreferrer"><span class="res-ico" aria-hidden="true">🛠️</span><span class="res-label">AI Fairness 360 — IBM</span></a></li>
+          <li><a href="https://ai.google/responsibility/responsible-ai-practices/" target="_blank" rel="noopener noreferrer"><span class="res-ico" aria-hidden="true">📖</span><span class="res-label">Responsible AI Practices — Google</span></a></li>
+          <li><a href="https://www.coursera.org/learn/ai-ethics" target="_blank" rel="noopener noreferrer"><span class="res-ico" aria-hidden="true">📚</span><span class="res-label">AI Ethics — Coursera</span></a></li>
+        </ul>
+      </div>
+    </section>
+
+    <div class="divider" aria-hidden="true"></div>
+
+    <!-- ── 3. PRIVACY ─────────────────────────────────────────── -->
+    <section class="ex-section" id="privacy">
+      <div class="section-badge"><span class="badge-num">3</span>Privacy</div>
+      <h2 class="ex-title">Data Privacy and Responsible AI Use</h2>
+      <p class="eyebrow">Action steps</p>
+      <div class="workflow-steps">
+        <div class="wf-step">
+          <div class="wf-num">1</div>
+          <div class="wf-body">
+            <p class="wf-title">Understand what AI tools collect and retain</p>
+            <p class="wf-text">Most commercial AI tools retain input data — often for model training — unless you explicitly configure otherwise or use an enterprise tier. "Private" and "deleted" do not always mean what you expect.</p>
+            <p class="wf-text wf-lean"><strong>Four data categories to understand for every tool you use:</strong></p>
+            <ul class="wf-bullets">
+              <li><strong>Input data:</strong> what you type, upload, or speak</li>
+              <li><strong>Output data:</strong> what the tool generates in response</li>
+              <li><strong>Training data:</strong> whether your inputs can be used to retrain the model</li>
+              <li><strong>Metadata:</strong> timestamps, usage patterns, device and location data</li>
+            </ul>
+            <div class="wf-outcome"><strong>Measurable outcome:</strong> Review the privacy policy and data retention settings for 5 AI tools in your regular workflow. Document what each retains and whether opt-outs exist.</div>
+          </div>
+        </div>
+        <div class="wf-step">
+          <div class="wf-num">2</div>
+          <div class="wf-body">
+            <p class="wf-title">Apply data minimization principles</p>
+            <p class="wf-text">Share only what the task strictly requires. Before uploading a document or pasting data into an AI tool, ask: does the AI actually need this to complete the task?</p>
+            <p class="wf-text wf-lean"><strong>Never share with external AI tools (without explicit approval):</strong></p>
+            <ul class="wf-bullets">
+              <li>Personally identifiable information (PII) about colleagues, customers, or students</li>
+              <li>Health records, financial data, or legal documents</li>
+              <li>Confidential business strategy, pricing, or unreleased product information</li>
+              <li>Client data covered by contractual or regulatory obligations</li>
+            </ul>
+            <div class="insight-box">
+              <p class="insight-box-title">Before sharing data with AI</p>
+              <div class="insight-grid">
+                <div class="insight-card insight-card-do">
+                  <span class="insight-card-label">Safe practice</span>
+                  <p class="insight-copy">Anonymize documents first. Replace names with "Person A." Remove account numbers, dates of birth, and contact details. Then run the AI task on the scrubbed version.</p>
+                </div>
+                <div class="insight-card insight-card-dont">
+                  <span class="insight-card-label">Avoid</span>
+                  <p class="insight-copy">Uploading raw HR records, client contracts, or research data to consumer AI tools. Even if you delete the conversation, the data may already have been logged.</p>
+                </div>
+              </div>
+            </div>
+            <div class="wf-outcome"><strong>Measurable outcome:</strong> Conduct a data minimization audit of your current AI tool usage — identify and stop 3 habits where you're sharing more data than necessary.</div>
+          </div>
+        </div>
+        <div class="wf-step">
+          <div class="wf-num">3</div>
+          <div class="wf-body">
+            <p class="wf-title">Know and apply your organization's AI data policies</p>
+            <p class="wf-text">Your personal judgment about privacy is a starting point — not the final word. Organizations have legal and contractual obligations that go further.</p>
+            <p class="wf-text wf-lean"><strong>Build your policy awareness:</strong></p>
+            <ul class="wf-bullets">
+              <li>Locate and read your organization's AI acceptable-use policy</li>
+              <li>Identify which AI tools are approved for which data sensitivity levels</li>
+              <li>Know who to contact when you're unsure — don't guess when data is at stake</li>
+              <li>Create a quick-reference card: "For [data type], I use [approved tool] and avoid [unapproved tools]"</li>
+            </ul>
+            <div class="wf-outcome"><strong>Measurable outcome:</strong> Map 5 AI tools you currently use against your organization's data classification policy and address any gaps you find.</div>
+          </div>
+        </div>
+      </div>
+      <div class="resource-block">
+        <p class="resource-heading">Suggested resources</p>
+        <ul class="resource-list">
+          <li><a href="https://gdpr.eu/what-is-gdpr/" target="_blank" rel="noopener noreferrer"><span class="res-ico" aria-hidden="true">📖</span><span class="res-label">GDPR Overview — gdpr.eu</span></a></li>
+          <li><a href="https://airc.nist.gov/Home" target="_blank" rel="noopener noreferrer"><span class="res-ico" aria-hidden="true">🛠️</span><span class="res-label">NIST AI Risk Management Framework</span></a></li>
+          <li><a href="https://www.coursera.org/learn/data-privacy-fundamentals" target="_blank" rel="noopener noreferrer"><span class="res-ico" aria-hidden="true">📚</span><span class="res-label">Data Privacy Fundamentals — Coursera</span></a></li>
+        </ul>
+      </div>
+    </section>
+
+    <div class="divider" aria-hidden="true"></div>
+
+    <!-- ── 4. CRITICAL THINKING ───────────────────────────────── -->
+    <section class="ex-section" id="critical-thinking">
+      <div class="section-badge"><span class="badge-num">4</span>Critical Thinking</div>
+      <h2 class="ex-title">Questioning AI-Driven Recommendations</h2>
+      <p class="eyebrow">Action steps</p>
+      <div class="workflow-steps">
+        <div class="wf-step">
+          <div class="wf-num">1</div>
+          <div class="wf-body">
+            <p class="wf-title">Build a challenge-first reflex</p>
+            <p class="wf-text">Treat every AI recommendation as a hypothesis, not a conclusion. The habit of asking one challenge question before accepting any significant AI output is one of the most protective behaviors you can build.</p>
+            <p class="wf-text wf-lean"><strong>Challenge questions to have ready:</strong></p>
+            <ul class="wf-bullets">
+              <li>"What's the basis for this claim?"</li>
+              <li>"What's the strongest counter-argument?"</li>
+              <li>"What is this output not telling me?"</li>
+              <li>"If I'm wrong to trust this, what's the cost?"</li>
+              <li>"Would I reach this conclusion without AI?"</li>
+            </ul>
+            <div class="wf-outcome"><strong>Measurable outcome:</strong> Document 15 instances where a challenge question improved, corrected, or meaningfully altered the final output.</div>
+          </div>
+        </div>
+        <div class="wf-step">
+          <div class="wf-num">2</div>
+          <div class="wf-body">
+            <p class="wf-title">Know when and how to escalate AI concerns</p>
+            <p class="wf-text">Not every AI problem is one you can or should solve alone. Knowing when to escalate — and to whom — is a professional skill that protects you and your organization.</p>
+            <p class="wf-text wf-lean"><strong>Escalation triggers:</strong></p>
+            <ul class="wf-bullets">
+              <li>Factual errors in high-stakes or customer-facing outputs</li>
+              <li>AI-driven decisions that appear to discriminate or disadvantage a group</li>
+              <li>Privacy concerns — data shared that shouldn't have been</li>
+              <li>AI outputs that could cause harm if acted upon</li>
+              <li>Pressure to use AI in ways that conflict with policy or your ethical judgment</li>
+            </ul>
+            <div class="wf-outcome"><strong>Measurable outcome:</strong> Write a one-page personal AI concern escalation protocol — what you raise, to whom, and under what conditions. Review it with your manager.</div>
+          </div>
+        </div>
+        <div class="wf-step">
+          <div class="wf-num">3</div>
+          <div class="wf-body">
+            <p class="wf-title">Develop your independent reasoning practice</p>
+            <p class="wf-text">The most calibrated AI users form their own view first, then consult AI. Over time this builds a reliable sense of when AI output is trustworthy and when it needs scrutiny.</p>
+            <p class="wf-text wf-lean"><strong>The "independent first" exercise:</strong></p>
+            <ol class="wf-bullets">
+              <li>Read the question or problem</li>
+              <li>Write your own answer or hypothesis first — do not consult AI yet</li>
+              <li>Then ask AI the same question</li>
+              <li>Compare: where do you agree? Where do you diverge?</li>
+              <li>Investigate divergences — who was right, and why?</li>
+            </ol>
+            <p class="wf-text wf-lean">Keep a calibration log: over time you'll learn the domains where AI is reliable for you and where your own judgment is sharper.</p>
+            <div class="wf-outcome"><strong>Measurable outcome:</strong> Complete 10 "independent first" reasoning exercises and identify 2 domains where AI consistently outperforms your first instinct.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="post-steps-table">
+        <p class="eyebrow">Reference guide</p>
+        <p class="sub-title">Signals that an AI output needs closer scrutiny</p>
+        <div class="data-table cols-3" role="region" aria-label="AI output scrutiny signals">
+          <div class="dt-head"><span>Signal</span><span>Risk</span><span>What to do</span></div>
+          <div class="dt-row"><div class="dt-cell strong">Highly specific numbers, statistics, or percentages</div><div class="dt-cell">Likely hallucinated</div><div class="dt-cell">Verify against a primary, citable source</div></div>
+          <div class="dt-row"><div class="dt-cell strong">Named quotes attributed to real people</div><div class="dt-cell">Often fabricated verbatim</div><div class="dt-cell">Search for the original source before using</div></div>
+          <div class="dt-row"><div class="dt-cell strong">Claims about events in the past 12–18 months</div><div class="dt-cell">May predate training cutoff</div><div class="dt-cell">Check current news or official documentation</div></div>
+          <div class="dt-row"><div class="dt-cell strong">Output that perfectly confirms your existing view</div><div class="dt-cell">Confirmation bias amplified</div><div class="dt-cell">Actively seek contrary evidence before proceeding</div></div>
+          <div class="dt-row"><div class="dt-cell strong">Confident claims in a niche or highly technical domain</div><div class="dt-cell">AI may over-generalize</div><div class="dt-cell">Have a domain expert review before acting</div></div>
+          <div class="dt-row"><div class="dt-cell strong">Legal, medical, or financial-specific guidance</div><div class="dt-cell">High stakes + AI limitation</div><div class="dt-cell">Always verify with a qualified professional</div></div>
+        </div>
+      </div>
+
+      <div class="resource-block">
+        <p class="resource-heading">Suggested resources</p>
+        <ul class="resource-list">
+          <li><a href="https://www.coursera.org/learn/mindware" target="_blank" rel="noopener noreferrer"><span class="res-ico" aria-hidden="true">📚</span><span class="res-label">Mindware: Critical Thinking — Coursera</span></a></li>
+          <li><a href="https://hbr.org/topic/subject/decision-making-and-problem-solving" target="_blank" rel="noopener noreferrer"><span class="res-ico" aria-hidden="true">📰</span><span class="res-label">HBR — Decision Making</span></a></li>
+          <li><a href="https://www.youtube.com/@TED" target="_blank" rel="noopener noreferrer"><span class="res-ico" aria-hidden="true">📺</span><span class="res-label">TED Talks — Critical Thinking</span></a></li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <div class="s-card">
+      <p class="s-title">Practical areas</p>
+      <nav class="jump-nav" aria-label="Practical areas">
+        <a href="#verification" class="jump-link active" data-section="verification">
+          <span class="jl-num">1</span>
+          <span class="jl-text">Verification<br><span class="jl-tag">Fact-checking outputs</span></span>
+        </a>
+        <a href="#bias" class="jump-link" data-section="bias">
+          <span class="jl-num">2</span>
+          <span class="jl-text">Bias Awareness<br><span class="jl-tag">Algorithmic bias</span></span>
+        </a>
+        <a href="#privacy" class="jump-link" data-section="privacy">
+          <span class="jl-num">3</span>
+          <span class="jl-text">Privacy<br><span class="jl-tag">Responsible data use</span></span>
+        </a>
+        <a href="#critical-thinking" class="jump-link" data-section="critical-thinking">
+          <span class="jl-num">4</span>
+          <span class="jl-text">Critical Thinking<br><span class="jl-tag">Questioning AI</span></span>
+        </a>
+      </nav>
+    </div>
+
+    <div class="s-card">
+      <p class="s-title">Your progress</p>
+      <div class="prog-wrap">
+        <div class="prog-labels">This competency <span>3 / 4</span></div>
+        <div class="prog-track"><div class="prog-fill" data-w="75"></div></div>
+      </div>
+      <div class="prog-wrap">
+        <div class="prog-labels">Full framework <span>3 / 4</span></div>
+        <div class="prog-track"><div class="prog-fill" data-w="75"></div></div>
+      </div>
+    </div>
+
+    <div class="s-card">
+      <p class="s-title">Other competencies</p>
+      <div class="rel-list">
+        <a href="functional-ai-proficiency.html" class="rel-link">Functional AI Proficiency <span class="rel-tag" style="background:var(--tqt);color:#0B7373">Explore</span></a>
+        <a href="critical-human-skills.html" class="rel-link">Critical Human Skills <span class="rel-tag" style="background:#EFA0E7;color:#8B1687">Explore</span></a>
+        <a href="strategic-intelligence.html" class="rel-link">Strategic Intelligence <span class="rel-tag" style="background:var(--ambt);color:#7A5F00">Explore</span></a>
+      </div>
+    </div>
+
+  </aside>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <img src="assets/Logo/primary/PEARSON_LOGO_WHITE_RGB.svg" alt="Pearson" class="footer-logo">
+  <span class="footer-text">© Pearson plc. Helping people realize the life they imagine through learning.</span>
+</footer>
+
+<script>
+function updateWorkflowRails() {
+  document.querySelectorAll('.workflow-steps').forEach(function (rail) {
+    var nums = rail.querySelectorAll('.wf-num');
+    if (nums.length < 2) return;
+    var last = nums[nums.length - 1];
+    var first = nums[0];
+    var srail = rail.getBoundingClientRect();
+    var fr = first.getBoundingClientRect();
+    var lr = last.getBoundingClientRect();
+    var topPx = fr.top - srail.top + fr.height / 2;
+    var endPx = lr.top - srail.top + lr.height / 2;
+    rail.style.setProperty('--rail-top', topPx + 'px');
+    rail.style.setProperty('--rail-height', Math.max(0, endPx - topPx) + 'px');
+  });
+}
+
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('vis');
+      io.unobserve(e.target);
+      requestAnimationFrame(updateWorkflowRails);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.wf-body').forEach(el => io.observe(el));
+
+const po = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.prog-fill').forEach(b => { b.style.width = b.dataset.w + '%'; });
+      po.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('.s-card').forEach(el => po.observe(el));
+
+const sectionIds = ['verification', 'bias', 'privacy', 'critical-thinking'];
+const sectionEls = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
+const so = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const id = e.target.id;
+      document.querySelectorAll('.jump-link').forEach(l => l.classList.toggle('active', l.dataset.section === id));
+    }
+  });
+}, { rootMargin: '-28% 0px -52% 0px', threshold: 0 });
+sectionEls.forEach(el => so.observe(el));
+
+window.addEventListener('resize', function () { requestAnimationFrame(updateWorkflowRails); });
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { requestAnimationFrame(updateWorkflowRails); });
+window.addEventListener('load', function () { requestAnimationFrame(updateWorkflowRails); });
+requestAnimationFrame(updateWorkflowRails);
+setTimeout(updateWorkflowRails, 400);
+</script>
+</body>
+</html>
